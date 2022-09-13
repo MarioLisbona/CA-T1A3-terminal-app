@@ -12,7 +12,11 @@ contacts_dict = {}
 #set_details will return the user input and that user input is used to create a new isntance of that class.
 #counter is incremented for the key in the dict ------may not be needed
 while counter < 1:
-    contact_type = input("close contact or Work Conact, Family Contact **C W f** (N for Neither)>> ").lower()
+    print('======================================================================================\n')
+    print('Entering a contact.\n Are you entering a Close Contact, Work Conact or Family Contact?')
+    print('**C W F** (N for Neither)')
+    print('\n====================================================================================')
+    contact_type = input("Enter your choice>> ").lower()
     if contact_type == 'c':
         f_name, l_name, phone, address = classes.CloseContact.set_details()
         contacts_dict[counter] = classes.CloseContact(f_name, l_name, phone, address)
