@@ -27,10 +27,6 @@ while counter < 1:
         id[counter] = classes.Contact(first_name, last_name, phone)
         counter += 1
 
-# for k, v in id.items():
-#     print(k, v.get_name())
-#     print(v)
-
 find = input("Who's contact details do you need? ")
 
 for k, v in id.items():
