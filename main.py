@@ -19,21 +19,20 @@ while counter < 1:
     contact_type = input("Enter your choice>> ").lower()
     if contact_type == 'c':
         f_name, l_name, phone, address = classes.CloseContact.set_details()
-        contacts_dict[counter] = classes.CloseContact(f_name, l_name, phone, address)
+        contacts_dict[counter] = classes.CloseContact(counter, f_name, l_name, phone, address)
         counter += 1
     elif contact_type == 'w':
         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-        contacts_dict[counter] = classes.WorkContact(f_name, l_name, phone, address, w_address, w_phone, skills)
+        contacts_dict[counter] = classes.WorkContact(counter, f_name, l_name, phone, address, w_address, w_phone, skills)
         counter += 1
     elif contact_type == 'f':
         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-        contacts_dict[counter] = classes.FamilyContact(f_name, l_name, phone, address, pet_name, fav_drink)
+        contacts_dict[counter] = classes.FamilyContact(counter, f_name, l_name, phone, address, pet_name, fav_drink)
         counter += 1
     else:
         f_name, l_name, phone = classes.Contact.set_details()
-        contacts_dict[counter] = classes.Contact(f_name, l_name, phone)
+        contacts_dict[counter] = classes.Contact(counter, f_name, l_name, phone)
         counter += 1
-
 
 #testing out  seach and edit contact functionionality...
 find = input("Who's contact details do you need? ")
