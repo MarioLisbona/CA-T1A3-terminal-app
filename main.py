@@ -1,36 +1,59 @@
+#Importing classes module
 import classes
+
+#counter for key in dict and creating empty dict that will be id(int): contact(object)
 counter = 0
-id = {}
+contacts_dict = {}
+
+#just one loop for one to create one contact
+#if / elif statements for normal contact, close contact, family contact and work contact
+
+#each contidional will call the specific classmethod set_details method to enter contact details
+#set_details will return the user input and that user input is used to create a new isntance of that class.
+#counter is incremented for the key in the dict ------may not be needed
 while counter < 1:
-    first_name = input('Enter your first name >> ')
-    last_name = input('Enter your last name >> ')
-    phone = input('Enter your phone >> ')
     contact_type = input("close contact or Work Conact, Family Contact **C W f** (N for Neither)>> ").lower()
     if contact_type == 'c':
-        address = input('Enter your address >> ')
-        id[counter] = classes.CloseContact(first_name, last_name, phone, address)
+        f_name, l_name, phone, address = classes.CloseContact.set_details()
+        contacts_dict[counter] = classes.CloseContact(f_name, l_name, phone, address)
         counter += 1
     elif contact_type == 'w':
-        address = input('Enter your address >> ')
-        work_address = input('Enter your work address >> ')
-        work_phone = input('Enter your work phone >> ')
-        skills = input('Enter your skills >> ')
-        id[counter] = classes.WorkContact(first_name, last_name, phone, address, work_address, work_phone, skills)
+        f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
+        contacts_dict[counter] = classes.WorkContact(f_name, l_name, phone, address, w_address, w_phone, skills)
         counter += 1
     elif contact_type == 'f':
-        address = input('Enter your address >> ')
-        pet_name = input('Enter your pet name >> ')
-        fav_drink = input('Enter your fav_drink >> ')
-        id[counter] = classes.FamilyContact(first_name, last_name, phone, address, pet_name, fav_drink)
+        f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
+        contacts_dict[counter] = classes.FamilyContact(f_name, l_name, phone, address, pet_name, fav_drink)
         counter += 1
     else:
-        id[counter] = classes.Contact(first_name, last_name, phone)
+        f_name, l_name, phone = classes.Contact.set_details()
+        contacts_dict[counter] = classes.Contact(f_name, l_name, phone)
         counter += 1
 
+
+#testing out  seach and edit contact functionionality...
 find = input("Who's contact details do you need? ")
 
-for k, v in id.items():
+#search dict for contact. if found in value, call the get_dtails method on that object
+
+for k, v in contacts_dict.items():
     if v.f_name == find:
         print('==========================================')
         print(v.get_details())
         print('\n==========================================')
+
+        #testing update here on just the phone number
+        #update_phone method is only declared in base class and inherited to all its derived classes
+        find = input(f"Would you like to update {v.f_name} {l_name}'s details> Y or N >> ").lower()
+        if find ==  'y':
+            phone = input('Enter your phone >> ')
+            v.update_phone(phone)
+        
+        print('==========================================')
+        print(v.get_details())
+        print('\n==========================================')
+
+
+
+
+
