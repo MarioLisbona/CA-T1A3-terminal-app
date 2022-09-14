@@ -63,7 +63,6 @@ while user_choice != 'EX':
         case 'E':
             edit_choice = None
             while edit_choice != 'EX':
-                print('Editing a contact')
                 print("====================================Editing a contact ==================================")
                 print("Enter the contacts name or EX to exit to main menu.")
                 print('\n====================================================================================')
@@ -100,7 +99,24 @@ while user_choice != 'EX':
         case 'D':
             print('Deleting a contact')
         case 'S':
-            print('Showing a contact')
+            show_choice = None
+            while show_choice != 'EX':
+                print("====================================Displaying a contact ==================================")
+                print("Enter the contacts name to display or EX to exit to main menu.")
+                print('\n====================================================================================')
+                show_choice = input('Enter a contact name to display >> ')
+
+                match show_choice.upper():
+                    case 'EX':
+                        break
+
+                    case other:
+                        for v in contacts_dict.values():
+                            if v.f_name == show_choice:
+                                print(v.get_details())
+                                break
+                        else:
+                            print("that contaxt doesnt exist")
         case 'SA':
             print('Showing all contacts')
             for k, v in contacts_dict.items():
