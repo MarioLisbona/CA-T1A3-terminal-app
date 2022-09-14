@@ -87,6 +87,14 @@ while user_choice != 'EX':
                                         f_name, l_name, phone, address = classes.CloseContact.set_details()
                                         v.update_contact(f_name, l_name, phone, address)
                                         break
+                                    case 'fc':
+                                        f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
+                                        v.update_contact(f_name, l_name, phone, address, pet, drink)
+                                        break
+                                    case 'wc':
+                                        f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
+                                        v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
+                                        break
                         else:
                             print("that contaxt doesnt exist")
         case 'D':

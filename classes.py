@@ -72,6 +72,13 @@ class FamilyContact(CloseContact):
         #user input is returned
         return first_name, last_name, phone, address, pet_name, fav_drink
 
+    def update_contact(self, new_f_name, new_l_name, new_phone, new_address, new_pet, new_drink):
+        self.phone = new_phone
+        self.f_name = new_f_name
+        self.l_name = new_l_name
+        self.address = new_address
+        self.pet_name = new_pet
+        self.fav_drink = new_drink
     #return contacts details
     def get_details(self):
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}\nAddress:\t\t{self.address}\nPet name:\t\t{self.pet_name}\nFavourite Drink:\t{self.fav_drink}'
@@ -97,6 +104,14 @@ class WorkContact(CloseContact):
         #user input is returned
         return first_name, last_name, phone, address, work_address, work_phone, skills
 
+    def update_contact(self, new_f_name, new_l_name, new_phone, new_address, new_w_address, new_w_phone, new_skills):
+        self.phone = new_phone
+        self.f_name = new_f_name
+        self.l_name = new_l_name
+        self.address = new_address
+        self.work_address = new_w_address
+        self.work_phone = new_w_phone
+        self.skills = new_skills
     #return contacts details
     def get_details(self):
         return f'\nID:\t\t\t{self.id}\ncontact:\t{self.f_name} {self.l_name}\nPhone:\t\t{self.phone}\nAddress:\t{self.address}\nWork Address:\t{self.work_address}\nWork Phone:\t{self.work_phone}\nSkills:\t\t{self.skills}'
