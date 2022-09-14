@@ -98,6 +98,25 @@ while user_choice != 'EX':
                             print("that contaxt doesnt exist")
         case 'D':
             print('Deleting a contact')
+            del_choice = None
+            while del_choice != 'EX':
+                print("====================================Deleting a contact ==================================")
+                print("Enter the contacts name to delete or EX to exit to main menu.")
+                print('\n====================================================================================')
+                del_choice = input('Enter a contact name to delete >> ')
+
+                match del_choice.upper():
+                    case 'EX':
+                        break
+
+                    case other:
+                        for k, v in contacts_dict.items():
+                            if v.f_name == del_choice:
+                                print(v.get_details())
+                                del contacts_dict[k]
+                                break
+                        else:
+                            print("that contaxt doesnt exist")
         case 'S':
             show_choice = None
             while show_choice != 'EX':
