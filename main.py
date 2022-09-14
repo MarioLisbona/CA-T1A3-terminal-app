@@ -1,8 +1,10 @@
 #Importing classes module
 from rich.prompt import Prompt
+from rich.prompt import Confirm
 import classes
 import functions as f
 import os
+import sys
 
 #counter for key in dict and creating empty dict that will be id(int): contact(object)
 contact_id = 1
@@ -16,7 +18,7 @@ menu_choice = None
 while menu_choice != 'EX':
     f.menu_prompt()
     #assign input for menu and clear screen
-    menu_choice = Prompt.ask('Please make a selecttion: ', choices=['A', 'E', 'D', 'DI', 'DA', 'Q'])
+    menu_choice = Prompt.ask('Please make a selecttion: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
     os.system('cls||clear')
 
     # match case user input with uppyer for A, E, D, S, SA
@@ -26,7 +28,7 @@ while menu_choice != 'EX':
             add_choice = None
             while add_choice != 'EX':
                 f.add_contact_prompt()
-                add_choice = Prompt.ask('Please make a selecttion: ', choices=['C', 'CC', 'FC', 'WC', 'H'])
+                add_choice = Prompt.ask('Please make a selecttion: ', choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
                 # add_choice = input('Enter a choice: C, CC, FC, WC or EX >>')
                 os.system('cls||clear')
 
@@ -60,8 +62,9 @@ while menu_choice != 'EX':
                         break
                     case 'H':
                         break
-                    case other:
-                        print('that is not a valid choice')
+                    case 'Q':
+                        sys.exit()
+
         case 'E':
             edit_choice = None
             while edit_choice != 'EX':
@@ -69,6 +72,9 @@ while menu_choice != 'EX':
                 print("Enter the contacts name or EX to exit to main menu.")
                 print('\n====================================================================================')
                 edit_choice = input('Enter a contact name to edit >> ')
+
+                if not contacts_dict:
+                    break
 
                 match edit_choice.upper():
                     case 'EX':
@@ -101,7 +107,8 @@ while menu_choice != 'EX':
         case 'D':
             print('Deleting a contact')
             del_choice = None
-            while del_choice != 'EX':
+            confirm_delete = None
+            while not confirm_delete:
                 print("====================================Deleting a contact ==================================")
                 print("Enter the contacts name to delete or EX to exit to main menu.")
                 print('\n====================================================================================')
@@ -115,10 +122,12 @@ while menu_choice != 'EX':
                         for k, v in contacts_dict.items():
                             if v.f_name == del_choice:
                                 print(v.get_details())
-                                del contacts_dict[k]
-                                break
-                        else:
-                            print("that contaxt doesnt exist")
+                                confirm_delete = Confirm.ask(f'A you sure you want to delete {v.f_name} {v.l_name} ?')
+                                if confirm_delete:
+                                    del contacts_dict[k]
+                                    break
+                            
+                  
         case 'DC':
             show_choice = None
             while show_choice != 'EX':
@@ -139,12 +148,14 @@ while menu_choice != 'EX':
                         else:
                             print("that contaxt doesnt exist")
         case 'DA':
+            os.system('cls||clear')
             print('Showing all contacts')
             for k, v in contacts_dict.items():
             #     if v.f_name == find:
                 print('==========================================')
                 print(v.get_details())
                 print('\n==========================================')
+            is_rich_great = Confirm.ask('Do you like rich?')
         case 'Q':
             break
 
