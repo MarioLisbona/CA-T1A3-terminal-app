@@ -18,9 +18,9 @@ while user_choice != 'EX':
     print('Show all Contact - SA')
     print('Exit Program - EX')
     print('\n====================================================================================')
-    menu_choice = input('Enter a choice: A, E, D, SA or EX >>').upper()
+    menu_choice = input('Enter a choice: A, E, D, SA or EX >>')
     os.system('cls||clear')
-    match menu_choice:
+    match menu_choice.upper():
         case 'A':
             add_choice = None
             while add_choice != 'EX':
@@ -33,9 +33,9 @@ while user_choice != 'EX':
                 print('Work Contact - WC')
                 print('Exit Back to main menu - EX')
                 print('\n====================================================================================')
-                add_choice = input('Enter a choice: C, CC, FC, WC or EX >>').upper()
+                add_choice = input('Enter a choice: C, CC, FC, WC or EX >>')
                 os.system('cls||clear')
-                match add_choice:
+                match add_choice.upper():
                     case 'C':
                         print('Adding a contact')
                         f_name, l_name, phone = classes.Contact.set_details()
@@ -61,7 +61,31 @@ while user_choice != 'EX':
                     case other:
                         print('that is not a valid choice')
         case 'E':
-            print('Editing a contact')
+            edit_choice = None
+            while edit_choice != 'EX':
+                print('Editing a contact')
+                print("====================================Editing a contact ==================================")
+                print("Enter the contacts name or EX to exit to main menu.")
+                print('\n====================================================================================')
+                edit_choice = input('Enter a contact name to edit >> ')
+
+                match edit_choice.upper():
+                    case 'EX':
+                        break
+
+                    case other:
+                        for k, v in contacts_dict.items():
+                            if v.f_name == edit_choice:
+                                print(v.get_details())
+                                print('Edit details')
+                                f_name, l_name, phone = classes.Contact.set_details()
+                                v.update_contact(f_name, l_name, phone)
+                            else:
+                                print("that contaxt doesnt exist")
+
+
+
+
         case 'D':
             print('Deleting a contact')
         case 'S':

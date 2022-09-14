@@ -20,8 +20,10 @@ class Contact:
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}'
     
     #update phone details method - this will be inherited in derived classes
-    def update_phone(self, new_phone):
+    def update_contact(self, new_f_name, new_l_name, new_phone):
         self.phone = new_phone
+        self.f_name = new_f_name
+        self.l_name = new_l_name
 
 
 #new class with more detailed information
