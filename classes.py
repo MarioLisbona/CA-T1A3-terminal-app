@@ -20,7 +20,7 @@ class Contact:
     def get_details(self):
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}'
     
-    #update phone details method - this will be inherited in derived classes
+    # update contact details method - Havnt figured out how to inherit common inputs from parent class
     def update_contact(self, new_f_name, new_l_name, new_phone):
         self.phone = new_phone
         self.f_name = new_f_name
@@ -48,11 +48,13 @@ class CloseContact(Contact):
     def get_details(self):
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}\nAddress:\t\t{self.address}'
 
+    # update contact details method - Havnt figured out how to inherit common inputs from parent class
     def update_contact(self, new_f_name, new_l_name, new_phone, new_address):
         self.phone = new_phone
         self.f_name = new_f_name
         self.l_name = new_l_name
         self.address = new_address
+    
 
 class FamilyContact(CloseContact):
     def __init__(self, id, f_name, l_name, phone, address, pet_name, fav_drink, class_type='fc'):
@@ -71,7 +73,8 @@ class FamilyContact(CloseContact):
 
         #user input is returned
         return first_name, last_name, phone, address, pet_name, fav_drink
-
+            
+    # update contact details method - Havnt figured out how to inherit common inputs from parent class
     def update_contact(self, new_f_name, new_l_name, new_phone, new_address, new_pet, new_drink):
         self.phone = new_phone
         self.f_name = new_f_name
@@ -104,6 +107,7 @@ class WorkContact(CloseContact):
         #user input is returned
         return first_name, last_name, phone, address, work_address, work_phone, skills
 
+    # update contact details method - Havnt figured out how to inherit common inputs from parent class
     def update_contact(self, new_f_name, new_l_name, new_phone, new_address, new_w_address, new_w_phone, new_skills):
         self.phone = new_phone
         self.f_name = new_f_name
