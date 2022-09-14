@@ -1,10 +1,11 @@
 #base class - minimum information stored in this class
 class Contact:
-    def __init__(self, id, f_name, l_name, phone):
+    def __init__(self, id, f_name, l_name, phone, class_type='c'):
         self.id = id
         self.f_name = f_name
         self.l_name = l_name
         self.phone = phone
+        self.class_type = class_type
     
     #this method allows user input to be gathered before the object is created
     @classmethod
@@ -28,9 +29,10 @@ class Contact:
 
 #new class with more detailed information
 class CloseContact(Contact):
-    def __init__(self, id, f_name, l_name, phone, address):
+    def __init__(self, id, f_name, l_name, phone, address, class_type='cc'):
         super().__init__(id, f_name, l_name, phone)
         self.address = address
+        self.class_type = class_type
 
     #class method inherits all input from from derived set_details method
     #adds extra input for address
@@ -46,11 +48,18 @@ class CloseContact(Contact):
     def get_details(self):
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}\nAddress:\t\t{self.address}'
 
+    def update_contact(self, new_f_name, new_l_name, new_phone, new_address):
+        self.phone = new_phone
+        self.f_name = new_f_name
+        self.l_name = new_l_name
+        self.address = new_address
+
 class FamilyContact(CloseContact):
-    def __init__(self, id, f_name, l_name, phone, address, pet_name, fav_drink):
+    def __init__(self, id, f_name, l_name, phone, address, pet_name, fav_drink, class_type='fc'):
         super().__init__(id, f_name, l_name, phone, address)
         self.pet_name = pet_name
         self.fav_drink = fav_drink
+        self.class_type = class_type
 
     #class method inherits all input from from derived set_details method
     #adds extra input for pet name and fav_drink
@@ -68,11 +77,12 @@ class FamilyContact(CloseContact):
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}\nAddress:\t\t{self.address}\nPet name:\t\t{self.pet_name}\nFavourite Drink:\t{self.fav_drink}'
 
 class WorkContact(CloseContact):
-    def __init__(self, id, f_name, l_name, phone, address, work_address, work_phone, skills):
+    def __init__(self, id, f_name, l_name, phone, address, work_address, work_phone, skills, class_type='wc'):
         super().__init__(id, f_name, l_name, phone, address)
         self.work_address = work_address
         self.work_phone = work_phone
         self.skills = skills
+        self.class_type = class_type
 
 
     #class method inherits all input from from derived set_details method
