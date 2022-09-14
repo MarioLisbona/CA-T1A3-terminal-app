@@ -6,9 +6,12 @@ import os
 contact_id = 0
 contacts_dict = {}
 
-user_choice = None
+#variable for user menu choice used to match case
+menu_choice = None
 
-while user_choice != 'EX':
+# while user input is not EX (ex is to escape from program)
+#show menu a and get user's menu choice
+while menu_choice != 'EX':
     print('======================================================================================\n')
     print('Contacts database. What would you like to do?')
     print('Add Contact - A')
@@ -18,6 +21,7 @@ while user_choice != 'EX':
     print('Show all Contact - SA')
     print('Exit Program - EX')
     print('\n====================================================================================')
+    #assign input for msnu
     menu_choice = input('Enter a choice: A, E, D, SA or EX >>')
     os.system('cls||clear')
     match menu_choice.upper():
