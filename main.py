@@ -74,7 +74,7 @@ while user_choice != 'EX':
                         break
 
                     case other:
-                        for k, v in contacts_dict.items():
+                        for v in contacts_dict.values():
                             if v.f_name == edit_choice:
                                 print(v.get_details())
                                 print('Edit details')
