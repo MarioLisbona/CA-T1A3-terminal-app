@@ -1,6 +1,8 @@
 #Importing classes module
 from rich.prompt import Prompt
 from rich.prompt import Confirm
+from rich import print
+from rich.panel import Panel
 import classes
 import functions as f
 import os
@@ -37,25 +39,25 @@ while menu_choice != 'EX':
                 #incremendting contact ID each time a contact is created
                 match add_choice.upper():
                     case 'C':
-                        print('Adding a contact')
+                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
                         contacts_dict[contact_id] = classes.Contact(contact_id, f_name, l_name, phone)
                         contact_id += 1
                         break
                     case 'CC':
-                        print('Adding a Close contact')
+                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
                         contacts_dict[contact_id] = classes.CloseContact(contact_id, f_name, l_name, phone, address)
                         contact_id += 1
                         break
                     case 'FC':
-                        print('Adding a Family contact')
+                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
                         contacts_dict[contact_id] = classes.FamilyContact(contact_id, f_name, l_name, phone, address, pet_name, fav_drink)
                         contact_id += 1
                         break
                     case 'WC':
-                        print('Adding a Work contact')
+                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
                         contacts_dict[contact_id] = classes.WorkContact(contact_id, f_name, l_name, phone, address, w_address, w_phone, skills)
                         contact_id += 1

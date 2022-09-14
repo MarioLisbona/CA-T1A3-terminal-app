@@ -10,9 +10,9 @@ class Contact:
     #this method allows user input to be gathered before the object is created
     @classmethod
     def set_details(cls):
-        first_name = input('Enter contact\'s first name >> ')
-        last_name = input('Enter contact\'s last name >> ')
-        phone = input('Enter contact\'s phone >> ')
+        first_name = input('Enter First Name >> ')
+        last_name = input('Enter Last Name >> ')
+        phone = input('Enter Phone Number >> ')
         #user input is returned
         return first_name, last_name, phone
 
@@ -39,7 +39,7 @@ class CloseContact(Contact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone = super().set_details()
-        address = input('Enter contact\'s address >> ')
+        address = input('Enter Address >> ')
 
         #user input is returned
         return first_name, last_name, phone, address
@@ -68,8 +68,8 @@ class FamilyContact(CloseContact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
-        pet_name = input('Enter contact\'s pet name >> ')
-        fav_drink = input('Enter contact\'s fav_drink >> ')
+        pet_name = input('Enter Pet\'s Name >> ')
+        fav_drink = input('Enter Favourite Drink >> ')
 
         #user input is returned
         return first_name, last_name, phone, address, pet_name, fav_drink
@@ -100,9 +100,9 @@ class WorkContact(CloseContact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
-        work_address = input('Enter contact\'s work address >> ')
-        work_phone = input('Enter contact\'s work phone >> ')
-        skills = input('Enter contact\'s skills >> ')
+        work_address = input('Enter Work Address >> ')
+        work_phone = input('Enter Work Phone >> ')
+        skills = input('Enter Skills >> ')
 
         #user input is returned
         return first_name, last_name, phone, address, work_address, work_phone, skills
