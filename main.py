@@ -24,15 +24,7 @@ while menu_choice != 'EX':
             #new while loop and match case to choose what type of contact to enter
             add_choice = None
             while add_choice != 'EX':
-                print('======================================================================================\n')
-                print("====================================Adding a contact ==================================")
-                print("Enter a contact, close contact, work contact or family contacy?")
-                print('Contact - C')
-                print('Close ontact - CC')
-                print('Family Contact - FC')
-                print('Work Contact - WC')
-                print('Exit Back to main menu - EX')
-                print('\n====================================================================================')
+                f.add_contact_prompt()
                 add_choice = input('Enter a choice: C, CC, FC, WC or EX >>')
                 os.system('cls||clear')
 

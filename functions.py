@@ -1,4 +1,9 @@
 import os
+from rich.prompt import Prompt
+from rich.prompt import Confirm
+from rich.console import Console
+from rich.table import Table
+from rich import print
 
 # User prompt fuction with information on how to use the program
 def menu_prompt():
@@ -6,24 +11,35 @@ def menu_prompt():
     This function clears the screen each time and prints a user prompt with instructions on how to use the program
     """    
     os.system('cls||clear')
-    print("|===============================================================================================|\n|\t\t\t\t\t\t\t\t\t\t\t\t|")
-    print("|\tWelcome to your Contacts Database\t\t\t\t\t\t\t|")
-    print("|\tPlease Select from the menu below\t\t\t\t\t\t\t|")
-    print('|\tAdd Contact - \t\tA\t\t\t\t\t\t\t\t|')
-    print('|\tEdit Contact - \t\tE\t\t\t\t\t\t\t\t|')
-    print('|\tDel Contact - \t\tD\t\t\t\t\t\t\t\t|')
-    print('|\tShow Contact - \t\tS\t\t\t\t\t\t\t\t|')
-    print('|\tShow all Contact - \tSA\t\t\t\t\t\t\t\t|')
-    print('|\tExit Program - \t\tEX\t\t\t\t\t\t\t\t|')
-    print('|\t\t\t\t\t\t\t\t\t\t\t\t|')
-    print("|===============================================================================================|")
+    table = Table(title=print("[bold yellow]\nWelcome to your Contacts Database\nPlease Select from the menu below[/bold yellow]"))
+    table.add_column('Operation', style='cyan', justify='left', no_wrap=True)
+    table.add_column('Key', justify='left', style='green')
 
-# function to prompt user to press any key to contine - program execution is fronzen until a key press happens
-def press_to_continue():
+    table.add_row('Add Contact', 'A')
+    table.add_row('Edit Contact', 'E')
+    table.add_row('Delete Contact', 'D')
+    table.add_row('Display Contact', 'DI')
+    table.add_row('Display all Contacts', 'DS')
+    table.add_row('Quit Application', 'Q')
+
+    console = Console()
+    console.print(table)
+
+def add_contact_prompt():
     """
-    This function freezes the program execution and prints a press any key to continue message.
-    Once a key is pressed it exits
-    """   
-    os.system("/bin/bash -c 'read -s -n 1 -p \"\n\tPress any key to continue...\"'\n")
+    This function clears the screen each time and prints a user prompt with instructions on how to use the program
+    """    
     os.system('cls||clear')
-    print()
+    table = Table(title=print("[bold yellow]\nAdding a Contact\nPlease Select from the menu below[/bold yellow]"))
+    table.add_column('Operation', style='cyan', justify='left', no_wrap=True)
+    table.add_column('Key', justify='left', style='green')
+
+    table.add_row('Add a Contact', 'C')
+    table.add_row('Add a Close Contact', 'CC')
+    table.add_row('Add a Family Contact Contact', 'FC')
+    table.add_row('Add a Work Contact', 'WC')
+
+    console = Console()
+    console.print(table)
+
+
