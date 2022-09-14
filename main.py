@@ -1,31 +1,27 @@
 #Importing classes module
 import classes
+import functions as f
 import os
 
 #counter for key in dict and creating empty dict that will be id(int): contact(object)
-contact_id = 0
+contact_id = 1
 contacts_dict = {}
 
 #variable for user menu choice used to match case
 menu_choice = None
 
-# while user input is not EX (ex is to escape from program)
+# while user input is not 'EX' (ex is to escape from program)
 #show menu a and get user's menu choice
 while menu_choice != 'EX':
-    print('======================================================================================\n')
-    print('Contacts database. What would you like to do?')
-    print('Add Contact - A')
-    print('Edit Contact - E')
-    print('Del Contact - D')
-    print('Show Contact - S')
-    print('Show all Contact - SA')
-    print('Exit Program - EX')
-    print('\n====================================================================================')
-    #assign input for msnu
+    f.menu_prompt()
+    #assign input for menu and clear screen
     menu_choice = input('Enter a choice: A, E, D, SA or EX >>')
     os.system('cls||clear')
+
+    # match case user input with upper for A, E, D, S, SA
     match menu_choice.upper():
         case 'A':
+            #new while loop and match case to choose what type of contact to enter
             add_choice = None
             while add_choice != 'EX':
                 print('======================================================================================\n')
@@ -39,6 +35,10 @@ while menu_choice != 'EX':
                 print('\n====================================================================================')
                 add_choice = input('Enter a choice: C, CC, FC, WC or EX >>')
                 os.system('cls||clear')
+
+                # Creating a new instance of whatever clss is being entere, Contact, CloseContact, FamilyContact or WorkContact
+                # using the class method set_details() to get user input for contact
+                #incremendting contact ID each time a contact is created
                 match add_choice.upper():
                     case 'C':
                         print('Adding a contact')
@@ -72,34 +72,34 @@ while menu_choice != 'EX':
                 print('\n====================================================================================')
                 edit_choice = input('Enter a contact name to edit >> ')
 
-                match edit_choice.upper():
-                    case 'EX':
-                        break
+                # match edit_choice.upper():
+                #     case 'EX':
+                #         break
 
-                    case other:
-                        for v in contacts_dict.values():
-                            if v.f_name == edit_choice:
-                                print(v.get_details())
-                                print('Edit details')
-                                match v.class_type:
-                                    case 'c':
-                                        f_name, l_name, phone = classes.Contact.set_details()
-                                        v.update_contact(f_name, l_name, phone)
-                                        break
-                                    case 'cc':
-                                        f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                        v.update_contact(f_name, l_name, phone, address)
-                                        break
-                                    case 'fc':
-                                        f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
-                                        v.update_contact(f_name, l_name, phone, address, pet, drink)
-                                        break
-                                    case 'wc':
-                                        f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                        v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
-                                        break
-                        else:
-                            print("that contaxt doesnt exist")
+                #     case other:
+                #         for v in contacts_dict.values():
+                #             if v.f_name == edit_choice:
+                #                 print(v.get_details())
+                #                 print('Edit details')
+                #                 match v.class_type:
+                #                     case 'c':
+                #                         f_name, l_name, phone = classes.Contact.set_details()
+                #                         v.update_contact(f_name, l_name, phone)
+                #                         break
+                #                     case 'cc':
+                #                         f_name, l_name, phone, address = classes.CloseContact.set_details()
+                #                         v.update_contact(f_name, l_name, phone, address)
+                #                         break
+                #                     case 'fc':
+                #                         f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
+                #                         v.update_contact(f_name, l_name, phone, address, pet, drink)
+                #                         break
+                #                     case 'wc':
+                #                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
+                #                         v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
+                #                         break
+                #         else:
+                #             print("that contaxt doesnt exist")
         case 'D':
             print('Deleting a contact')
             del_choice = None
