@@ -8,4 +8,4 @@ trello for implementation plan
 
 https://www.asciiart.eu/
 
-packaging termial app as pypy package
+packaging termial app as pypi package
