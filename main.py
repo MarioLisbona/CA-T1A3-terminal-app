@@ -73,25 +73,6 @@ while menu_choice != 'EX':
                         sys.exit()
 
         case 'E':
-                # search_again = True
-
-                # while search_again:
-                #     os.system('cls||clear')
-                # console.print(Panel.fit("[magenta]Search for a contact to edit", title="[cyan]Editing a Contact"))
-                # edit_choice = input('Enter a contact name to edit >> ')
-                    
-
-                    # if edit_choice not in contacts_dict.values():
-
-                        # # os.system('cls||clear')
-                        # console.print(Panel.fit("[magenta]That contact does not exist", title="[cyan]Editing a Contact"))
-                        # search_again = Confirm.ask('Would you like to search for another contact?')
-
-
-  
-
-
-  
                 search_again = True
                 while search_again:
                     os.system('cls||clear')
@@ -112,17 +93,17 @@ while menu_choice != 'EX':
                                 case 'cc':
                                     f_name, l_name, phone, address = classes.CloseContact.set_details()
                                     v.update_contact(f_name, l_name, phone, address)
-                                    search_again = True
+                                    search_again = False
                                     break
                                 case 'fc':
                                     f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
                                     v.update_contact(f_name, l_name, phone, address, pet, drink)
-                                    search_again = True
+                                    search_again = False
                                     break
                                 case 'wc':
                                     f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
                                     v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
-                                    search_again = True
+                                    search_again = False
                                     break
                     else:
                         os.system('cls||clear')
