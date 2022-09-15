@@ -22,7 +22,8 @@ menu_choice = None
 
 # while user input is not 'EX' (ex is to escape from program)
 #show menu a and get user's menu choice
-while menu_choice != 'EX':
+# while menu_choice != 'EX':
+while menu_choice:
     f.menu_prompt()
     #assign input for menu and clear screen
     menu_choice = Prompt.ask('Please make a selecttion: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
@@ -74,7 +75,7 @@ while menu_choice != 'EX':
 
         case 'E':
             search_again = True
-            
+
             if not contacts_dict:
                 os.system('cls||clear')
                 search_again = False
