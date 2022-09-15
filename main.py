@@ -73,52 +73,58 @@ while menu_choice != 'EX':
                         sys.exit()
 
         case 'E':
-                search_again = True
-                while search_again:
+            search_again = True
+            
+            if not contacts_dict:
+                os.system('cls||clear')
+                search_again = False
+                console.print(Panel.fit('[magenta]Your Contacts Book is empty', title='[cyan]Editing a Contact'))
+                prompt = Prompt.ask("Press Enter to continue...", default="")
+
+            while search_again:
+                os.system('cls||clear')
+                console.print(Panel.fit('[magenta]Search for a contact to edit', title='[cyan]Editing a Contact'))
+                edit_choice = input('Enter a contact name to edit >> ')
+
+                for v in contacts_dict.values():
+                    if v.f_name == edit_choice:
+                        match v.class_type:
+                            case 'c':
+                                if not f.confirm_edit(v):
+                                    search_again = False
+                                    break
+                                f_name, l_name, phone = classes.Contact.set_details()
+                                v.update_contact(f_name, l_name, phone)
+                                search_again = False
+                                break
+                            case 'cc':
+                                if not f.confirm_edit(v):
+                                    search_again = False
+                                    break
+                                f_name, l_name, phone, address = classes.CloseContact.set_details()
+                                v.update_contact(f_name, l_name, phone, address)
+                                search_again = False
+                                break
+                            case 'fc':
+                                if not f.confirm_edit(v):
+                                    search_again = False
+                                    break
+                                f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
+                                v.update_contact(f_name, l_name, phone, address, pet, drink)
+                                search_again = False
+                                break
+                            case 'wc':
+                                if not f.confirm_edit(v):
+                                    search_again = False
+                                    break
+                                f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
+                                v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
+                                search_again = False
+                                break
+                else:
                     os.system('cls||clear')
-
-                    console.print(Panel.fit('[magenta]Search for a contact to edit', title='[cyan]Editing a Contact'))
-                    edit_choice = input('Enter a contact name to edit >> ')
-
-                    for v in contacts_dict.values():
-                        if v.f_name == edit_choice:
-                            match v.class_type:
-                                case 'c':
-                                    if not f.confirm_edit(v):
-                                        search_again = False
-                                        break
-                                    f_name, l_name, phone = classes.Contact.set_details()
-                                    v.update_contact(f_name, l_name, phone)
-                                    search_again = False
-                                    break
-                                case 'cc':
-                                    if not f.confirm_edit(v):
-                                        search_again = False
-                                        break
-                                    f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                    v.update_contact(f_name, l_name, phone, address)
-                                    search_again = False
-                                    break
-                                case 'fc':
-                                    if not f.confirm_edit(v):
-                                        search_again = False
-                                        break
-                                    f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
-                                    v.update_contact(f_name, l_name, phone, address, pet, drink)
-                                    search_again = False
-                                    break
-                                case 'wc':
-                                    if not f.confirm_edit(v):
-                                        search_again = False
-                                        break
-                                    f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                    v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
-                                    search_again = False
-                                    break
-                    else:
-                        os.system('cls||clear')
-                        console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Editing a Contact'))
-                        search_again = Confirm.ask('Would you like to search for another contact?')
+                    console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Editing a Contact'))
+                    search_again = Confirm.ask('Would you like to search for another contact?')
         case 'D':
             print('Deleting a contact')
             del_choice = None
