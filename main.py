@@ -22,8 +22,7 @@ menu_choice = None
 
 # while user input is not 'EX' (ex is to escape from program)
 #show menu a and get user's menu choice
-# while menu_choice != 'EX':
-while menu_choice:
+while True:
     f.menu_prompt()
     #assign input for menu and clear screen
     menu_choice = Prompt.ask('Please make a selecttion: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
@@ -34,7 +33,7 @@ while menu_choice:
         case 'A':
             #new while loop and match case to choose what type of contact to enter
             add_choice = None
-            while add_choice != 'EX':
+            while True:
                 f.add_contact_prompt()
                 add_choice = Prompt.ask('Please make a selecttion: ', choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
                 # add_choice = input('Enter a choice: C, CC, FC, WC or EX >>')
