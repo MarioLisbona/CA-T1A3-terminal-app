@@ -84,14 +84,6 @@ while menu_choice != 'EX':
                         if v.f_name == edit_choice:
                             match v.class_type:
                                 case 'c':
-                                    # os.system('cls||clear')
-                                    # console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-                                    # confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {v.id} - {v.f_name} {v.l_name} ?')
-                                    # if not confirm_edit:
-                                    #     search_again = False
-                                    #     break
-                                    # os.system('cls||clear')
-                                    # console.print(Panel.fit(f'[magenta]ID {v.id}: {v.f_name} {v.l_name}', title='[cyan]Editing a Contact'))
                                     if not f.confirm_edit(v):
                                         search_again = False
                                         break
@@ -100,40 +92,25 @@ while menu_choice != 'EX':
                                     search_again = False
                                     break
                                 case 'cc':
-                                    os.system('cls||clear')
-                                    console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-                                    confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {v.id} - {v.f_name} {v.l_name} ?')
-                                    if not confirm_edit:
+                                    if not f.confirm_edit(v):
                                         search_again = False
                                         break
-                                    os.system('cls||clear')
-                                    console.print(Panel.fit(f'[magenta]ID {v.id}: {v.f_name} {v.l_name}', title='[cyan]Editing a Contact'))
                                     f_name, l_name, phone, address = classes.CloseContact.set_details()
                                     v.update_contact(f_name, l_name, phone, address)
                                     search_again = False
                                     break
                                 case 'fc':
-                                    os.system('cls||clear')
-                                    console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-                                    confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {v.id} - {v.f_name} {v.l_name} ?')
-                                    if not confirm_edit:
+                                    if not f.confirm_edit(v):
                                         search_again = False
                                         break
-                                    os.system('cls||clear')
-                                    console.print(Panel.fit(f'[magenta]ID {v.id}: {v.f_name} {v.l_name}', title='[cyan]Editing a Contact'))
                                     f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
                                     v.update_contact(f_name, l_name, phone, address, pet, drink)
                                     search_again = False
                                     break
                                 case 'wc':
-                                    os.system('cls||clear')
-                                    console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-                                    confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {v.id} - {v.f_name} {v.l_name} ?')
-                                    if not confirm_edit:
+                                    if not f.confirm_edit(v):
                                         search_again = False
                                         break
-                                    os.system('cls||clear')
-                                    console.print(Panel.fit(f'[magenta]ID {v.id}: {v.f_name} {v.l_name}', title='[cyan]Editing a Contact'))
                                     f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
                                     v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
                                     search_again = False
