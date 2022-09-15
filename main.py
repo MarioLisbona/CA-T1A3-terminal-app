@@ -1,12 +1,17 @@
 #Importing classes module
 from rich.prompt import Prompt
 from rich.prompt import Confirm
-from rich import print
+from rich.console import Console
+# from rich import print
 from rich.panel import Panel
 import classes
 import functions as f
 import os
 import sys
+
+#ceate instance of console for printing displays
+#using import print would result in all numbers being printed cyan
+console = Console()
 
 #counter for key in dict and creating empty dict that will be id(int): contact(object)
 contact_id = 1
@@ -39,25 +44,25 @@ while menu_choice != 'EX':
                 #incremendting contact ID each time a contact is created
                 match add_choice.upper():
                     case 'C':
-                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
+                        console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
                         contacts_dict[contact_id] = classes.Contact(contact_id, f_name, l_name, phone)
                         contact_id += 1
                         break
                     case 'CC':
-                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
+                        console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
                         contacts_dict[contact_id] = classes.CloseContact(contact_id, f_name, l_name, phone, address)
                         contact_id += 1
                         break
                     case 'FC':
-                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
+                        console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
                         contacts_dict[contact_id] = classes.FamilyContact(contact_id, f_name, l_name, phone, address, pet_name, fav_drink)
                         contact_id += 1
                         break
                     case 'WC':
-                        print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
+                        console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
                         contacts_dict[contact_id] = classes.WorkContact(contact_id, f_name, l_name, phone, address, w_address, w_phone, skills)
                         contact_id += 1
@@ -68,44 +73,61 @@ while menu_choice != 'EX':
                         sys.exit()
 
         case 'E':
-            edit_choice = None
-            while edit_choice != 'EX':
-                print("====================================Editing a contact ==================================")
-                print("Enter the contacts name or EX to exit to main menu.")
-                print('\n====================================================================================')
-                edit_choice = input('Enter a contact name to edit >> ')
+                # search_again = True
 
-                if not contacts_dict:
-                    break
+                # while search_again:
+                #     os.system('cls||clear')
+                # console.print(Panel.fit("[magenta]Search for a contact to edit", title="[cyan]Editing a Contact"))
+                # edit_choice = input('Enter a contact name to edit >> ')
+                    
 
-                match edit_choice.upper():
-                    case 'EX':
-                        break
+                    # if edit_choice not in contacts_dict.values():
 
-                    case other:
-                        for v in contacts_dict.values():
-                            if v.f_name == edit_choice:
-                                print(v.get_details())
-                                print('Edit details')
-                                match v.class_type:
-                                    case 'c':
-                                        f_name, l_name, phone = classes.Contact.set_details()
-                                        v.update_contact(f_name, l_name, phone)
-                                        break
-                                    case 'cc':
-                                        f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                        v.update_contact(f_name, l_name, phone, address)
-                                        break
-                                    case 'fc':
-                                        f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
-                                        v.update_contact(f_name, l_name, phone, address, pet, drink)
-                                        break
-                                    case 'wc':
-                                        f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                        v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
-                                        break
-                        else:
-                            print("that contaxt doesnt exist")
+                        # # os.system('cls||clear')
+                        # console.print(Panel.fit("[magenta]That contact does not exist", title="[cyan]Editing a Contact"))
+                        # search_again = Confirm.ask('Would you like to search for another contact?')
+
+
+  
+
+
+  
+                search_again = True
+                while search_again:
+                    os.system('cls||clear')
+
+                    console.print(Panel.fit("[magenta]Search for a contact to edit", title="[cyan]Editing a Contact"))
+                    edit_choice = input('Enter a contact name to edit >> ')
+
+                    for v in contacts_dict.values():
+                        if v.f_name == edit_choice:
+                            print(v.get_details())
+                            print('Edit details')
+                            match v.class_type:
+                                case 'c':
+                                    f_name, l_name, phone = classes.Contact.set_details()
+                                    v.update_contact(f_name, l_name, phone)
+                                    search_again = False
+                                    break
+                                case 'cc':
+                                    f_name, l_name, phone, address = classes.CloseContact.set_details()
+                                    v.update_contact(f_name, l_name, phone, address)
+                                    search_again = True
+                                    break
+                                case 'fc':
+                                    f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
+                                    v.update_contact(f_name, l_name, phone, address, pet, drink)
+                                    search_again = True
+                                    break
+                                case 'wc':
+                                    f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
+                                    v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
+                                    search_again = True
+                                    break
+                    else:
+                        os.system('cls||clear')
+                        console.print(Panel.fit("[magenta]That contact does not exist", title="[cyan]Editing a Contact"))
+                        search_again = Confirm.ask('Would you like to search for another contact?')
         case 'D':
             print('Deleting a contact')
             del_choice = None

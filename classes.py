@@ -10,6 +10,7 @@ class Contact:
     #this method allows user input to be gathered before the object is created
     @classmethod
     def set_details(cls):
+        #panel for entering contact details
         first_name = input('Enter First Name >> ')
         last_name = input('Enter Last Name >> ')
         phone = input('Enter Phone Number >> ')
