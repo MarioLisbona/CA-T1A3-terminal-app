@@ -16,11 +16,9 @@ def menu_prompt():
     """    
     os.system('cls||clear')
     table = Table(title=print("[bold yellow]\nWelcome to your Contacts Database\nPlease Select from the menu below[/bold yellow]"))
-
-
+ 
     table.add_column('Home | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
-
 
     table.add_row('Add Contact', 'A')
     table.add_row('Edit Contact', 'E')
