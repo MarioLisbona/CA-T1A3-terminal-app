@@ -50,12 +50,38 @@ def add_contact_prompt():
     console.print(table)
 
 
-def confirm_edit(contact):
-    os.system('cls||clear')
-    console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-    confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {contact.id} - {contact.f_name} {contact.l_name} ?')
-    if not confirm_edit:
-        return False
-    os.system('cls||clear')
-    console.print(Panel.fit(f'[magenta]ID {contact.id}: {contact.f_name} {contact.l_name}', title='[cyan]Editing a Contact'))
-    return True
+# def confirm_edit(contact):
+#     os.system('cls||clear')
+#     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
+#     confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {contact.id} - {contact.f_name} {contact.l_name} ?')
+#     if not confirm_edit:
+#         return False
+#     os.system('cls||clear')
+#     console.print(Panel.fit(f'[magenta]ID {contact.id}: {contact.f_name} {contact.l_name}', title='[cyan]Editing a Contact'))
+#     return True
+
+def display_table(list):
+    table = Table(title="Your Contacts")
+
+    table.add_column("Id", style="cyan", no_wrap=True)
+    table.add_column("First name", style="magenta")
+    table.add_column("Last name", style="magenta")
+    table.add_column("Phone", style="green")
+    table.add_column("Address", style="green")
+    table.add_column("Pet", style="green")
+    table.add_column("Favourite Drink", style="green")
+    table.add_column("Work Address", style="green")
+    table.add_column("Work Phone", style="green")
+    table.add_column("Skills", style="green")
+
+    for idx, val in enumerate(list):
+        if len(val) == 5:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'])
+        elif len(val) == 6:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'])
+        elif len(val) == 8:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], list[idx]['pet'], list[idx]['fav_drink'])
+        elif len(val) == 9:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
+
+    console.print(table)

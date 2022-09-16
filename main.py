@@ -14,9 +14,9 @@ from tinydb import TinyDB
 from tinydb import Query
 
 #creating instnace of the TinyDB class
-ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
+# ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
 
-# ContactsDb = TinyDB('contacts.json')
+ContactsDb = TinyDB('contacts.json')
 # ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT
 
 #used for each contact's unique user id
@@ -79,7 +79,7 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
-                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -92,7 +92,7 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
-                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -105,7 +105,7 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -118,7 +118,7 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -235,18 +235,17 @@ while True:
                 if search_result:
                     os.system('cls||clear')
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Deleting a Contact'))
-                    for idx, v in enumerate(search_result):
-                        print('===================')
-                        for key, val in search_result[idx].items():
-                            print(f'{key}\t-----> {val}')
-                        print('===================')
-                    #confirm user wants to delete this contact
+                    f.display_table(search_result)
+
                     confirm_delete = Confirm.ask('Are you sure you want to Delete contact....')
 
                     #delete contact
                     if confirm_delete:
                         ContactsDb.remove(QueryDb.first_name == search_result[0]['first_name'])
                         search_again = False
+                        break
+                    else:
+                        break
                 
                 #contact was not fouund
                 #user can search again or exit
@@ -281,16 +280,14 @@ while True:
                     if search_result:
                         os.system('cls||clear')
                         console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Displaying a Contact'))
-                        for idx, v in enumerate(search_result):
-                            print('===================')
-                            for key, val in search_result[idx].items():
-                                print(f'{key}\t-----> {val}')
-                            print('===================')
+                        f.display_table(search_result)
+
                         #confirm user wants to search for another contact
                         confirm_display = Confirm.ask('Do you want to search for another contact? ?')
                         if not confirm_display:
                             search_again = False
                             break
+
                     # contact no found
                     # user can search again or exit
                     else:
@@ -300,33 +297,10 @@ while True:
 
         #Display all contacts
         case 'DA':
-            table = Table(title="Star Wars Movies")
-
-            table.add_column("Id", justify="right", style="cyan", no_wrap=True)
-            table.add_column("First name", style="magenta")
-            table.add_column("Last name", style="magenta")
-            table.add_column("Phone", justify="right", style="green")
-            table.add_column("Address", justify="right", style="green")
-            table.add_column("Pet", justify="right", style="green")
-            table.add_column("Favourite Drink", justify="right", style="green")
-            table.add_column("Work Address", justify="right", style="green")
-            table.add_column("Work Phone", justify="right", style="green")
-            table.add_column("Skills", justify="right", style="green")
 
             whole_db = ContactsDb.all()
-            db_list = list(whole_db)
-            for idx, val in enumerate(db_list):
-                if len(val) == 5:
-                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'])
-                elif len(val) == 6:
-                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'],  whole_db[idx]['address'])
-                elif len(val) == 8:
-                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'],  whole_db[idx]['address'], whole_db[idx]['pet'], whole_db[idx]['fav_drink'])
-                elif len(val) == 9:
-                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'],  whole_db[idx]['address'], '', '', whole_db[idx]['work_address'], whole_db[idx]['work_phone'], whole_db[idx]['skills'])
-
-            console.print(table)
-
+            f.display_table(whole_db)
+      
             prompt = Prompt.ask("Press Enter to continue...", default="")
 
         case 'Q':
