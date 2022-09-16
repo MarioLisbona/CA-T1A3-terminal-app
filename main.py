@@ -126,12 +126,16 @@ while True:
             # variable used to control while loop
             search_again = True
 
-            #If contacts dict is empty, show error message
-            if not contacts_dict:
-                os.system('cls||clear')
-                search_again = False
-                console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
-                prompt = Prompt.ask("Press Enter to continue...", default="")
+            # #If contacts dict is empty, show error message
+            # if not contacts_dict:
+            #     os.system('cls||clear')
+            #     search_again = False
+            #     console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
+
+            print(bool(ContactsDb))
+            prompt = Prompt.ask("Press Enter to continue...", default="")
+
+    
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
