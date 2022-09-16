@@ -243,38 +243,82 @@ while True:
         
         #Display a contact
         case 'DC':
-            # variable used to control while loop
-            search_again = True
+                # variable used to control while loop
+                search_again = True
 
-            #If contacts dict is empty, show error message
-            if not contacts_dict:
-                os.system('cls||clear')
-                search_again = False
-                console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying a Contact'))
-                prompt = Prompt.ask("Press Enter to continue...", default="")
+                #If contacts dict is empty, show error message
+                if not ContactsDb:
+                    os.system('cls||clear')
+                    search_again = False
+                    console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying a Contact'))
+                    prompt = Prompt.ask("Press Enter to continue...", default="")
 
-            #while search_again is true prompt user to enter a name to search for
-            while search_again:
-                os.system('cls||clear')
-                console.print(Panel.fit('[magenta]Search for a contact to display', title='[cyan]Displaying a Contact'))
-                display_choice = input('Enter a contact name to edit >> ')
+                #while search_again is true prompt user to enter a name to search for
+                while search_again:
+                    os.system('cls||clear')
+                    console.print(Panel.fit('[magenta]Search for a contact to display', title='[cyan]Displaying a Contact'))
+                    display_choice = input('Enter a contact name to display >> ')
 
-                #iterate through contacts_dict
-                #if contact found, prompt user to search for another contact
-                for v in contacts_dict.values():
-                    if v.f_name == display_choice:
-                        print(v.get_details())
-                        confirm_delete = Confirm.ask('Do you want to search for another contact? ?')
-                        if not confirm_delete:
+                    search_result = ContactsDb.search(QueryDb.first_name == display_choice)
+
+                    if search_result:
+                        os.system('cls||clear')
+                        console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Displaying a Contact'))
+                        for idx, v in enumerate(search_result):
+                            print('===================')
+                            for key, val in search_result[idx].items():
+                                print(f'{key}\t-----> {val}')
+                            print('===================')
+                        confirm_display = Confirm.ask('Do you want to search for another contact? ?')
+                        if not confirm_display:
                             search_again = False
                             break
-                        break
+                    # contact no found
+                    # user can search again or exit
+                    else:
+                        os.system('cls||clear')
+                        console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Displaying a Contact'))
+                        search_again = Confirm.ask('Would you like to search for another contact to Display?')
+
+
+
+
+
+
+
+
+            # # variable used to control while loop
+            # search_again = True
+
+            # #If contacts dict is empty, show error message
+            # if not contacts_dict:
+            #     os.system('cls||clear')
+            #     search_again = False
+            #     console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying a Contact'))
+            #     prompt = Prompt.ask("Press Enter to continue...", default="")
+
+            # #while search_again is true prompt user to enter a name to search for
+            # while search_again:
+            #     os.system('cls||clear')
+            #     console.print(Panel.fit('[magenta]Search for a contact to display', title='[cyan]Displaying a Contact'))
+            #     display_choice = input('Enter a contact name to edit >> ')
+
+            #     #iterate through contacts_dict
+            #     #if contact found, prompt user to search for another contact
+            #     for v in contacts_dict.values():
+            #         if v.f_name == display_choice:
+            #             print(v.get_details())
+            #             confirm_delete = Confirm.ask('Do you want to search for another contact? ?')
+            #             if not confirm_delete:
+            #                 search_again = False
+            #                 break
+            #             break
                 #contact no found
                 #user can search again or exit
-                else:
-                    os.system('cls||clear')
-                    console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Displaying a Contact'))
-                    search_again = Confirm.ask('Would you like to search for another contact to Display?')
+                # else:
+                #     os.system('cls||clear')
+                #     console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Displaying a Contact'))
+                #     search_again = Confirm.ask('Would you like to search for another contact to Display?')
         
         #Display all contacts
         case 'DA':
