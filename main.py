@@ -68,6 +68,7 @@ while True:
                 #incremendting contact ID each time a contact is created
                 match add_choice.upper():
                     case 'C':
+                        contact_type = 'Contact'
                         #Panel printing a heading
                         #set_details method called on Contact class returns the user input -> user input
                         #create contact dictionary with set_details returned variables
@@ -75,11 +76,12 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
-                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
+                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
                     case 'CC':
+                        contact_type = 'Close Contact'
                         #Panel printing a heading
                         #set_details method called on CloseContact class returns the user input -> user input
                         #create contact dictionary with set_details returned variables
@@ -87,11 +89,12 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
-                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
+                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
                     case 'FC':
+                        contact_type = 'Family Contact'
                         #Panel printing a heading
                         #set_details method called on FamilyContact class returns the user input -> user input
                         #create contact dictionary with set_details returned variables
@@ -99,11 +102,12 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
+                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
                     case 'WC':
+                        contact_type = 'Work Contact'
                         #Panel printing a heading
                         #set_details method called on WorkContact class returns the user input -> user input
                         #create contact dictionary with set_details returned variables
@@ -111,7 +115,7 @@ while True:
                         #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
+                        contact = {'id': user_id, 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -126,67 +130,73 @@ while True:
             # variable used to control while loop
             search_again = True
 
-            # #If contacts dict is empty, show error message
-            # if not contacts_dict:
-            #     os.system('cls||clear')
-            #     search_again = False
-            #     console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
-
-            print(bool(ContactsDb))
-            prompt = Prompt.ask("Press Enter to continue...", default="")
-
-    
+            #If contacts databse is empty, show error message
+            if not ContactsDb:
+                os.system('cls||clear')
+                search_again = False
+                console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
+                prompt = Prompt.ask("Press Enter to continue...", default="")
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
                 os.system('cls||clear')
                 console.print(Panel.fit('[magenta]Search for a contact to edit', title='[cyan]Editing a Contact'))
-                edit_choice = input('Enter a contact name to edit >> ')
+                edit_choice = input('Enter a contact\'s first name to edit >> ')
 
-                #iterate through contacts_dict
-                #if value is found match case v.class_type - This allows calling the correct class methods to edit the contact
-                for v in contacts_dict.values():
-                    if v.f_name == edit_choice:
-                        match v.class_type:
-                            case 'c':
-                                #call function that shows promps confirming user wants to edit a contact
-                                #returns false if user doesnt want to edit and breaks out of for loop
-                                if not f.confirm_edit(v):
-                                    search_again = False
-                                    break
-                                #user confirms edit and set_details method is called to edit contact
-                                # search_again set to false to end while loop
+                search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
+
+                if search_result:
+                    os.system('cls||clear')
+                    console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
+                    for idx, v in enumerate(search_result):
+                        print('===================')
+                        for key, val in search_result[idx].items():
+                            print(f'{key}\t-----> {val}')
+                        print('===================')
+                    confirm_edit = Confirm.ask('Are you sure you want to edit contact....')
+
+                    if confirm_edit:
+                        match search_result[0]['type']:
+                            case 'Contact':
                                 f_name, l_name, phone = classes.Contact.set_details()
-                                v.update_contact(f_name, l_name, phone)
-                                search_again = False
-                                break
-                                #same as above but editing an instance of CloseContact class
-                            case 'cc':
-                                if not f.confirm_edit(v):
-                                    search_again = False
-                                    break
+                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+
+                            case 'Close Contact':
                                 f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                v.update_contact(f_name, l_name, phone, address)
-                                search_again = False
-                                break
-                            case 'fc':
-                                #same as above but editing an instance of FamilyContact class
-                                if not f.confirm_edit(v):
-                                    search_again = False
-                                    break
-                                f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
-                                v.update_contact(f_name, l_name, phone, address, pet, drink)
-                                search_again = False
-                                break
-                            case 'wc':
-                                #same as above but editing an instance of WorkContact class
-                                if not f.confirm_edit(v):
-                                    search_again = False
-                                    break
+                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                ContactsDb.update({'address': address}, QueryDb.address == search_result[0]['address'])
+
+                            case 'Family Contact':
+                                f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
+                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                ContactsDb.update({'address': address}, QueryDb.address == search_result[0]['address'])
+                                ContactsDb.update({'pet': pet_name}, QueryDb.pet == search_result[0]['pet'])
+
+                            case 'Work Contact':
                                 f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
-                                search_again = False
-                                break
+                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                ContactsDb.update({'address': address}, QueryDb.address == search_result[0]['address'])
+                                ContactsDb.update({'work_address': w_address}, QueryDb.work_address == search_result[0]['work_address'])
+                                ContactsDb.update({'work_phone': w_phone}, QueryDb.work_phone == search_result[0]['work_phone'])
+                                ContactsDb.update({'skills': skills}, QueryDb.skills == search_result[0]['skills'])
+
+
+
+                        print('========EDIT CONTACT HERER++++++')
+                        # print(search_result[0]['type'])
+                        prompt = Prompt.ask("Press Enter to continue...", default="")
+                        search_again = False
+                        break
+                    else:
+                        break
                 #contact was not fouund
                 #user can search again or exit
                 else:
@@ -194,7 +204,59 @@ while True:
                     console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Editing a Contact'))
                     search_again = Confirm.ask('Would you like to search for another contact to edit?')
 
-        #Edit a contact  
+
+                #iterate through contacts_dict
+                #if value is found match case v.class_type - This allows calling the correct class methods to edit the contact
+                # for v in contacts_dict.values():
+                #     if v.f_name == edit_choice:
+                #         match v.class_type:
+                #             case 'c':
+                #                 #call function that shows promps confirming user wants to edit a contact
+                #                 #returns false if user doesnt want to edit and breaks out of for loop
+                #                 if not f.confirm_edit(v):
+                #                     search_again = False
+                #                     break
+                #                 #user confirms edit and set_details method is called to edit contact
+                #                 # search_again set to false to end while loop
+                #                 f_name, l_name, phone = classes.Contact.set_details()
+                #                 v.update_contact(f_name, l_name, phone)
+                #                 search_again = False
+                #                 break
+                #                 #same as above but editing an instance of CloseContact class
+                #             case 'cc':
+                #                 if not f.confirm_edit(v):
+                #                     search_again = False
+                #                     break
+                #                 f_name, l_name, phone, address = classes.CloseContact.set_details()
+                #                 v.update_contact(f_name, l_name, phone, address)
+                #                 search_again = False
+                #                 break
+                #             case 'fc':
+                #                 #same as above but editing an instance of FamilyContact class
+                #                 if not f.confirm_edit(v):
+                #                     search_again = False
+                #                     break
+                #                 f_name, l_name, phone, address, pet, drink = classes.FamilyContact.set_details()
+                #                 v.update_contact(f_name, l_name, phone, address, pet, drink)
+                #                 search_again = False
+                #                 break
+                #             case 'wc':
+                #                 #same as above but editing an instance of WorkContact class
+                #                 if not f.confirm_edit(v):
+                #                     search_again = False
+                #                     break
+                #                 f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
+                #                 v.update_contact(f_name, l_name, phone, address, w_address, w_phone, skills)
+                #                 search_again = False
+                #                 break
+                # #contact was not fouund
+                # #user can search again or exit
+                # else:
+                #     os.system('cls||clear')
+                #     console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Editing a Contact'))
+                #     search_again = Confirm.ask('Would you like to search for another contact to edit?')
+
+        #Delete a contact
         case 'D':
             # variable used to control while loop
             search_again = True
