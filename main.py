@@ -13,8 +13,11 @@ from tinydb import TinyDB
 from tinydb import Query
 
 #creating instnace of the TinyDB class
-ContactsDb = TinyDB('contacts.json')
-ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT
+ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
+
+
+# ContactsDb = TinyDB('contacts.json')
+# ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT
 
 #used for each contact's unique user id
 user_id = len(ContactsDb) + 1
