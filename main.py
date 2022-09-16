@@ -2,6 +2,7 @@
 from rich.prompt import Prompt
 from rich.prompt import Confirm
 from rich.console import Console
+from rich.table import Table
 # from rich import print
 from rich.panel import Panel
 import classes
@@ -14,7 +15,6 @@ from tinydb import Query
 
 #creating instnace of the TinyDB class
 ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
-
 
 # ContactsDb = TinyDB('contacts.json')
 # ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT
@@ -300,16 +300,34 @@ while True:
 
         #Display all contacts
         case 'DA':
+            table = Table(title="Star Wars Movies")
 
-                #user tinyDB all method to iterate through entire database and print results
-                whole_db = ContactsDb.all()
-                for idx, v in enumerate(whole_db):
-                    print('===================')
-                    for key, val in whole_db[idx].items():
-                        print(f'{key}\t-----> {val}')
-                    print('===================')
+            table.add_column("Id", justify="right", style="cyan", no_wrap=True)
+            table.add_column("First name", style="magenta")
+            table.add_column("Last name", style="magenta")
+            table.add_column("Phone", justify="right", style="green")
+            table.add_column("Address", justify="right", style="green")
+            table.add_column("Pet", justify="right", style="green")
+            table.add_column("Favourite Drink", justify="right", style="green")
+            table.add_column("Work Address", justify="right", style="green")
+            table.add_column("Work Phone", justify="right", style="green")
+            table.add_column("Skills", justify="right", style="green")
 
-                prompt = Prompt.ask("Press Enter to continue...", default="")
+            whole_db = ContactsDb.all()
+            db_list = list(whole_db)
+            for idx, val in enumerate(db_list):
+                if len(val) == 5:
+                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'])
+                elif len(val) == 6:
+                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'],  whole_db[idx]['address'])
+                elif len(val) == 8:
+                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'],  whole_db[idx]['address'], whole_db[idx]['pet'], whole_db[idx]['fav_drink'])
+                elif len(val) == 9:
+                    table.add_row(whole_db[idx]['id'], whole_db[idx]['first_name'], whole_db[idx]['last_name'], whole_db[idx]['phone'],  whole_db[idx]['address'], '', '', whole_db[idx]['work_address'], whole_db[idx]['work_phone'], whole_db[idx]['skills'])
+
+            console.print(table)
+
+            prompt = Prompt.ask("Press Enter to continue...", default="")
 
         case 'Q':
             break
