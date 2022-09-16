@@ -9,13 +9,29 @@ import functions as f
 import os
 import sys
 
+from tinydb import TinyDB
+from tinydb import Query
+
+#creating instnace of the TinyDB class
+ContactsDb = TinyDB('contacts.json')
+ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT
+
+#used for each contact's unique user id
+user_id = len(ContactsDb) + 1
+
+#create instance of the tinydb Query class
+QueryDb = Query()
+
+
 #ceate instance of console for printing displays
 #using import print would result in all numbers being printed cyan
 console = Console()
 
-#counter for key in dict and creating empty dict that will be id(int): contact(object)
-contact_id = 1
-contacts_dict = {}
+# #counter for key in dict and creating empty dict that will be id(int): contact(object)
+# contact_id = 1
+# contacts_dict = {}
+
+
 
 #variable for user menu choice used to match case
 menu_choice = None
@@ -59,29 +75,34 @@ while True:
                         #increment contact_id for key contacts_dict
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
-                        contacts_dict[contact_id] = classes.Contact(contact_id, f_name, l_name, phone)
-                        contact_id += 1
+                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
+                        ContactsDb.insert(contact)
+                        # contacts_dict[contact_id] = classes.Contact(contact_id, f_name, l_name, phone)
+                        user_id += 1
                         break
                     case 'CC':
                         #same as above but object created as instance of CloseContact class
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
-                        contacts_dict[contact_id] = classes.CloseContact(contact_id, f_name, l_name, phone, address)
-                        contact_id += 1
+                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
+                        ContactsDb.insert(contact)
+                        user_id += 1
                         break
                     case 'FC':
                         #same as above but object created as instance of FamilyContact class
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                        contacts_dict[contact_id] = classes.FamilyContact(contact_id, f_name, l_name, phone, address, pet_name, fav_drink)
-                        contact_id += 1
+                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
+                        ContactsDb.insert(contact)
+                        user_id += 1
                         break
                     case 'WC':
                         #same as above but object created as instance of WorkContact class
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                        contacts_dict[contact_id] = classes.WorkContact(contact_id, f_name, l_name, phone, address, w_address, w_phone, skills)
-                        contact_id += 1
+                        contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
+                        ContactsDb.insert(contact)
+                        user_id += 1
                         break
                     #return to home menu
                     case 'H':
@@ -230,22 +251,30 @@ while True:
         
         #Display all contacts
         case 'DA':
-            # variable used to control while loop
-            search_again = True
+            # # variable used to control while loop
+            # search_again = True
 
-            # If contacts dict is empty, show error message
-            if not contacts_dict:
-                os.system('cls||clear')
-                search_again = False
-                console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying all Contacts'))
-                prompt = Prompt.ask("Press Enter to continue...", default="")
+            # # If contacts dict is empty, show error message
+            # if not contacts_dict:
+            #     os.system('cls||clear')
+            #     search_again = False
+            #     console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying all Contacts'))
+            #     prompt = Prompt.ask("Press Enter to continue...", default="")
 
             #iterate through contacts_dict and display contacts
             #prompt user to continer then go back to main menu
-            for k, v in contacts_dict.items():
-                print('==========================================')
-                print(v.get_details())
-                print('\n==========================================')
+            # for k, v in contacts_dict.items():
+            #     print('==========================================')
+            #     print(v.get_details())
+            #     print('\n==========================================')
+
+                whole_db = ContactsDb.all()
+                for idx, v in enumerate(whole_db):
+                    print('===================')
+                    for key, val in whole_db[idx].items():
+                        print(f'{key}\t-----> {val}')
+                    print('===================')
+
                 prompt = Prompt.ask("Press Enter to continue...", default="")
 
         case 'Q':
