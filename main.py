@@ -154,12 +154,8 @@ while True:
                 if search_result:
                     os.system('cls||clear')
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-                    for idx, v in enumerate(search_result):
-                        print('===================')
-                        for key, val in search_result[idx].items():
-                            print(f'{key}\t-----> {val}')
-                        print('===================')
-                    #confirm user wants to edit this contact
+                    f.display_table(search_result)
+
                     confirm_edit = Confirm.ask('Are you sure you want to edit contact....')
 
                     #match case for contact, Close contact, Family contact and work contact
@@ -168,30 +164,35 @@ while True:
                         match search_result[0]['type']:
                             case 'Contact':
                                 f_name, l_name, phone = classes.Contact.set_details()
-                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
-                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
-                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
+                                # ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                # ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                # ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
 
                             case 'Close Contact':
                                 f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
-                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
-                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
+                                # ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                # ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                # ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
                                 ContactsDb.update({'address': address}, QueryDb.address == search_result[0]['address'])
 
                             case 'Family Contact':
                                 f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
-                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
-                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
+                                # ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                # ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                # ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
                                 ContactsDb.update({'address': address}, QueryDb.address == search_result[0]['address'])
                                 ContactsDb.update({'pet': pet_name}, QueryDb.pet == search_result[0]['pet'])
+                                ContactsDb.update({'fav_drink': fav_drink}, QueryDb.fav_drink == search_result[0]['fav_drink'])
 
                             case 'Work Contact':
                                 f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
-                                ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
-                                ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
+                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
+                                # ContactsDb.update({'first_name': f_name}, QueryDb.first_name == search_result[0]['first_name'])
+                                # ContactsDb.update({'last_name': l_name}, QueryDb.last_name == search_result[0]['last_name'])
+                                # ContactsDb.update({'phone': phone}, QueryDb.phone == search_result[0]['phone'])
                                 ContactsDb.update({'address': address}, QueryDb.address == search_result[0]['address'])
                                 ContactsDb.update({'work_address': w_address}, QueryDb.work_address == search_result[0]['work_address'])
                                 ContactsDb.update({'work_phone': w_phone}, QueryDb.work_phone == search_result[0]['work_phone'])

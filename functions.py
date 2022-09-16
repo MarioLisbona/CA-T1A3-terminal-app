@@ -85,3 +85,9 @@ def display_table(list):
             table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
 
     console.print(table)
+
+def update_contact(data_base, query, result, f_name, l_name, phone):
+    data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
+    data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
+    data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
+    
