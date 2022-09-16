@@ -69,19 +69,22 @@ while True:
                 match add_choice.upper():
                     case 'C':
                         #Panel printing a heading
-                        #set_details method called on Contact class returns the user input
-                        #dict entry created with with contact_id as key and an instance of contact class as the value
-                        #set_details method return variables used as arguments for object instance
-                        #increment contact_id for key contacts_dict
+                        #set_details method called on Contact class returns the user input -> user input
+                        #create contact dictionary with set_details returned variables
+                        #insert contact into TinyDB json file
+                        #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
                         contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
                         ContactsDb.insert(contact)
-                        # contacts_dict[contact_id] = classes.Contact(contact_id, f_name, l_name, phone)
                         user_id += 1
                         break
                     case 'CC':
-                        #same as above but object created as instance of CloseContact class
+                        #Panel printing a heading
+                        #set_details method called on CloseContact class returns the user input -> user input
+                        #create contact dictionary with set_details returned variables
+                        #insert contact into TinyDB json file
+                        #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
                         contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
@@ -89,7 +92,11 @@ while True:
                         user_id += 1
                         break
                     case 'FC':
-                        #same as above but object created as instance of FamilyContact class
+                        #Panel printing a heading
+                        #set_details method called on FamilyContact class returns the user input -> user input
+                        #create contact dictionary with set_details returned variables
+                        #insert contact into TinyDB json file
+                        #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
                         contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
@@ -97,7 +104,11 @@ while True:
                         user_id += 1
                         break
                     case 'WC':
-                        #same as above but object created as instance of WorkContact class
+                        #Panel printing a heading
+                        #set_details method called on WorkContact class returns the user input -> user input
+                        #create contact dictionary with set_details returned variables
+                        #insert contact into TinyDB json file
+                        #increment user id
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
                         contact = {'id': user_id, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
