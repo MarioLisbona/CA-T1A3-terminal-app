@@ -146,8 +146,11 @@ while True:
                 console.print(Panel.fit('[magenta]Search for a contact to edit', title='[cyan]Editing a Contact'))
                 edit_choice = input('Enter a contact\'s first name to edit >> ')
 
+                #use TinyDB search method to return dictionary that matches first name
+                #search will return all results matching the name. need to add some logic to allow user to choose which contact to edit using unique ID
                 search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
 
+                #if contact is found iterate through dict to display contact information
                 if search_result:
                     os.system('cls||clear')
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
@@ -156,8 +159,11 @@ while True:
                         for key, val in search_result[idx].items():
                             print(f'{key}\t-----> {val}')
                         print('===================')
+                    #confirm user wants to edit this contact
                     confirm_edit = Confirm.ask('Are you sure you want to edit contact....')
 
+                    #match case for contact, Close contact, Family contact and work contact
+                    #once contact type is established upse tinyDB update method to update the details for that contact
                     if confirm_edit:
                         match search_result[0]['type']:
                             case 'Contact':
@@ -221,8 +227,11 @@ while True:
                 console.print(Panel.fit('[magenta]Search for a contact to delete', title='[cyan]Deleting a Contact'))
                 del_choice = input('Enter a contact name to delete >> ')
 
+                #use TinyDB search method to return dictionary that matches first name
+                #search will return all results matching the name. need to add some logic to allow user to choose which contact to delete using unique ID
                 search_result = ContactsDb.search(QueryDb.first_name == del_choice)
 
+                 #if contact is found iterate through dict to display contact information
                 if search_result:
                     os.system('cls||clear')
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Deleting a Contact'))
@@ -231,8 +240,10 @@ while True:
                         for key, val in search_result[idx].items():
                             print(f'{key}\t-----> {val}')
                         print('===================')
+                    #confirm user wants to delete this contact
                     confirm_delete = Confirm.ask('Are you sure you want to Delete contact....')
 
+                    #delete contact
                     if confirm_delete:
                         ContactsDb.remove(QueryDb.first_name == search_result[0]['first_name'])
                         search_again = False
@@ -262,8 +273,11 @@ while True:
                     console.print(Panel.fit('[magenta]Search for a contact to display', title='[cyan]Displaying a Contact'))
                     display_choice = input('Enter a contact name to display >> ')
 
+                    #use TinyDB search method to return dictionary that matches first name
+                    #search will return all results matching the name. need to add some logic to allow user to choose which contact to delete using unique ID
                     search_result = ContactsDb.search(QueryDb.first_name == display_choice)
 
+                    #if contact is found iterate through dict to display contact information
                     if search_result:
                         os.system('cls||clear')
                         console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Displaying a Contact'))
@@ -272,6 +286,7 @@ while True:
                             for key, val in search_result[idx].items():
                                 print(f'{key}\t-----> {val}')
                             print('===================')
+                        #confirm user wants to search for another contact
                         confirm_display = Confirm.ask('Do you want to search for another contact? ?')
                         if not confirm_display:
                             search_again = False
@@ -283,48 +298,10 @@ while True:
                         console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Displaying a Contact'))
                         search_again = Confirm.ask('Would you like to search for another contact to Display?')
 
-
-
-
-
-
-
-
-            # # variable used to control while loop
-            # search_again = True
-
-            # #If contacts dict is empty, show error message
-            # if not contacts_dict:
-            #     os.system('cls||clear')
-            #     search_again = False
-            #     console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying a Contact'))
-            #     prompt = Prompt.ask("Press Enter to continue...", default="")
-
-            # #while search_again is true prompt user to enter a name to search for
-            # while search_again:
-            #     os.system('cls||clear')
-            #     console.print(Panel.fit('[magenta]Search for a contact to display', title='[cyan]Displaying a Contact'))
-            #     display_choice = input('Enter a contact name to edit >> ')
-
-            #     #iterate through contacts_dict
-            #     #if contact found, prompt user to search for another contact
-            #     for v in contacts_dict.values():
-            #         if v.f_name == display_choice:
-            #             print(v.get_details())
-            #             confirm_delete = Confirm.ask('Do you want to search for another contact? ?')
-            #             if not confirm_delete:
-            #                 search_again = False
-            #                 break
-            #             break
-                #contact no found
-                #user can search again or exit
-                # else:
-                #     os.system('cls||clear')
-                #     console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Displaying a Contact'))
-                #     search_again = Confirm.ask('Would you like to search for another contact to Display?')
-        
         #Display all contacts
         case 'DA':
+
+                #user tinyDB all method to iterate through entire database and print results
                 whole_db = ContactsDb.all()
                 for idx, v in enumerate(whole_db):
                     print('===================')
