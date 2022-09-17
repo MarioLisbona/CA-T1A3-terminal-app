@@ -25,16 +25,9 @@ user_id = len(ContactsDb) + 1
 #create instance of the tinydb Query class
 QueryDb = Query()
 
-
 #ceate instance of console for printing displays
 #using import print would result in all numbers being printed cyan
 console = Console()
-
-# #counter for key in dict and creating empty dict that will be id(int): contact(object)
-# contact_id = 1
-# contacts_dict = {}
-
-
 
 #variable for user menu choice used to match case
 menu_choice = None
@@ -176,16 +169,12 @@ while True:
                         match search_result[0]['type']:
                             case 'Contact':
                                 f_name, l_name, phone = classes.Contact.set_details()
-                                # f.update_single_result_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
-                                # # # f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
-
                                 ContactsDb.update({'first_name': f_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'last_name': l_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'phone': phone}, doc_ids=[search_result[0].doc_id])
 
                             case 'Close Contact':
                                 f_name, l_name, phone, address = classes.CloseContact.set_details()
-                            #     f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'last_name': l_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'phone': phone}, doc_ids=[search_result[0].doc_id])
@@ -193,7 +182,6 @@ while True:
 
                             case 'Family Contact':
                                 f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                            #     f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'last_name': l_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'phone': phone}, doc_ids=[search_result[0].doc_id])
@@ -203,7 +191,6 @@ while True:
 
                             case 'Work Contact':
                                 f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                            #     f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name},doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'last_name': l_name}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'phone': phone}, doc_ids=[search_result[0].doc_id])
@@ -223,14 +210,12 @@ while True:
                         match single_search_result['type']:
                             case 'Contact':
                                 f_name, l_name, phone = classes.Contact.set_details()
-                                # f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name}, doc_ids=[single_search_result.doc_id])
                                 ContactsDb.update({'last_name': l_name}, doc_ids=[single_search_result.doc_id])
                                 ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
 
                             case 'Close Contact':
                                 f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name}, single_search_result.doc_id)
                                 ContactsDb.update({'last_name': l_name}, single_search_result.doc_id)
                                 ContactsDb.update({'phone': phone}, single_search_result.doc_id)
@@ -238,7 +223,6 @@ while True:
 
                             case 'Family Contact':
                                 f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name}, single_search_result.doc_id)
                                 ContactsDb.update({'last_name': l_name}, single_search_result.doc_id)
                                 ContactsDb.update({'phone': phone}, single_search_result.doc_id)
@@ -248,7 +232,6 @@ while True:
 
                             case 'Work Contact':
                                 f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                f.update_contact(ContactsDb, QueryDb, search_result, f_name, l_name, phone)
                                 ContactsDb.update({'first_name': f_name}, single_search_result.doc_id)
                                 ContactsDb.update({'last_name': l_name}, single_search_result.doc_id)
                                 ContactsDb.update({'phone': phone}, single_search_result.doc_id)
