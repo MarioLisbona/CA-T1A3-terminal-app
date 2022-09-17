@@ -290,19 +290,33 @@ while True:
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Deleting a Contact'))
                     f.display_table(search_result)
 
+                    if len(search_result) > 1:
+                        search_id = input('more than one result. Select an ID to edit')
+                        single_search_result = ContactsDb.get(QueryDb.id == search_id)
+                        print(single_search_result['id'])
+
                     confirm_delete = Confirm.ask('Are you sure you want to Delete contact....')
 
-                    #delete contact
-                    if confirm_delete:
-                        ContactsDb.remove(QueryDb.first_name == search_result[0]['first_name'])
-                        search_again = False
-                        break
-                    else:
-                        break
+
+                    if len(search_result) > 1:
+                        #delete contact
+                        if confirm_delete:
+                            ContactsDb.remove(QueryDb.id == single_search_result['id'])
+                            search_again = False
+                            break
+                        else:
+                            break
+                    elif len(search_result) == 1:
+                        if confirm_delete:
+                            ContactsDb.remove(QueryDb.id == search_result[0]['id'])
+                            search_again = False
+                            break
+                        else:
+                            break
                 
                 #contact was not fouund
                 #user can search again or exit
-                else:
+                elif not search_result:
                     os.system('cls||clear')
                     console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Deleting a Contact'))
                     search_again = Confirm.ask('Would you like to search for another contact to delete?')
