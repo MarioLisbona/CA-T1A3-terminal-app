@@ -27,11 +27,6 @@ for contact in contacts:
     user_id = contact.doc_id
 
 user_id += 1
-print(user_id)
-    
-prompt = Prompt.ask("Press Enter to continue...", default="")
-
-
 
 #create instance of the tinydb Query class
 QueryDb = Query()
