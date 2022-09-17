@@ -154,13 +154,12 @@ while True:
                 #if contact is found iterate through database and display contact information in table
                 if search_result:
                     os.system('cls||clear')
-                    console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
                     f.display_table(search_result)
 
                     #if there are multiple contacts with the same first name
                     #prompt user to select one based on ID
                     if len(search_result) > 1:
-                        search_id = input('more than one result. Select an ID to edit')
+                        search_id = input(f'\nThere are multiple results for {edit_choice}. Select an ID to edit >> ')
                         #use get method to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
                         #PRINTING RAW RESULTS HERE FOR DEBUGGING
@@ -168,15 +167,18 @@ while True:
                         #user generator expression to continually loop while the ID entered isnt valid
                         while not next((item for item in search_result if item['id'] == search_id), None):
                             os.system('cls||clear')
-                            console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
                             f.display_table(search_result)
-                            search_id = input(f'\n{search_id} is not a valid ID. Please choose a valid ID >> ')
+                            console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Editing a Contact'))
+                            search_id = Prompt.ask('Please choose a valid ID >> ', default="")
+                            
+
+
                             #original ID wasn not valid, so assign the valid ID now and exit loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
-
-                    print(search_id)
-                    print(single_search_result)
-                    confirm_edit = Confirm.ask('Are you sure you want to edit contact....')
+                    os.system('cls||clear')
+                    f.display_table(search_result)
+                    console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
+                    confirm_edit = Confirm.ask(f'Are you sure you want to edit [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
                     
 
                     #match case for contact, Close contact, Family contact and work contact
