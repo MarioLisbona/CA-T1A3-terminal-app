@@ -35,7 +35,7 @@ def add_contact_prompt():
     This function clears the screen each time and prints a user prompt with instructions on how to use the program
     """    
     os.system('cls||clear')
-    table = Table(title=print("[bold yellow]\nAdding a Contact\nPlease Select from the menu below[/bold yellow]"))
+    table = Table(title=print("[bold yellow]\nAdding a Contact. Please Select from the menu below[/bold yellow]"))
     table.add_column('Add | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
 
