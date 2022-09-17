@@ -151,22 +151,27 @@ while True:
                 search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
                 
 
-                #if contact is found iterate through dict to display contact information
+                #if contact is found iterate through database and display contact information in table
                 if search_result:
                     os.system('cls||clear')
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
                     f.display_table(search_result)
-                
+
+                    #if there are multiple contacts with the same first name
+                    #prompt user to select one based on ID
                     if len(search_result) > 1:
                         search_id = input('more than one result. Select an ID to edit')
+                        #use get method to retrieve contact with ID
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
+                        #PRINTING RAW RESULTS HERE FOR DEBUGGING
                         print(single_search_result)
 
                     confirm_edit = Confirm.ask('Are you sure you want to edit contact....')
                     
 
                     #match case for contact, Close contact, Family contact and work contact
-                    #once contact type is established upse tinyDB update method to update the details for that contact
+                    #once contact type is established upse tinyDB update method to update contact with that ID
+                    #this match case is for when only a single resultis return - because search method was used - could have multiple dicts in list
                     if confirm_edit and len(search_result) <=1:
                         match search_result[0]['type']:
                             case 'Contact':
@@ -211,6 +216,9 @@ while True:
                         search_again = False
                         break
 
+                    #match case for contact, Close contact, Family contact and work contact
+                    #once contact type is established upse tinyDB update method to update contact with that ID
+                    #this match case is for when multiple records are returned - Get is the used to find single record with ID
                     elif confirm_edit and len(search_result) > 1:
                         match single_search_result['type']:
                             case 'Contact':
@@ -290,14 +298,19 @@ while True:
                     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Deleting a Contact'))
                     f.display_table(search_result)
 
+                    #if there are multiple contacts with the same first name
+                    #prompt user to select one based on ID
                     if len(search_result) > 1:
                         search_id = input('more than one result. Select an ID to edit')
+
+                        #use get method to retrieve contact with ID
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
+                        #PRINTING RAW STRING HERE FOR DEBUGGING
                         print(single_search_result['id'])
 
                     confirm_delete = Confirm.ask('Are you sure you want to Delete contact....')
 
-
+                    #deleting for when multiple records hvae come back from search - and a single one has been selected
                     if len(search_result) > 1:
                         #delete contact
                         if confirm_delete:
@@ -306,6 +319,8 @@ while True:
                             break
                         else:
                             break
+                    #deleting for when single record has come back from search
+                    
                     elif len(search_result) == 1:
                         if confirm_delete:
                             ContactsDb.remove(QueryDb.id == search_result[0]['id'])
