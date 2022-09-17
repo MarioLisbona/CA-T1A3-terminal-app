@@ -19,8 +19,19 @@ from tinydb import Query
 ContactsDb = TinyDB('contacts.json')
 # ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT
 
-#used for each contact's unique user id
-user_id = len(ContactsDb) + 1
+#create unique user identifer
+#iterate though databas to find the ID of the last entry (highest number)
+#add 1
+contacts = ContactsDb.all()
+for contact in contacts:
+    user_id = contact.doc_id
+
+user_id += 1
+print(user_id)
+    
+prompt = Prompt.ask("Press Enter to continue...", default="")
+
+
 
 #create instance of the tinydb Query class
 QueryDb = Query()
