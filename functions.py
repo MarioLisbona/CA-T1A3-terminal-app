@@ -86,8 +86,33 @@ def display_table(list):
 
     console.print(table)
 
-def update_contact(data_base, query, result, f_name, l_name, phone):
-    data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
-    data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
-    data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
+# def update_single_result_contact(data_base, query, result, f_name, l_name, phone):
+#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
+#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
+#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
+
+# def update_single_result_close_contact(data_base, query, result, f_name, l_name, phone, address):
+#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
+#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
+#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
+#     data_base.update({'address': address}, query.address == result[0]['address'])
+
+# def update_single_result_family_contact(data_base, query, result, f_name, l_name, phone, address, pet_name, fav_drink):
+#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
+#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
+#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
+#     data_base.update({'address': address}, query.address == result[0]['address'])
+#     data_base.update({'pet': pet_name}, query.pet == result[0]['pet'])
+#     data_base.update({'fav_drink': fav_drink}, query.fav_drink == result[0]['fav_drink'])
+
+# def update_single_result_work_contact(data_base, query, result, f_name, l_name, phone, address, w_address, w_phone, skills):
+#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
+#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
+#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
+#     data_base.update({'address': address}, query.address == result[0]['address'])
+#     data_base.update({'work_address': w_address}, query.work_address == result[0]['work_address'])
+#     data_base.update({'work_phone': w_phone}, query.work_phone == result[0]['work_phone'])
+#     data_base.update({'skills': skills}, query.skills == result[0]['skills'])
+    
+
     
