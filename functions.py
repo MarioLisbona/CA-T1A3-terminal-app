@@ -8,7 +8,6 @@ from rich import print
 
 console = Console()
 
-
 # User prompt fuction with information on how to use the program
 def menu_prompt():
     """
@@ -49,16 +48,6 @@ def add_contact_prompt():
     console = Console()
     console.print(table)
 
-
-# def confirm_edit(contact):
-#     os.system('cls||clear')
-#     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-#     confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {contact.id} - {contact.f_name} {contact.l_name} ?')
-#     if not confirm_edit:
-#         return False
-#     os.system('cls||clear')
-#     console.print(Panel.fit(f'[magenta]ID {contact.id}: {contact.f_name} {contact.l_name}', title='[cyan]Editing a Contact'))
-#     return True
 
 def display_table(list):
     table = Table(title="Your Contacts")
@@ -115,4 +104,18 @@ def display_table(list):
 #     data_base.update({'skills': skills}, query.skills == result[0]['skills'])
     
 
-    
+
+# def confirm_edit(contact):
+#     os.system('cls||clear')
+#     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
+#     confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {contact.id} - {contact.f_name} {contact.l_name} ?')
+#     if not confirm_edit:
+#         return False
+#     os.system('cls||clear')
+#     console.print(Panel.fit(f'[magenta]ID {contact.id}: {contact.f_name} {contact.l_name}', title='[cyan]Editing a Contact'))
+#     return True
+
+def press_to_continue():
+    prompt = Prompt.ask("Press Enter to continue...", default="")
+
+    return prompt
