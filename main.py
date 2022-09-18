@@ -24,6 +24,7 @@ ContactsDb = TinyDB('contacts.json')
 #create unique user identifer
 #iterate though database to find the ID of the last entry (highest number)
 #add 1
+
 contacts = ContactsDb.all()
 for contact in contacts:
     user_id = contact.doc_id
@@ -143,7 +144,11 @@ while True:
 
                 #use TinyDB search method to return dictionary that matches first name
                 #search will return all results matching  first name. 
+
                 search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
+                print('search result type', type(search_result))
+                # print(search_result) ///////////////////////DEBUGing////////////////////////
+                # f.press_to_continue()///////////////////////DEBUGing////////////////////////
                 
 
                 #if contact is found iterate through database and display contact information in a table
@@ -157,6 +162,9 @@ while True:
                         search_id = input(f'\nThere are multiple contacts named {edit_choice}. Select an ID to edit >> ')
                         #use get method to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
+                        print('single search result type',type(single_search_result))
+                        # print(single_search_result) ///////////////////////DEBUGing////////////////////////
+                        # f.press_to_continue() ///////////////////////DEBUGing////////////////////////
 
                         #generator expression to continually loop while the ID entered isnt a valid ID
                         while not next((item for item in search_result if item['id'] == search_id), None):
@@ -168,11 +176,21 @@ while True:
                             #original ID wasn not valid, so assign the valid ID now and exit loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
-                    #show Contact selected and prompt user to edit
-                    os.system('cls||clear')
-                    f.display_table(search_result)
-                    console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
-                    confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
+                    #two seperate confirmatiosn are needed here. One for the result of Query.search() and oone for Query.get()
+                    #Query.search() returns a list of dicts and Query.get() returns a dict
+                    if len(search_result) > 1:
+                        #show Contact selected and prompt user to edit
+                        os.system('cls||clear')
+                        f.display_table(search_result)
+                        console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
+                        confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
+                    else:
+                        #show Contact selected and prompt user to edit
+                        os.system('cls||clear')
+                        f.display_table(search_result)
+                        console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Editing a Contact'))
+                        confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
+                        
                     
 
                     #match case for contact, Close contact, Family contact and work contact
@@ -332,7 +350,6 @@ while True:
                             
                             #original ID wasn not valid, so assign the valid ID now and exit loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
-
                     # #if there are multiple contacts with the same first name
                     # #prompt user to select one based on ID
                     # if len(search_result) > 1:
