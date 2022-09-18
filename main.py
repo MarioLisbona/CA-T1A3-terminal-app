@@ -360,11 +360,28 @@ while True:
                     #     #PRINTING RAW STRING HERE FOR DEBUGGING
                     #     print(single_search_result['id'])
 
-                    #show Contact selected and prompt user to edit
-                    os.system('cls||clear')
-                    f.display_table(search_result)
-                    console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
-                    confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
+                    #two seperate confirmatiosn are needed here. One for the result of Query.search() and oone for Query.get()
+                    #Query.search() returns a list of dicts and Query.get() returns a dict
+
+                    if len(search_result) > 1:
+                        #show Contact selected and prompt user to edit
+                        os.system('cls||clear')
+                        f.display_table(search_result)
+                        console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Deleting a Contact'))
+                        confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
+                    else:
+                        #show Contact selected and prompt user to edit
+                        os.system('cls||clear')
+                        f.display_table(search_result)
+                        console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Deleting a Contact'))
+                        confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
+                        
+
+                    # #show Contact selected and prompt user to edit
+                    # os.system('cls||clear')
+                    # f.display_table(search_result)
+                    # console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
+                    # confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
 
                     #deleting for when multiple records have come back from search - and a single one has been selected
                     if len(search_result) > 1:
