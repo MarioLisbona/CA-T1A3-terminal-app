@@ -14,30 +14,53 @@ import sys
 from tinydb import TinyDB
 from tinydb import Query
 
-#creating instnace of the TinyDB class
-#ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
-
-#creating instance of the TinyDB class and assigning the json file
-ContactsDb = TinyDB('contacts.json')
-# ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT ------USE THIS TO START WITH AN EMPTY DATABASE
-
-#create unique user identifer
-#iterate though database to find the ID of the last entry (highest number)
-#.json file will be read at the start every time the application is initalised
-contacts = ContactsDb.all()
-for contact in contacts:
-    user_id = contact.doc_id
-
-#increment user_id to make it 1 above current last id.
-
-user_id += 1
-
 #create instance of the tinydb Query class
 QueryDb = Query()
 
 #ceate instance of console for printing displays
 #using import print would result in all numbers being printed cyan
 console = Console()
+
+
+#creating instnace of the TinyDB class
+#ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
+
+
+#creating instance of the TinyDB class and assigning the json file
+# ContactsDb = TinyDB('contacts.json')
+# ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT ------USE THIS TO START WITH AN EMPTY DATABASE
+
+#create unique user identifer
+#iterate though database to find the ID of the last entry (highest number)
+#.json file will be read at the start every time the application is initalised
+# contacts = ContactsDb.all()
+
+print()
+console.print(
+    Panel.fit("[magenta]\nPlease Choose and option:\n\n - Open New Contacts Book\n - Open an Existing Contacts Book\n - Quit Application\n",
+     title="[cyan]Welcome to your Contacts Book")
+     )
+
+db_choice = Prompt.ask('Please make a selection: ', choices=['New', 'Existing', 'Quit'])
+
+if db_choice == 'New':
+    user_id = 0
+    ContactsDb = TinyDB('contacts.json')
+    contacts = ContactsDb.all()
+elif db_choice == 'Existing':
+    ContactsDb = TinyDB('mock-data.json')
+    contacts = ContactsDb.all()
+elif db_choice == 'Quit':
+    sys.exit()
+
+
+for contact in contacts:
+    user_id = contact.doc_id
+
+#increment user_id to make it 1 above current last id.
+user_id += 1
+
+
 
 #variable for user menu choice used to match case
 menu_choice = None
@@ -50,7 +73,7 @@ while True:
     f.menu_prompt()
 
     #assign input for menu and clear screen
-    menu_choice = Prompt.ask('Please make a selecttion: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
+    menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
     os.system('cls||clear')
 
     # match case user input with upper for A, E, D, DC, DA, Q to quit Application
@@ -66,7 +89,7 @@ while True:
                 #call function to display add contact menu
                 #use Prompt from rich.prompt module to give a selection menu to the user and assign choice to add_choice
                 f.add_contact_prompt()
-                add_choice = Prompt.ask('Please make a selecttion: ', choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
+                add_choice = Prompt.ask('Please make a selection: ', choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
                 os.system('cls||clear')
 
                 #match case for different types of contacts to be created
@@ -179,7 +202,7 @@ while True:
 
                 #if contact is found iterate through database and display contact information in a table
                 if search_result:
-                    os.system('cls||clear')
+                    # os.system('cls||clear')
                     f.display_table(search_result)
 
                     #if there are multiple contacts with the same first name
@@ -197,7 +220,7 @@ while True:
                         #User validation cruicial here so that correct ID is edited
                         # #generator expression to continually loop while the ID entered isnt a valid ID
                         while not next((item for item in search_result if item['id'] == search_id), None):
-                            os.system('cls||clear')
+                            # os.system('cls||clear')
                             f.display_table(search_result)
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Editing a Contact'))
                             search_id = f.continue_prompt()
@@ -209,13 +232,13 @@ while True:
                     #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
                     if len(search_result) > 1:
                         #show Contact selected and prompt user to edit
-                        os.system('cls||clear')
+                        # os.system('cls||clear')
                         f.display_table(search_result)
                         console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
                         confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
                     else:
                         #show Contact selected and prompt user to edit
-                        os.system('cls||clear')
+                        # os.system('cls||clear')
                         f.display_table(search_result)
                         console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Editing a Contact'))
                         confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
@@ -375,7 +398,7 @@ while True:
 
                         #generator expression to continually loop while the ID entered isnt a valid ID
                         while not next((item for item in search_result if item['id'] == search_id), None):
-                            os.system('cls||clear')
+                            # os.system('cls||clear')
                             f.display_table(search_result)
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Deleting a Contact'))
                             # search_id = Prompt.ask('Please choose a valid ID >> ', default="")
@@ -388,13 +411,13 @@ while True:
                     #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
                     if len(search_result) > 1:
                         #show Contact selected and prompt user to edit
-                        os.system('cls||clear')
+                        # os.system('cls||clear')
                         f.display_table(search_result)
                         console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Deleting a Contact'))
                         confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
                     else:
                         #show Contact selected and prompt user to edit
-                        os.system('cls||clear')
+                        # os.system('cls||clear')
                         f.display_table(search_result)
                         console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Deleting a Contact'))
                         confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
@@ -450,7 +473,7 @@ while True:
 
                     #if contact is found iterate through dict to display contact information
                     if search_result:
-                        os.system('cls||clear')
+                        # os.system('cls||clear')
                         f.display_table(search_result)
 
                         #confirm user wants to search for another contact
@@ -468,10 +491,18 @@ while True:
 
         #Display all contacts
         case 'DA':
-            #display the entire database in a table
-            whole_db = ContactsDb.all()
-            f.display_table(whole_db)
-            f.continue_prompt()
+            #If contacts databse is empty, show error message
+            if not ContactsDb:
+                os.system('cls||clear')
+                search_again = False
+                console.print(Panel.fit('[magenta]You cannot display contacts.\nYour Contacts Book is empty.', title='[cyan]Display all Contacts'))
+                f.continue_prompt()
+            
+            else:
+                #display the entire database in a table
+                whole_db = ContactsDb.all()
+                f.display_table(whole_db)
+                f.continue_prompt()
 
         case 'Q':
             break

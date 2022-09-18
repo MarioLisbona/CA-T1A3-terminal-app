@@ -6,19 +6,23 @@ from rich.panel import Panel
 from rich.table import Table
 from rich import print
 
-console = Console()
-
 # User prompt fuction with information on how to use the program
 def menu_prompt():
-    """
-    This function clears the screen each time and prints a user prompt with instructions on how to use the program
-    """    
+    """_summary_
+        Menu_prompt function clears the screen each time and displays a table with Home Menu options and keyboard keys to access menu
+    """   
+    #clear screen and create and instance of Console from Rich module
     os.system('cls||clear')
+    console = Console()
+    
+    #create a table
     table = Table(title=print("[bold yellow]\nWelcome to your Contacts Database\nPlease Select from the menu below[/bold yellow]"))
  
+    #add columns and headings
     table.add_column('Home | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
 
+    #add rows with menu options
     table.add_row('Add Contact', 'A')
     table.add_row('Edit Contact', 'E')
     table.add_row('Delete Contact', 'D')
@@ -26,18 +30,25 @@ def menu_prompt():
     table.add_row('Display all Contacts', 'DA')
     table.add_row('Quit Application', 'Q')
 
-    console = Console()
+    #display table
     console.print(table)
 
 def add_contact_prompt():
-    """
-    This function clears the screen each time and prints a user prompt with instructions on how to use the program
-    """    
+    """_summary_
+        add_contact_prompt function clears the screen each time and displays a table with Add Contact Menu options and keyboard keys to access menu
+    """  
+    #clear screen and create and instance of Console from Rich module  
     os.system('cls||clear')
+    console = Console()
+
+    #create a table
     table = Table(title=print("[bold yellow]\nAdding a Contact. Please Select from the menu below[/bold yellow]"))
+    
+    #add columns and headings
     table.add_column('Add | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
 
+    #add rows with menu options
     table.add_row('Add a Contact', 'C')
     table.add_row('Add a Close Contact', 'CC')
     table.add_row('Add a Family Contact Contact', 'FC')
@@ -45,13 +56,25 @@ def add_contact_prompt():
     table.add_row('Home', 'H')
     table.add_row('Quit Application', 'Q')
 
-    console = Console()
+    #display table
     console.print(table)
 
 
 def display_table(list):
+    """_summary_
+        display_table function recives a list of search results and dsiplays them in a table
+    Args:
+        list (_type_): a list of results matching user's search input
+    """
+
+    #clear screen and create and instance of Console from Rich module 
+    os.system('cls||clear')
+    console = Console()
+
+    #create a table
     table = Table(title="Your Contacts")
 
+    #add columns and headings
     table.add_column("Id", style="cyan", no_wrap=True)
     table.add_column("First name", style="magenta")
     table.add_column("Last name", style="magenta")
@@ -63,6 +86,8 @@ def display_table(list):
     table.add_column("Work Phone", style="green")
     table.add_column("Skills", style="green")
 
+    #iterate through list of results to add each row to the table.
+    #if / elif used to print each type of contact - Contact, Close Contact, Family Contact, Work Contact
     for idx, val in enumerate(list):
         if len(val) == 5:
             table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'])
@@ -73,7 +98,25 @@ def display_table(list):
         elif len(val) == 9:
             table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
 
+    #display table
     console.print(table)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 # ===========================functions will not edit as expected=====================
 # def update_single_result_contact(data_base, result, f_name, l_name, phone):
 #     data_base.update({'first_name': f_name}, doc_ids=[result[0].doc_id])
