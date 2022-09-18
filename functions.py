@@ -119,3 +119,29 @@ def continue_prompt():
     prompt = Prompt.ask("Press Enter to continue...", default="")
 
     return prompt
+
+def add_contact(id, contact_type, first_name, last_name, phone, address, pet_name, fav_drink, work_address, work_phone, skills):
+    if contact_type == 'Contact' or contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
+        contact = {'id': str(id), 'type': contact_type, 'first_name': first_name, 'last_name': last_name, 'phone': phone}
+
+        if contact_type == 'Contact':
+            return contact
+
+    if contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
+        contact['address'] = address
+
+        if contact_type == 'Close Contact':
+            return contact
+    
+    if contact_type == 'Family Contact':
+        contact['pet'] = pet_name
+        contact['fav_drink'] = fav_drink
+
+        return contact
+    
+    if contact_type == 'Work Contact':
+        contact['work_address'] = work_address
+        contact['work_phone'] = work_phone
+        contact['skills'] = skills
+
+        return contact

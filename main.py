@@ -79,9 +79,15 @@ while True:
                         #create contact dictionary with set_details returned variables
                         #insert contact into TinyDB json file
                         #increment user id
+
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
+                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
+                        
+                        contact = f.add_contact(
+                            id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                            address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None)
+
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
