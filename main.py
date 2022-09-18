@@ -134,7 +134,8 @@ while True:
                 os.system('cls||clear')
                 search_again = False
                 console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
-                prompt = Prompt.ask("Press Enter to continue...", default="")
+                # prompt = Prompt.ask("Press Enter to continue...", default="")
+                f.press_to_continue()
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
@@ -171,7 +172,8 @@ while True:
                             os.system('cls||clear')
                             f.display_table(search_result)
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Editing a Contact'))
-                            search_id = Prompt.ask('Please choose a valid ID >> ', default="")
+                            # search_id = Prompt.ask('Please choose a valid ID >> ', default="")
+                            search_id = f.press_to_continue()
                             
                             #original ID wasn not valid, so assign the valid ID now and exit loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
@@ -240,7 +242,8 @@ while True:
                                 ContactsDb.update({'work_phone': w_phone}, doc_ids=[search_result[0].doc_id])
                                 ContactsDb.update({'skills': skills}, doc_ids=[search_result[0].doc_id])
 
-                        prompt = Prompt.ask("Press Enter to continue...", default="")
+                        # prompt = Prompt.ask("Press Enter to continue...", default="")
+                        prompt = f.press_to_continue()
                         search_again = False
                         break
 
@@ -293,7 +296,8 @@ while True:
                                 ContactsDb.update({'skills': skills}, single_search_result.doc_id)
 
                         #prompt user to press to continue. Stops screen refreshing after breaking ot of math case
-                        prompt = Prompt.ask("Press Enter to continue...", default="")
+                        # prompt = Prompt.ask("Press Enter to continue...", default="")
+                        prompt = f.press_to_continue()
                         search_again = False
                         break
 
@@ -317,7 +321,8 @@ while True:
                 os.system('cls||clear')
                 search_again = False
                 console.print(Panel.fit('[magenta]You cannot delete any contacts.\nYour Contacts Book is empty.', title='[cyan]Deleting a Contact'))
-                prompt = Prompt.ask("Press Enter to continue...", default="")
+                # prompt = Prompt.ask("Press Enter to continue...", default="")
+                prompt = f.press_to_continue()
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
@@ -346,7 +351,8 @@ while True:
                             os.system('cls||clear')
                             f.display_table(search_result)
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Deleting a Contact'))
-                            search_id = Prompt.ask('Please choose a valid ID >> ', default="")
+                            # search_id = Prompt.ask('Please choose a valid ID >> ', default="")
+                            search_id = f.press_to_continue()
                             
                             #original ID wasn not valid, so assign the valid ID now and exit loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
@@ -419,7 +425,8 @@ while True:
                     os.system('cls||clear')
                     search_again = False
                     console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying a Contact'))
-                    prompt = Prompt.ask("Press Enter to continue...", default="")
+                    # prompt = Prompt.ask("Press Enter to continue...", default="")
+                    prompt = f.press_to_continue()
 
                 #while search_again is true prompt user to enter a name to search for
                 while search_again:
