@@ -17,17 +17,18 @@ from tinydb import Query
 #creating instnace of the TinyDB class
 #ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
 
-#creating instnace of the TinyDB class and assigning the json file
+#creating instance of the TinyDB class and assigning the json file
 ContactsDb = TinyDB('contacts.json')
 # ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT ------USE THIS TO START WITH AN EMPTY DATABASE
 
 #create unique user identifer
 #iterate though database to find the ID of the last entry (highest number)
-#add 1
-
+#.json file will be read at the start every time the application is initalised
 contacts = ContactsDb.all()
 for contact in contacts:
     user_id = contact.doc_id
+
+#increment user_id to make it 1 above current last id.
 
 user_id += 1
 
@@ -42,11 +43,12 @@ console = Console()
 menu_choice = None
 
 #While true will always loop.
-#Break statments and Q to quit will end the application
+#Break statments and match caes 'Q' to quit will end the application
 #show menu a and get user's menu choice
 while True:
-    #call function to display add contact menu
+    #call function to display menu
     f.menu_prompt()
+
     #assign input for menu and clear screen
     menu_choice = Prompt.ask('Please make a selecttion: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
     os.system('cls||clear')
@@ -57,38 +59,33 @@ while True:
         #Add a contact
         case 'A':
             #new while loop and match case to choose what type of contact to enter
-            # add_choice = None
 
             #While true will always loop.
-            #Break statments and Q to quit will end the application
+            #Break statments and match case 'Q' to quit will end the application
             while True:
                 #call function to display add contact menu
-                #use Prompy from rich.prompt module to give a selection menu to the user and assign choice to add_choice
+                #use Prompt from rich.prompt module to give a selection menu to the user and assign choice to add_choice
                 f.add_contact_prompt()
                 add_choice = Prompt.ask('Please make a selecttion: ', choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
                 os.system('cls||clear')
 
-                # Creating a new instance of each class that is chosen - Contact, CloseContact, FamilyContact or WorkContact
-                # using the class method set_details() to get user input for contact
-                #incremendting contact ID each time a contact is created
+                #match case for different types of contacts to be created
                 match add_choice.upper():
                     case 'C':
                         contact_type = 'Contact'
-                        #Panel printing a heading
-                        #set_details method called on Contact class returns the user input -> user input
-                        #create contact dictionary with set_details returned variables
-                        #insert contact into TinyDB json file
-                        #increment user id
-
+                        
+                        #printin panel heading
+                        #call Contact class set_details method to retrieve contact details
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
 
+                        #call add_contact function to create the contact with user input
                         contact = f.add_contact(
                             id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
                             address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
                             )
 
+                        #add contact to database and increment user_id by 1
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -104,7 +101,6 @@ while True:
                             address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
                             )
 
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -120,7 +116,6 @@ while True:
                             address=address, pet_name=pet_name, fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
                             )
 
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -136,7 +131,6 @@ while True:
                             address=address, pet_name=None, fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
                             )
 
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -159,7 +153,6 @@ while True:
                 os.system('cls||clear')
                 search_again = False
                 console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
-                # prompt = Prompt.ask("Press Enter to continue...", default="")
                 f.continue_prompt()
 
             #while search_again is true prompt user to enter a name to search for
@@ -168,14 +161,10 @@ while True:
                 console.print(Panel.fit('[magenta]Search for a contact to edit', title='[cyan]Editing a Contact'))
                 edit_choice = input('Enter a contact\'s first name to edit >> ')
 
-                #use TinyDB search method to return dictionary that matches first name
-                #search will return all results matching  first name. 
+                #use TinyDB search method to return matches for first name
+                #TinyDB search method will return a list of dictionaries if multiple contacts are found
 
                 search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
-                print('search result type', type(search_result))
-                # print(search_result) ///////////////////////DEBUGing////////////////////////
-                # f.press_to_continue()///////////////////////DEBUGing////////////////////////
-                
 
                 #if contact is found iterate through database and display contact information in a table
                 if search_result:
@@ -186,25 +175,23 @@ while True:
                     #prompt user to select ID of contact to edit
                     if len(search_result) > 1:
                         search_id = input(f'\nThere are multiple contacts named {edit_choice}. Select an ID to edit >> ')
-                        #use get method to retrieve contact with ID entered
+                        #use get method on the multiple reults to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
                         print('single search result type',type(single_search_result))
-                        # print(single_search_result) ///////////////////////DEBUGing////////////////////////
-                        # f.press_to_continue() ///////////////////////DEBUGing////////////////////////
-
-                        #generator expression to continually loop while the ID entered isnt a valid ID
+ 
+                        #User validation cruicial here so that correct ID is edited
+                        # #generator expression to continually loop while the ID entered isnt a valid ID
                         while not next((item for item in search_result if item['id'] == search_id), None):
                             os.system('cls||clear')
                             f.display_table(search_result)
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Editing a Contact'))
-                            # search_id = Prompt.ask('Please choose a valid ID >> ', default="")
                             search_id = f.continue_prompt()
                             
-                            #original ID wasn not valid, so assign the valid ID now and exit loop
+                            #original ID wasn not valid, so assign the valid ID at the end of this while loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
-                    #two seperate confirmatiosn are needed here. One for the result of Query.search() and oone for Query.get()
-                    #Query.search() returns a list of dicts and Query.get() returns a dict
+                    #two seperate confirmatons are needed here. One for the result of Query.search() and one for Query.get()
+                    #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
                     if len(search_result) > 1:
                         #show Contact selected and prompt user to edit
                         os.system('cls||clear')
@@ -222,8 +209,8 @@ while True:
 
                     #match case for contact, Close contact, Family contact and work contact
                     #once contact type is established upse tinyDB update method to update contact with that ID
-                    #this match case is for when only a single result returns using TinyDB search method
-                    #MSecond match case is used for the finer search is resolved using ID
+                    #this match case is for when only a single result is found and returned by TinySB search() method
+                    #Second match case is used for when multiple contacts are found and get() method is used to select single contact with ID
 
                     #using 'type' key to establish what kind of contact needs updating.
                     #lots of repitition here - need to try and DRY it
@@ -274,8 +261,8 @@ while True:
 
                     #match case for contact, Close contact, Family contact and work contact
                     #once contact type is established upse tinyDB update method to update contact with that ID
-                    #this match case is for when only a single result returns using TinyDB search method
-                    #this match case is for when multiple records are returned - Get is the used to find single record with ID
+                    #Previous match case is for when only a single result is found and returned by TinySB search() method
+                    #This match case is used for when multiple contacts are found and get() method is used to select single contact with ID
 
 
                     #using 'type' key to establish what kind of contact needs updating.
@@ -355,8 +342,8 @@ while True:
                 console.print(Panel.fit('[magenta]Search for a contact to delete', title='[cyan]Deleting a Contact'))
                 del_choice = input('Enter a contact name to delete >> ')
 
-                #use TinyDB search method to return dictionary that matches first name
-                #search will return all results matching the name. need to add some logic to allow user to choose which contact to delete using unique ID
+                #use TinyDB search method to return matches for first name
+                #TinyDB search method will return a list of dictionaries if multiple contacts are found
                 search_result = ContactsDb.search(QueryDb.first_name == del_choice)
 
                  #if contact is found iterate through dict to display contact information
@@ -381,19 +368,9 @@ while True:
                             
                             #original ID wasn not valid, so assign the valid ID now and exit loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
-                    # #if there are multiple contacts with the same first name
-                    # #prompt user to select one based on ID
-                    # if len(search_result) > 1:
-                    #     search_id = input('more than one result. Select an ID to edit')
 
-                    #     #use get method to retrieve contact with ID
-                    #     single_search_result = ContactsDb.get(QueryDb.id == search_id)
-                    #     #PRINTING RAW STRING HERE FOR DEBUGGING
-                    #     print(single_search_result['id'])
-
-                    #two seperate confirmatiosn are needed here. One for the result of Query.search() and oone for Query.get()
-                    #Query.search() returns a list of dicts and Query.get() returns a dict
-
+                    #two seperate confirmatons are needed here. One for the result of Query.search() and one for Query.get()
+                    #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
                     if len(search_result) > 1:
                         #show Contact selected and prompt user to edit
                         os.system('cls||clear')
@@ -406,13 +383,6 @@ while True:
                         f.display_table(search_result)
                         console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Deleting a Contact'))
                         confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
-                        
-
-                    # #show Contact selected and prompt user to edit
-                    # os.system('cls||clear')
-                    # f.display_table(search_result)
-                    # console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
-                    # confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
 
                     #deleting for when multiple records have come back from search - and a single one has been selected
                     if len(search_result) > 1:
@@ -423,8 +393,8 @@ while True:
                             break
                         else:
                             break
+
                     #deleting for when single record has come back from search
-                    
                     elif len(search_result) == 1:
                         if confirm_delete:
                             ContactsDb.remove(QueryDb.id == search_result[0]['id'])
