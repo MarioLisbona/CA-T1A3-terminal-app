@@ -115,7 +115,7 @@ def display_table(list):
 #     console.print(Panel.fit(f'[magenta]ID {contact.id}: {contact.f_name} {contact.l_name}', title='[cyan]Editing a Contact'))
 #     return True
 
-def press_to_continue():
+def continue_prompt():
     prompt = Prompt.ask("Press Enter to continue...", default="")
 
     return prompt
