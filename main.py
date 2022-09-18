@@ -83,10 +83,11 @@ while True:
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Contact"))
                         f_name, l_name, phone = classes.Contact.set_details()
                         # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
-                        
+
                         contact = f.add_contact(
                             id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                            address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None)
+                            address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                            )
 
                         ContactsDb.insert(contact)
                         user_id += 1
@@ -97,7 +98,13 @@ while True:
                         #as above
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
+
+                        contact = f.add_contact(
+                            id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                            address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                            )
+
+                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -107,7 +114,13 @@ while True:
                         #as above
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
+
+                        contact = f.add_contact(
+                            id=user_id, contact_type='Family Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                            address=address, pet_name=pet_name, fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
+                            )
+
+                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -117,7 +130,13 @@ while True:
                         #as above
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
+
+                        contact = f.add_contact(
+                            id=user_id, contact_type='Work Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                            address=address, pet_name=None, fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
+                            )
+
+                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
