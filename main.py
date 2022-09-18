@@ -80,10 +80,12 @@ while True:
                         f_name, l_name, phone = classes.Contact.set_details()
 
                         #call add_contact function to create the contact with user input
-                        contact = f.add_contact(
-                            id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                            address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
-                            )
+                        # contact = f.add_contact(
+                        #     id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                        #     address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                        #     )
+
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
 
                         #add contact to database and increment user_id by 1
                         ContactsDb.insert(contact)
@@ -96,10 +98,12 @@ while True:
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
 
-                        contact = f.add_contact(
-                            id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                            address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
-                            )
+                        # contact = f.add_contact(
+                        #     id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                        #     address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                        #     )
+
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
 
                         ContactsDb.insert(contact)
                         user_id += 1
@@ -111,10 +115,12 @@ while True:
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Family Contact"))
                         f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
 
-                        contact = f.add_contact(
-                            id=user_id, contact_type='Family Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                            address=address, pet_name=pet_name, fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
-                            )
+                        # contact = f.add_contact(
+                        #     id=user_id, contact_type='Family Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                        #     address=address, pet_name=pet_name, fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
+                        #     )
+
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
 
                         ContactsDb.insert(contact)
                         user_id += 1
@@ -126,10 +132,12 @@ while True:
                         console.print(Panel.fit("[magenta]Enter your Contact's details", title="[cyan]Adding a Work Contact"))
                         f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
 
-                        contact = f.add_contact(
-                            id=user_id, contact_type='Work Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                            address=address, pet_name=None, fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
-                            )
+                        # contact = f.add_contact(
+                        #     id=user_id, contact_type='Work Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                        #     address=address, pet_name=None, fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
+                        #     )
+
+                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
 
                         ContactsDb.insert(contact)
                         user_id += 1
@@ -165,6 +173,9 @@ while True:
                 #TinyDB search method will return a list of dictionaries if multiple contacts are found
 
                 search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
+                # ///////////////////DEBUGG
+                print('search result', search_result)
+                f.continue_prompt()
 
                 #if contact is found iterate through database and display contact information in a table
                 if search_result:
@@ -177,7 +188,11 @@ while True:
                         search_id = input(f'\nThere are multiple contacts named {edit_choice}. Select an ID to edit >> ')
                         #use get method on the multiple reults to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
-                        print('single search result type',type(single_search_result))
+                        print('search_result', search_result)
+                        print('search_result type', type(search_result))
+                        print('single_search result',single_search_result)
+                        print('single_search result type',type(single_search_result))
+                        f.continue_prompt()
  
                         #User validation cruicial here so that correct ID is edited
                         # #generator expression to continually loop while the ID entered isnt a valid ID
@@ -281,31 +296,31 @@ while True:
                             case 'Close Contact':
                                 #as above
                                 f_name, l_name, phone, address = classes.CloseContact.set_details()
-                                ContactsDb.update({'first_name': f_name}, single_search_result.doc_id)
-                                ContactsDb.update({'last_name': l_name}, single_search_result.doc_id)
-                                ContactsDb.update({'phone': phone}, single_search_result.doc_id)
-                                ContactsDb.update({'address': address}, single_search_result.doc_id)
+                                ContactsDb.update({'first_name': f_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'last_name': l_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'address': address}, doc_ids=[single_search_result.doc_id])
 
                             case 'Family Contact':
                                 #as above
                                 f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
-                                ContactsDb.update({'first_name': f_name}, single_search_result.doc_id)
-                                ContactsDb.update({'last_name': l_name}, single_search_result.doc_id)
-                                ContactsDb.update({'phone': phone}, single_search_result.doc_id)
-                                ContactsDb.update({'address': address}, single_search_result.doc_id)
-                                ContactsDb.update({'pet': pet_name}, single_search_result.doc_id)
-                                ContactsDb.update({'fav_drink': fav_drink}, single_search_result.doc_id)
+                                ContactsDb.update({'first_name': f_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'last_name': l_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'address': address}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'pet': pet_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'fav_drink': fav_drink}, doc_ids=[single_search_result.doc_id])
 
                             case 'Work Contact':
                                 #as above
                                 f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
-                                ContactsDb.update({'first_name': f_name}, single_search_result.doc_id)
-                                ContactsDb.update({'last_name': l_name}, single_search_result.doc_id)
-                                ContactsDb.update({'phone': phone}, single_search_result.doc_id)
-                                ContactsDb.update({'address': address}, single_search_result.doc_id)
-                                ContactsDb.update({'work_address': w_address}, single_search_result.doc_id)
-                                ContactsDb.update({'work_phone': w_phone}, single_search_result.doc_id)
-                                ContactsDb.update({'skills': skills}, single_search_result.doc_id)
+                                ContactsDb.update({'first_name': f_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'last_name': l_name}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'address': address}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'work_address': w_address}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'work_phone': w_phone}, doc_ids=[single_search_result.doc_id])
+                                ContactsDb.update({'skills': skills}, doc_ids=[single_search_result.doc_id])
 
                         #prompt user to press to continue. Stops screen refreshing after breaking ot of math case
                         # prompt = Prompt.ask("Press Enter to continue...", default="")
