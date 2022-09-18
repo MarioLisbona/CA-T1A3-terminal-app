@@ -88,7 +88,7 @@ while True:
 
     # /////////////////////////////////////////////CAN REMOVE .uuper()//////////////////////////////////
     # match case user input with upper for A, E, D, DC, DA, Q to quit Application
-    match menu_choice.upper():
+    match menu_choice:
 
         #Add a contact
         case 'A':
