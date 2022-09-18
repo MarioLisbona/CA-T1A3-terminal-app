@@ -116,7 +116,7 @@ def display_table(list):
 
 
 
-    
+
 # ===========================functions will not edit as expected=====================
 # def update_single_result_contact(data_base, result, f_name, l_name, phone):
 #     data_base.update({'first_name': f_name}, doc_ids=[result[0].doc_id])
@@ -159,6 +159,7 @@ def display_table(list):
 #     return True
 
 def continue_prompt():
+    
     prompt = Prompt.ask("Press Enter to continue...", default="")
 
     return prompt
