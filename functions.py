@@ -75,7 +75,7 @@ def display_table(list):
     """_summary_
         display_table function recives a list of search results and dsiplays them in a table
     Args:
-        list (_type_): a list of results matching user's search input
+        list (list): a list of results matching user's search input
     """
 
     #clear screen and create and instance of Console from Rich module 
@@ -113,69 +113,39 @@ def display_table(list):
     console.print(table)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ===========================functions will not edit as expected=====================
-# def update_single_result_contact(data_base, result, f_name, l_name, phone):
-#     data_base.update({'first_name': f_name}, doc_ids=[result[0].doc_id])
-#     data_base.update({'first_name': l_name}, doc_ids=[result[0].doc_id])
-#     data_base.update({'first_name': phone}, doc_ids=[result[0].doc_id])
-
-# def update_single_result_close_contact(data_base, query, result, f_name, l_name, phone, address):
-#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
-#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
-#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
-#     data_base.update({'address': address}, query.address == result[0]['address'])
-
-# def update_single_result_family_contact(data_base, query, result, f_name, l_name, phone, address, pet_name, fav_drink):
-#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
-#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
-#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
-#     data_base.update({'address': address}, query.address == result[0]['address'])
-#     data_base.update({'pet': pet_name}, query.pet == result[0]['pet'])
-#     data_base.update({'fav_drink': fav_drink}, query.fav_drink == result[0]['fav_drink'])
-
-# def update_single_result_work_contact(data_base, query, result, f_name, l_name, phone, address, w_address, w_phone, skills):
-#     data_base.update({'first_name': f_name}, query.first_name == result[0]['first_name'])
-#     data_base.update({'first_name': l_name}, query.first_name == result[0]['last_name'])
-#     data_base.update({'first_name': phone}, query.first_name == result[0]['phone'])
-#     data_base.update({'address': address}, query.address == result[0]['address'])
-#     data_base.update({'work_address': w_address}, query.work_address == result[0]['work_address'])
-#     data_base.update({'work_phone': w_phone}, query.work_phone == result[0]['work_phone'])
-#     data_base.update({'skills': skills}, query.skills == result[0]['skills'])
-    
-
-
-# def confirm_edit(contact):
-#     os.system('cls||clear')
-#     console.print(Panel.fit('[magenta]Searching for the contact......', title='[cyan]Editing a Contact'))
-#     confirm_edit = Confirm.ask(f'A you sure you want to edit\nID: {contact.id} - {contact.f_name} {contact.l_name} ?')
-#     if not confirm_edit:
-#         return False
-#     os.system('cls||clear')
-#     console.print(Panel.fit(f'[magenta]ID {contact.id}: {contact.f_name} {contact.l_name}', title='[cyan]Editing a Contact'))
-#     return True
-
 def continue_prompt():
-    
+    """_summary_
+        Prompts user to press Enter to continue. Execution is frozen untill keypress
+    Returns:
+        string: returns user input. Used for ID selection for multipe search results. No need for error
+        correction here as its done in the while look with a generator expression
+    """    
     prompt = Prompt.ask("Press Enter to continue...", default="")
 
     return prompt
 
 def add_contact(id, contact_type, first_name, last_name, phone, address, pet_name, fav_drink, work_address, work_phone, skills):
+    """_summary_
+    add_contact will receive as arguments all the available variables for all the four types of contacts.
+    When the function is called, arguments that arent needed are set to None.
+    If statments and booleans based on conrtact type are used to reduce repeition of variables that are used by all the contact
+    types - first_name, last_name, phone etc.
+    Args:
+        id (_type_): string
+        contact_type (_type_): string
+        first_name (_type_): string
+        last_name (_type_): string
+        phone (_type_): string or None
+        address (_type_): string or None
+        pet_name (_type_): string or None
+        fav_drink (_type_): string or None
+        work_address (_type_): string or None
+        work_phone (_type_): string or None
+        skills (_type_): string or None
+
+    Returns:
+        _type_: dictionary
+    """    
     if contact_type == 'Contact' or contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
         contact = {'id': str(id), 'type': contact_type, 'first_name': first_name, 'last_name': last_name, 'phone': phone}
 

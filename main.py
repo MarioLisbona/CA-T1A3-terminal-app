@@ -370,7 +370,6 @@ while True:
                 os.system('cls||clear')
                 search_again = False
                 console.print(Panel.fit('\n[magenta]You cannot delete any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Deleting a Contact'))
-                # prompt = Prompt.ask("Press Enter to continue...", default="")
                 prompt = f.continue_prompt()
 
             #while search_again is true prompt user to enter a name to search for
@@ -459,7 +458,6 @@ while True:
                     os.system('cls||clear')
                     search_again = False
                     console.print(Panel.fit('\n[magenta]You cannot display any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Displaying a Contact'))
-                    # prompt = Prompt.ask("Press Enter to continue...", default="")
                     prompt = f.continue_prompt()
 
                 #while search_again is true prompt user to enter a name to search for
