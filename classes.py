@@ -10,10 +10,35 @@ class Contact:
     #this method allows user input to be gathered before the object is created
     @classmethod
     def set_details(cls):
-        #panel for entering contact details
+        #input validation so that whitepsace on its own cannot be entered for first name
         first_name = input('Enter First Name >> ')
+        while True:
+            if not first_name.isspace():
+                break
+            print('You need to enter a First Name for your Contact')
+            first_name = input('Enter First Name >> ')
+
+        #input validation so that whitepsace on its own cannot be entered for last name
         last_name = input('Enter Last Name >> ')
-        phone = input('Enter Phone Number >> ')
+        while True:
+            if not last_name.isspace():
+                break
+            print('You need to enter a Last Name for your Contact')
+            last_name = input('Enter Last Name >> ')
+        
+        #input validation to elimate non-numeric characters
+        #white space inbetween numbers is allowed
+        phone = input('Enter Phone Number >> ').strip()
+        while True:
+            phone_temp = phone
+            phone_test = phone_temp.replace(' ','')
+
+            if not phone_test.isdigit():
+                print('Phone number can only contain numbers')
+                phone = input('Enter Phone Number >> ').strip()
+            else:
+                phone = phone_temp
+                break
 
         #user input is returned
         return first_name, last_name, phone
