@@ -114,13 +114,13 @@ while True:
                         f_name, l_name, phone = classes.Contact.set_details()
 
                         #call add_contact function to create the contact with user input
-                        # contact = f.add_contact(
-                        #     id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                        #     address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
-                        #     )
+                        contact = f.add_contact(
+                            id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                            address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                            )
 
                         #creating dict with variables and assigning to contact
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
+                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
 
                         #add contact to database and increment user_id by 1
                         ContactsDb.insert(contact)
