@@ -119,9 +119,6 @@ while True:
                             address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
                             )
 
-                        #creating dict with variables and assigning to contact
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone}
-
                         #add contact to database and increment user_id by 1
                         ContactsDb.insert(contact)
                         user_id += 1
@@ -140,8 +137,6 @@ while True:
                             address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
                             )
 
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
-
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -159,8 +154,6 @@ while True:
                             address=address, pet_name=pet_name, fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
                             )
 
-                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'pet': pet_name, 'fav_drink': fav_drink}
-
                         ContactsDb.insert(contact)
                         user_id += 1
                         break
@@ -177,8 +170,6 @@ while True:
                             id=user_id, contact_type='Work Contact', first_name=f_name, last_name=l_name, phone=phone, 
                             address=address, pet_name=None, fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
                             )
-
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address, 'work_address': w_address, 'work_phone': w_phone, 'skills': skills}
 
                         ContactsDb.insert(contact)
                         user_id += 1
