@@ -192,13 +192,13 @@ while True:
             if not ContactsDb:
                 os.system('cls||clear')
                 search_again = False
-                console.print(Panel.fit('[magenta]You cannot edit any contacts.\nYour Contacts Book is empty.', title='[cyan]Editing a Contact'))
+                console.print(Panel.fit('[magenta]\nYou cannot edit any contacts.\nYour Contacts Book is empty.\n', title='[cyan]Editing a Contact'))
                 f.continue_prompt()
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
                 os.system('cls||clear')
-                console.print(Panel.fit('[magenta]Search for a contact to edit', title='[cyan]Editing a Contact'))
+                console.print(Panel.fit('[magenta]\nSearch for a contact to edit\n', title='[cyan]Editing a Contact'))
                 edit_choice = input('Enter a contact\'s first name to edit >> ')
 
                 #use TinyDB search method to return matches for first name
@@ -222,7 +222,7 @@ while True:
                         while not next((item for item in search_result if item['id'] == search_id), None):
                             # os.system('cls||clear')
                             f.display_table(search_result)
-                            console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Editing a Contact'))
+                            console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title='[cyan]Editing a Contact'))
                             search_id = f.continue_prompt()
                             
                             #original ID wasn not valid, so assign the valid ID at the end of this while loop
@@ -233,12 +233,12 @@ while True:
                     if len(search_result) > 1:
                         #show Contact selected and prompt user to edit
                         f.display_table(search_result)
-                        console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Editing a Contact'))
+                        console.print(Panel.fit(f'\nContact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}\n', title='[cyan]Editing a Contact'))
                         confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
                     else:
                         #show Contact selected and prompt user to edit
                         f.display_table(search_result)
-                        console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Editing a Contact'))
+                        console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}\n', title='[cyan]Editing a Contact'))
                         confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
                         
                     
@@ -354,7 +354,7 @@ while True:
                 #user can search again or exit
                 elif not search_result:
                     os.system('cls||clear')
-                    console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Editing a Contact'))
+                    console.print(Panel.fit('\n[magenta]That contact does not exist\n', title='[cyan]Editing a Contact'))
                     search_again = Confirm.ask('Would you like to search for another contact to edit?')
 
         #Delete a contact
@@ -366,14 +366,14 @@ while True:
             if not ContactsDb:
                 os.system('cls||clear')
                 search_again = False
-                console.print(Panel.fit('[magenta]You cannot delete any contacts.\nYour Contacts Book is empty.', title='[cyan]Deleting a Contact'))
+                console.print(Panel.fit('\n[magenta]You cannot delete any contacts.\nYour Contacts Book is empty.\n', title='[cyan]Deleting a Contact'))
                 # prompt = Prompt.ask("Press Enter to continue...", default="")
                 prompt = f.continue_prompt()
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
                 os.system('cls||clear')
-                console.print(Panel.fit('[magenta]Search for a contact to delete', title='[cyan]Deleting a Contact'))
+                console.print(Panel.fit('\n[magenta]Search for a contact to delete\n', title='[cyan]Deleting a Contact'))
                 del_choice = input('Enter a contact name to delete >> ')
 
                 #use TinyDB search method to return matches for first name
@@ -396,7 +396,7 @@ while True:
                         while not next((item for item in search_result if item['id'] == search_id), None):
                             f.display_table(search_result)
                             # valid ID has not been entered. display prompt to reenter valid ID
-                            console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.', title='[cyan]Deleting a Contact'))
+                            console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title='[cyan]Deleting a Contact'))
                             search_id = f.continue_prompt()
                             
                             #original ID wasn not valid, so assign the valid ID now and exit loop
@@ -407,12 +407,12 @@ while True:
                     if len(search_result) > 1:
                         #show Contact selected and prompt user to edit
                         f.display_table(search_result)
-                        console.print(Panel.fit(f'Contact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}', title='[cyan]Deleting a Contact'))
+                        console.print(Panel.fit(f'\nContact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}\n', title='[cyan]Deleting a Contact'))
                         confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
                     else:
                         #show Contact selected and prompt user to edit
                         f.display_table(search_result)
-                        console.print(Panel.fit(f'Contact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}', title='[cyan]Deleting a Contact'))
+                        console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}\n', title='[cyan]Deleting a Contact'))
                         confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
 
                     #deleting when multiple records have come back from search - and a single one has been selected
@@ -438,7 +438,7 @@ while True:
                 #user can search again or exit
                 elif not search_result:
                     os.system('cls||clear')
-                    console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Deleting a Contact'))
+                    console.print(Panel.fit('\n[magenta]That contact does not exist\n', title='[cyan]Deleting a Contact'))
                     search_again = Confirm.ask('Would you like to search for another contact to delete?')
         
         #Display a contact
@@ -450,14 +450,14 @@ while True:
                 if not ContactsDb:
                     os.system('cls||clear')
                     search_again = False
-                    console.print(Panel.fit('[magenta]You cannot display any contacts.\nYour Contacts Book is empty.', title='[cyan]Displaying a Contact'))
+                    console.print(Panel.fit('\n[magenta]You cannot display any contacts.\nYour Contacts Book is empty.\n', title='[cyan]Displaying a Contact'))
                     # prompt = Prompt.ask("Press Enter to continue...", default="")
                     prompt = f.continue_prompt()
 
                 #while search_again is true prompt user to enter a name to search for
                 while search_again:
                     os.system('cls||clear')
-                    console.print(Panel.fit('[magenta]Search for a contact to display', title='[cyan]Displaying a Contact'))
+                    console.print(Panel.fit('\n[magenta]Search for a contact to display\n', title='[cyan]Displaying a Contact'))
                     display_choice = input('Enter a contact name to display >> ')
 
                     #use TinyDB search method to return dictionary that matches first name
@@ -480,7 +480,7 @@ while True:
                     # user can search again or exit
                     else:
                         os.system('cls||clear')
-                        console.print(Panel.fit('[magenta]That contact does not exist', title='[cyan]Displaying a Contact'))
+                        console.print(Panel.fit('\n[magenta]That contact does not exist\n', title='[cyan]Displaying a Contact'))
                         search_again = Confirm.ask('Would you like to search for another contact to Display?')
 
         #Display all contacts
@@ -489,7 +489,7 @@ while True:
             if not ContactsDb:
                 os.system('cls||clear')
                 search_again = False
-                console.print(Panel.fit('[magenta]You cannot display contacts.\nYour Contacts Book is empty.', title='[cyan]Display all Contacts'))
+                console.print(Panel.fit('\n[magenta]You cannot display contacts.\nYour Contacts Book is empty.\n', title='[cyan]Display all Contacts'))
                 f.continue_prompt()
             
             else:
