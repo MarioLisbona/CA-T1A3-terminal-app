@@ -14,9 +14,15 @@ def menu_prompt():
     #clear screen and create and instance of Console from Rich module
     os.system('cls||clear')
     console = Console()
+
+    print()
+    console.print(
+        Panel.fit("[magenta]\nPlease make a selection   \nfrom the menu below\n",
+        title="[cyan]Home")
+    )
     
     #create a table
-    table = Table(title=print("[bold yellow]\nWelcome to your Contacts Database\nPlease Select from the menu below[/bold yellow]"))
+    table = Table()
  
     #add columns and headings
     table.add_column('Home | Operation', style='cyan', justify='left', no_wrap=True)
@@ -41,18 +47,23 @@ def add_contact_prompt():
     os.system('cls||clear')
     console = Console()
 
+    print()
+    console.print(
+        Panel.fit("[magenta]\nPlease make a selection from the\nmenu below\n",
+        title="[cyan]Add Contact")
+    )
     #create a table
-    table = Table(title=print("[bold yellow]\nAdding a Contact. Please Select from the menu below[/bold yellow]"))
+    table = Table()
     
     #add columns and headings
     table.add_column('Add | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
 
     #add rows with menu options
-    table.add_row('Add a Contact', 'C')
-    table.add_row('Add a Close Contact', 'CC')
-    table.add_row('Add a Family Contact Contact', 'FC')
-    table.add_row('Add a Work Contact', 'WC')
+    table.add_row('Add Contact', 'C')
+    table.add_row('Add Close Contact', 'CC')
+    table.add_row('Add Family Contact Contact', 'FC')
+    table.add_row('Add Work Contact', 'WC')
     table.add_row('Home', 'H')
     table.add_row('Quit Application', 'Q')
 
