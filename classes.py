@@ -11,9 +11,10 @@ class Contact:
     @classmethod
     def set_details(cls):
         #panel for entering contact details
-        first_name = input('Enter First Name >> ').strip()
-        last_name = input('Enter Last Name >> ').strip()
-        phone = input('Enter Phone Number >> ').strip()
+        first_name = input('Enter First Name >> ')
+        last_name = input('Enter Last Name >> ')
+        phone = input('Enter Phone Number >> ')
+
         #user input is returned
         return first_name, last_name, phone
 
@@ -40,7 +41,7 @@ class CloseContact(Contact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone = super().set_details()
-        address = input('Enter Address >> ').strip()
+        address = input('Enter Address >> ')
 
         #user input is returned
         return first_name, last_name, phone, address
@@ -69,8 +70,8 @@ class FamilyContact(CloseContact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
-        pet_name = input('Enter Pet\'s Name >> ').strip()
-        fav_drink = input('Enter Favourite Drink >> ').strip()
+        pet_name = input('Enter Pet\'s Name >> ')
+        fav_drink = input('Enter Favourite Drink >> ')
 
         #user input is returned
         return first_name, last_name, phone, address, pet_name, fav_drink
@@ -101,9 +102,9 @@ class WorkContact(CloseContact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
-        work_address = input('Enter Work Address >> ').strip()
-        work_phone = input('Enter Work Phone >> ').strip()
-        skills = input('Enter Skills >> ').strip()
+        work_address = input('Enter Work Address >> ')
+        work_phone = input('Enter Work Phone >> ')
+        skills = input('Enter Skills >> ')
 
         #user input is returned
         return first_name, last_name, phone, address, work_address, work_phone, skills
