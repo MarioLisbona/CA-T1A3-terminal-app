@@ -135,12 +135,12 @@ while True:
                         console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Close Contact"))
                         f_name, l_name, phone, address = classes.CloseContact.set_details()
 
-                        # contact = f.add_contact(
-                        #     id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                        #     address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
-                        #     )
+                        contact = f.add_contact(
+                            id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
+                            address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                            )
 
-                        contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
+                        # contact = {'id': str(user_id), 'type': contact_type, 'first_name': f_name, 'last_name': l_name, 'phone': phone, 'address': address}
 
                         ContactsDb.insert(contact)
                         user_id += 1
