@@ -1,18 +1,17 @@
 #Importing modules
-from ast import Break
+import os
+import sys
 from rich.prompt import Prompt
 from rich.prompt import Confirm
 from rich.console import Console
-from rich.table import Table
-# from rich import print
+# from rich.table import Table
 from rich.panel import Panel
-import classes
-import functions as f
-import os
-import sys
-
 from tinydb import TinyDB
 from tinydb import Query
+
+#importing classes and functions
+import classes
+import functions as f
 
 #create instance of the tinydb Query class
 QueryDb = Query()
@@ -82,11 +81,11 @@ while True:
     #call function to display menu
     f.menu_prompt()
 
-    #use Prompt from rich.prompt module to give a selection menu to the user and assign choice to menu_choice and clear screen
+    #use Prompt from rich.prompt module to give a selection menu to the user
+    # assign choice to menu_choice and clear screen
     menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
     os.system('cls||clear')
 
-    # /////////////////////////////////////////////CAN REMOVE .uuper()//////////////////////////////////
     # match case user input with upper for A, E, D, DC, DA, Q to quit Application
     match menu_choice:
 
