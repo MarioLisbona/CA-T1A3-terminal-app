@@ -1,3 +1,5 @@
+import functions as f
+
 #base class - minimum information stored in this class
 class Contact:
     def __init__(self, id, f_name, l_name, phone, class_type='c'):
@@ -10,35 +12,11 @@ class Contact:
     #this method allows user input to be gathered before the object is created
     @classmethod
     def set_details(cls):
-        #input validation so that whitepsace on its own cannot be entered for first name
-        first_name = input('Enter First Name >> ')
-        while True:
-            if not first_name.isspace():
-                break
-            print('You need to enter a First Name for your Contact')
-            first_name = input('Enter First Name >> ')
 
-        #input validation so that whitepsace on its own cannot be entered for last name
-        last_name = input('Enter Last Name >> ')
-        while True:
-            if not last_name.isspace():
-                break
-            print('You need to enter a Last Name for your Contact')
-            last_name = input('Enter Last Name >> ')
-        
-        #input validation to elimate non-numeric characters
-        #white space inbetween numbers is allowed
-        phone = input('Enter Phone Number >> ').strip()
-        while True:
-            phone_temp = phone
-            phone_test = phone_temp.replace(' ','')
-
-            if not phone_test.isdigit():
-                print('Phone number can only contain numbers')
-                phone = input('Enter Phone Number >> ').strip()
-            else:
-                phone = phone_temp
-                break
+        #calling functions to validate user input
+        first_name = f.validate_name('First')
+        last_name = f.validate_name('Last')
+        phone = f.validate_phone()
 
         #user input is returned
         return first_name, last_name, phone
@@ -128,7 +106,10 @@ class WorkContact(CloseContact):
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
         work_address = input('Enter Work Address >> ')
-        work_phone = input('Enter Work Phone >> ')
+        
+        #validate user input for phone number
+        work_phone = f.validate_phone()
+        
         skills = input('Enter Skills >> ')
 
         #user input is returned
