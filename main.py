@@ -189,11 +189,7 @@ while True:
             search_again = True
 
             #If contacts databse is empty, show error message
-            if not ContactsDb:
-                os.system('cls||clear')
-                search_again = False
-                console.print(Panel.fit('[magenta]\nYou cannot edit any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Editing a Contact'))
-                f.continue_prompt()
+            search_again = f.empty_database_alert(ContactsDb, 'Edit', 'Editing')
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
@@ -365,12 +361,15 @@ while True:
             # variable used to control while loop
             search_again = True
 
-            #If contacts dict is empty, show error message
-            if not ContactsDb:
-                os.system('cls||clear')
-                search_again = False
-                console.print(Panel.fit('\n[magenta]You cannot delete any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Deleting a Contact'))
-                prompt = f.continue_prompt()
+            #If contacts databse is empty, show error message
+            search_again = f.empty_database_alert(ContactsDb, 'Delete', 'Deleting')
+
+            # #If contacts dict is empty, show error message
+            # if not ContactsDb:
+            #     os.system('cls||clear')
+            #     search_again = False
+            #     console.print(Panel.fit('\n[magenta]You cannot delete any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Deleting a Contact'))
+            #     prompt = f.continue_prompt()
 
             #while search_again is true prompt user to enter a name to search for
             while search_again:
@@ -453,12 +452,15 @@ while True:
                 # variable used to control while loop
                 search_again = True
 
-                #If contacts dict is empty, show error message
-                if not ContactsDb:
-                    os.system('cls||clear')
-                    search_again = False
-                    console.print(Panel.fit('\n[magenta]You cannot display any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Displaying a Contact'))
-                    prompt = f.continue_prompt()
+                #If contacts databse is empty, show error message
+                search_again = f.empty_database_alert(ContactsDb, 'Display', 'Displaying')
+
+                # #If contacts dict is empty, show error message
+                # if not ContactsDb:
+                #     os.system('cls||clear')
+                #     search_again = False
+                #     console.print(Panel.fit('\n[magenta]You cannot display any contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Displaying a Contact'))
+                #     prompt = f.continue_prompt()
 
                 #while search_again is true prompt user to enter a name to search for
                 while search_again:
@@ -492,14 +494,19 @@ while True:
 
         #Display all contacts
         case 'DA':
-            #If contacts databse is empty, show error message
-            if not ContactsDb:
-                os.system('cls||clear')
-                search_again = False
-                console.print(Panel.fit('\n[magenta]You cannot display contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Display all Contacts'))
-                f.continue_prompt()
             
-            else:
+            #If contacts databse is empty, show error message
+            search_again = f.empty_database_alert(ContactsDb, 'Display', 'Displaying')
+
+            # #If contacts databse is empty, show error message
+            # if not ContactsDb:
+            #     os.system('cls||clear')
+            #     search_again = False
+            #     console.print(Panel.fit('\n[magenta]You cannot display contacts.\nYour Contacts Book is empty.\n', title_align='left', title='[cyan]Display all Contacts'))
+            #     f.continue_prompt()
+            
+            if search_again:
+            # else:
                 #display the entire database in a table
                 whole_db = ContactsDb.all()
                 f.display_table(whole_db)
