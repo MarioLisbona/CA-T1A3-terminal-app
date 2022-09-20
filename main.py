@@ -48,7 +48,7 @@ db_choice = Prompt.ask('Please make a selection: ', choices=['New', 'Existing', 
 #user .all method to assign contents of database to contact variable
 if db_choice == 'New':
     user_id = 0
-    ContactsDb = TinyDB('contacts.json')
+    ContactsDb = TinyDB('./data/contacts.json')
     ContactsDb.truncate()                #USED HERE FOR EMPTY DATABASE EACH TIME - WILL NOT SAVE CONTACTS
     contacts = ContactsDb.all()
 
@@ -56,7 +56,7 @@ if db_choice == 'New':
 #create and instance of TinyDB clss and assign it to empty contacts json file
 #user .all method to assign contents of database to contact variable
 elif db_choice == 'Existing':
-    ContactsDb = TinyDB('mock-data.json')
+    ContactsDb = TinyDB('./data/mock-data.json')
     contacts = ContactsDb.all()
 
 #quit application
