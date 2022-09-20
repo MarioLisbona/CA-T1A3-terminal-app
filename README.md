@@ -150,6 +150,8 @@ A match case, combined with while loops will be used for the home menu and the a
 
 <br>
 
+There will also be another match cased used by the application only (not accessible by the user) that will facilitate the editing of contacts. It will access use the documens returned by the search of the json file. The ```type: contact_type``` of that document will be accessed and a match case will be used to determin which type of contact needs to be edited.
+
 
 ## **R7 - Implementation Plan**
 
