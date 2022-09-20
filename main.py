@@ -208,8 +208,12 @@ while True:
                     #if there are multiple contacts with the same first name
                     #prompt user to select ID of contact to edit
                     if len(search_result) > 1:
-                        console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {edit_choice}.\n', title_align='left', title='[cyan]Choose a contact ID'))
-                        search_id = input('Select an ID to edit >> ')
+                        console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {edit_choice}.\n', title_align='left', title='[cyan]Choose a contact ID', subtitle_align='left', subtitle='[cyan]Editing a Contact'))
+                        search_id = Prompt.ask('\nSelect an ID to Edit >> ', default='Home')
+                        # search_id = input('Select an ID to edit >> ')
+
+                        if search_id == 'Home':
+                            break
 
                         #use get method on the multiple reults to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
@@ -373,8 +377,15 @@ while True:
                     #if there are multiple contacts with the same first name
                     #prompt user to select ID of contact to edit
                     if len(search_result) > 1:
-                        console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {del_choice}.\n', title_align='left', title='[cyan]Choose a contact ID'))
-                        search_id = input('Select an ID to Delete >> ')
+                        console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {del_choice}.\n', title_align='left', title='[cyan]Choose a contact ID', subtitle_align='left', subtitle='[cyan]Deleting a Contact'))
+                        # search_id = input('Select an ID to Delete >> ')
+
+                        search_id = Prompt.ask('\nSelect an ID to Delete >> ', default='Home')
+
+                        if search_id == 'Home':
+                            break
+
+
                         #use get method to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
