@@ -240,3 +240,24 @@ def validate_phone():
 
     return phone
 
+
+def confirm_edit_delete(action, search_result_from_search, search_result_from_get=None):
+    console = Console()
+    display_table(search_result_from_search)
+    print()
+    if len(search_result_from_search) > 1:
+        console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result_from_get["id"]}[/cyan]: [magenta]{search_result_from_get["first_name"]} {search_result_from_get["last_name"]}\n',
+            title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle=f'[cyan]Confirm {action}?'))
+        print()
+        confirm = Confirm.ask(f'Are you sure you want to edit [cyan]{search_result_from_get["id"]}[/cyan]: [magenta]{search_result_from_get["first_name"]} {search_result_from_get["last_name"]}[/magenta] ?')
+
+        return confirm
+    else:
+        console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result_from_search[0]["id"]}[/cyan]: [magenta]{search_result_from_search[0]["first_name"]} {search_result_from_search[0]["last_name"]}\n', 
+            title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle='[cyan]Confirm edit?'))
+        print()
+        confirm = Confirm.ask(f'Are you sure you want to edit [cyan]{search_result_from_search[0]["id"]}[/cyan]: [magenta]{search_result_from_search[0]["first_name"]} {search_result_from_search[0]["last_name"]}[/magenta] ?')
+
+        return confirm
+
+
