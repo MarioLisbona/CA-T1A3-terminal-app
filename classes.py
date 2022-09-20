@@ -1,3 +1,5 @@
+import functions as f
+
 #base class - minimum information stored in this class
 class Contact:
     def __init__(self, id, f_name, l_name, phone, class_type='c'):
@@ -10,10 +12,12 @@ class Contact:
     #this method allows user input to be gathered before the object is created
     @classmethod
     def set_details(cls):
-        #panel for entering contact details
-        first_name = input('Enter First Name >> ')
-        last_name = input('Enter Last Name >> ')
-        phone = input('Enter Phone Number >> ')
+
+        #calling functions to validate user input
+        first_name = f.validate_name('First')
+        last_name = f.validate_name('Last')
+        phone = f.validate_phone()
+
         #user input is returned
         return first_name, last_name, phone
 
@@ -102,7 +106,10 @@ class WorkContact(CloseContact):
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
         work_address = input('Enter Work Address >> ')
-        work_phone = input('Enter Work Phone >> ')
+        
+        #validate user input for phone number
+        work_phone = f.validate_phone()
+        
         skills = input('Enter Skills >> ')
 
         #user input is returned
