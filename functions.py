@@ -214,7 +214,7 @@ def validate_name(string):
         user_input = input(f'Enter {string} Name >> ')
 
     return user_input.strip()
-    
+       
 def validate_phone():
     """
     User input is stripped of leading and trailing white space.
