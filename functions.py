@@ -119,8 +119,10 @@ def continue_prompt():
     Returns:
         string: returns user input. Used for ID selection for multipe search results. No need for error
         correction here as its done in the while look with a generator expression
-    """    
-    prompt = Prompt.ask("Press Enter to continue...", default="")
+    """  
+    console = Console()
+    with console.status('Press Enter to continue...'):  
+        prompt = Prompt.ask('', default='')
 
     return prompt
 
@@ -204,7 +206,7 @@ def validate_name(string):
 
     Returns:
         string: sting with no leading or trailing spaces
-    """    
+    """  
 
     user_input = input(f'Enter {string} Name >> ')
 
