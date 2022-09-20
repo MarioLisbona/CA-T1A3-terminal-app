@@ -171,6 +171,29 @@ def add_contact(id, contact_type, first_name, last_name, phone, address, pet_nam
 
         return contact
 
+def empty_database_alert(database, action, title_action):
+    """
+    Function will give uesr an error when attempting to Edit, Delete, Display or Display all contacts when database is empty.
+
+    Args:
+        database (list): Contacts database
+        action (string): the action being ettempted - edit delete, display.
+        title_action (string): action verb for panel title
+
+    Returns:
+        boolean: return search again boolean for outer while loop
+    """    
+    console = Console()
+    if not database:
+        os.system('cls||clear')
+        search_again = False
+        console.print(Panel.fit(f'[magenta]\nYou cannot {action} any contacts.\nYour Contacts Book is empty.\n', title_align='left', title=f'[cyan]{title_action} a Contact'))
+        continue_prompt()
+        return search_again
+
+    search_again = True
+    return True
+
 def validate_name(string):
     """
     Function receives a string to guide user to what input they are entering.
