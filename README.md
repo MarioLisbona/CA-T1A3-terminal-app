@@ -10,9 +10,11 @@
   - [**R4 - Links**](#r4---links)
   - [**R5 - Styling Conventions**](#r5---styling-conventions)
   - [**R6 - Features**](#r6---features)
-    - [**Feature 1 - Something**](#feature-1---something)
-    - [**Feature 2 - Something**](#feature-2---something)
-    - [**Feature 3 - Something**](#feature-3---something)
+    - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact)
+    - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact)
+    - [**Feature 3 - Delete a contact**](#feature-3---delete-a-contact)
+    - [**Feature 4 - Display contact**](#feature-4---display-contact)
+    - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one)
   - [**R7 - Implementation Plan**](#r7---implementation-plan)
   - [**R8 - Help Documentation**](#r8---help-documentation)
 
@@ -23,7 +25,11 @@
 - [^1 - Template]() - Erika Varagouli (2021) [*What Each Markup Language Is Used For*](https://www.semrush.com/blog/markup-language/), Semrush website, accessed 25 August 2022.
 
 
-- [^1 - Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
+
+
+- [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
+- [Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
+- 
 
 ## **R4 - Links**
 
@@ -36,23 +42,38 @@
 
 ## **R6 - Features**
 
-### **Feature 1 - Something**
+### **Feature 1 - Create / Add a contact**
+
+The Contacts Book will all
 
   - use of variables and the concept of variable scope
   - loops and conditional control structures
   - error handling
   
-### **Feature 2 - Something**
+### **Feature 2 - Edit a contact**
 
   - use of variables and the concept of variable scope
   - loops and conditional control structures
   - error handling
   
-### **Feature 3 - Something**
+### **Feature 3 - Delete a contact**
 
   - use of variables and the concept of variable scope
   - loops and conditional control structures
   - error handling
+
+### **Feature 4 - Display contact**
+
+  - use of variables and the concept of variable scope
+  - loops and conditional control structures
+  - error handling
+
+### **Feature 5 - Creating a new Contact Book or Accessing an existing one**
+
+  - use of variables and the concept of variable scope
+  - loops and conditional control structures
+  - error handling
+
 
 ## **R7 - Implementation Plan**
 
