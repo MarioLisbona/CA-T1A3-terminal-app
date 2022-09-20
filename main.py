@@ -227,20 +227,11 @@ while True:
 
                     #two seperate confirmatons are needed here. One for the result of Query.search() and one for Query.get()
                     #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
+
                     if len(search_result) > 1:
-                        #show Contact selected and prompt user to edit
-                        f.display_table(search_result)
-                        print()
-                        console.print(Panel.fit(f'\nContact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}\n', title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle='[cyan]Confirm edit?'))
-                        print()
-                        confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
+                        confirm_edit = f.confirm_edit_delete('Edit', search_result, single_search_result)
                     else:
-                        #show Contact selected and prompt user to edit
-                        f.display_table(search_result)
-                        print()
-                        console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}\n', title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle='[cyan]Confirm edit?'))
-                        print()
-                        confirm_edit = Confirm.ask(f'Are you sure you want to edit [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
+                        confirm_edit = f.confirm_edit_delete('Edit', search_result)
 
                     #match case for contact, Close contact, Family contact and work contact
                     #once contact type is established upse tinyDB update method to update contact with that ID
@@ -399,20 +390,11 @@ while True:
 
                     #two seperate confirmatons are needed here. One for the result of Query.search() and one for Query.get()
                     #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
+
                     if len(search_result) > 1:
-                        #show Contact selected and prompt user to edit
-                        f.display_table(search_result)
-                        print()
-                        console.print(Panel.fit(f'\nContact Selected - [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}\n', title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle='[cyan]Confirm delete?'))
-                        print()
-                        confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{single_search_result["id"]}[/cyan]: [magenta]{single_search_result["first_name"]} {single_search_result["last_name"]}[/magenta] ?')
+                        confirm_delete = f.confirm_edit_delete('Delete', search_result, single_search_result)
                     else:
-                        #show Contact selected and prompt user to edit
-                        f.display_table(search_result)
-                        print()
-                        console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}\n', title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle='[cyan]Confirm delete?'))
-                        print()
-                        confirm_delete = Confirm.ask(f'Are you sure you want to delete [cyan]{search_result[0]["id"]}[/cyan]: [magenta]{search_result[0]["first_name"]} {search_result[0]["last_name"]}[/magenta] ?')
+                        confirm_delete = f.confirm_edit_delete('Delete', search_result)
 
                     #deleting when multiple records have come back from search - and a single one has been selected
                     if len(search_result) > 1:
