@@ -385,6 +385,8 @@ def contacts_app():
     #create and instance of TinyDB clss and assign it to empty contacts json file
     #user .all method to assign contents of database to contact variable
     if db_choice == 'New':
+        print('New Database will be created')
+        continue_prompt()
         user_id = 0
         ContactsDb = TinyDB('contacts.json')
         ContactsDb.truncate()                #USED HERE FOR EMPTY DATABASE EACH TIME - WILL NOT SAVE CONTACTS
@@ -394,6 +396,8 @@ def contacts_app():
     #create and instance of TinyDB clss and assign it to empty contacts json file
     #user .all method to assign contents of database to contact variable
     elif db_choice == 'Existing':
+        print('Existing database will be used')
+        continue_prompt()
         user_id = 0
         ContactsDb = TinyDB('mock-data.json')
         contacts = ContactsDb.all()
@@ -825,4 +829,3 @@ def contacts_app():
             case 'Q':
                 break
 
-contacts_app()
