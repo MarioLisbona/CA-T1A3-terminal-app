@@ -6,9 +6,9 @@ from rich.prompt import Confirm
 from rich.console import Console
 # from rich.table import Table
 from rich.panel import Panel
-from tinydb import TinyDB
+# from tinydb import TinyDB
 from tinydb import Query
-
+from tinydb import TinyDB
 #importing classes and functions
 import classes
 import functions as f
