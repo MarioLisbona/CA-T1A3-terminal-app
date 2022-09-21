@@ -219,9 +219,8 @@ def contacts_app():
             string: returns user input. Used for ID selection for multipe search results. No need for error
             correction here as its done in the while look with a generator expression
         """  
-        console = Console()
-        with console.status('Press Enter to continue...'):  
-            prompt = Prompt.ask('', default='')
+
+        prompt = Prompt.ask("Press Enter to continue...", default="")
 
         return prompt
 
