@@ -1,7 +1,9 @@
-import functions as f
+# import functions as f
 
 #base class - minimum information stored in this class
 class Contact:
+    import functions as f
+
     def __init__(self, id, f_name, l_name, phone, class_type='c'):
         self.id = id
         self.f_name = f_name
@@ -34,6 +36,8 @@ class Contact:
 
 #new class with more detailed information
 class CloseContact(Contact):
+    import functions as f
+
     def __init__(self, id, f_name, l_name, phone, address, class_type='cc'):
         super().__init__(id, f_name, l_name, phone)
         self.address = address
@@ -62,6 +66,8 @@ class CloseContact(Contact):
     
 
 class FamilyContact(CloseContact):
+    import functions as f
+
     def __init__(self, id, f_name, l_name, phone, address, pet_name, fav_drink, class_type='fc'):
         super().__init__(id, f_name, l_name, phone, address)
         self.pet_name = pet_name
@@ -92,6 +98,8 @@ class FamilyContact(CloseContact):
         return f'\nID:\t\t\t{self.id}\ncontact:\t\t{self.f_name} {self.l_name}\nPhone:\t\t\t{self.phone}\nAddress:\t\t{self.address}\nPet name:\t\t{self.pet_name}\nFavourite Drink:\t{self.fav_drink}'
 
 class WorkContact(CloseContact):
+    import functions as f
+    
     def __init__(self, id, f_name, l_name, phone, address, work_address, work_phone, skills, class_type='wc'):
         super().__init__(id, f_name, l_name, phone, address)
         self.work_address = work_address

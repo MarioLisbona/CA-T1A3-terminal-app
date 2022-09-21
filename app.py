@@ -9,11 +9,16 @@ from rich.panel import Panel
 from tinydb import TinyDB
 from tinydb import Query
 
-#importing classes and functions
-import classes
-import functions as f
+# #importing classes and functions
+# import classes
+# import functions as f
 
 def contacts_app():
+
+    #importing classes and functions
+    import classes
+    import functions as f
+
 
     #create instance of the tinydb Query class
     QueryDb = Query()
