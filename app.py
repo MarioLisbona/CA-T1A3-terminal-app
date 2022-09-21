@@ -373,8 +373,6 @@ def contacts_app():
     #ceate instance of console for printing displays
     console = Console()
 
-    user_id = 0
-
     #prompt user to open new contact book or existing contact book
     print()
     console.print(
@@ -397,6 +395,7 @@ def contacts_app():
     #create and instance of TinyDB clss and assign it to empty contacts json file
     #user .all method to assign contents of database to contact variable
     elif db_choice == 'Existing':
+        user_id = 0
         ContactsDb = TinyDB('mock-data.json')
         contacts = ContactsDb.all()
 
