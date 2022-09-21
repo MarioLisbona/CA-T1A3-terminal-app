@@ -28,7 +28,6 @@ console.print(
 
 #prompting user choice using Prompt method from Rich Module
 db_choice = Prompt.ask('Please make a selection: ', choices=['New', 'Existing', 'Quit'])
-
 #if choice is 'New', initalise user_id to 0
 #create and instance of TinyDB clss and assign it to empty contacts json file
 #user .all method to assign contents of database to contact variable
