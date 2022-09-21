@@ -19,6 +19,16 @@
     - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one)
     - [**Feature 6 - Match cases for main program menu and Add Contact Menu**](#feature-6---match-cases-for-main-program-menu-and-add-contact-menu)
   - [**R7 - Implementation Plan**](#r7---implementation-plan)
+    - [**Create Classes**](#create-classes)
+    - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact-1)
+    - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact-1)
+    - [**Feature 3 - Delete a contact**](#feature-3---delete-a-contact-1)
+    - [**Feature 4 - Display contacts**](#feature-4---display-contacts-1)
+    - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one-1)
+    - [**Feature 6 - Match cases for main program menu and Add Contact Menu**](#feature-6---match-cases-for-main-program-menu-and-add-contact-menu-1)
+    - [**Menus**](#menus)
+    - [**Prioritisation**](#prioritisation)
+    - [**Time line and Due dates**](#time-line-and-due-dates)
   - [**R8 - Help Documentation**](#r8---help-documentation)
 
 
@@ -32,6 +42,8 @@
 
 - [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
 - [Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
+
+https://www.tablesgenerator.com/
 - 
 
 ## **R4 - Links**
@@ -155,12 +167,60 @@ There will also be another match cased used by the application only (not accessi
 
 ## **R7 - Implementation Plan**
 
-- outlines how each feature will be implemented and a checklist of tasks for each feature
-- prioritise the implementation of different features, or checklist items within a feature
-- provide a deadline, duration or other time indicator for each feature or checklist/checklist-item
-- Utilise a suitable project management platform to track this implementation plan.
-- Provide screenshots/images and/or a reference to an accessible project management platform used to track this implementation plan. 
-- Your checklists for each feature should have at least 5 items.
+### **Create Classes**
+The classes will contain methods to facilitate a user entering the input for each contact. Inhertance will be used for the common input fields, firt name, last name and phone. Once these are used I can move onto the skeleton match case for flow control and then adding contacts.
+
+View Trello card -  [Classes](https://trello.com/c/e7o1Y9Aj)
+
+### **Feature 1 - Create / Add a contact**
+
+View Trello card -  [Add a Contact](https://trello.com/c/xzj45NUS)
+
+### **Feature 2 - Edit a contact**
+
+View Trello card -  [Edit a contact](https://trello.com/c/Hd7fBVcw)
+
+### **Feature 3 - Delete a contact**
+
+View Trello card -  [Delete a contact](https://trello.com/c/owEd4Rbj)
+
+### **Feature 4 - Display contacts**
+
+View Trello card -  [Display Contacts](https://trello.com/c/PRJZXY4k)
+
+### **Feature 5 - Creating a new Contact Book or Accessing an existing one**
+
+View Trello card -  [New / Existing Contact Book](https://trello.com/c/KbvWE7qc)
+
+### **Feature 6 - Match cases for main program menu and Add Contact Menu**
+
+View Trello card -  [Match Cases](https://trello.com/c/Al7F4mLX)
+
+### **Menus**
+
+View Trello card -  [Match Cases](https://trello.com/c/wAWi0Slh)
+
+
+
+
+
+
+
+
+### **Prioritisation**
+
+| Feature                                 	| Priority 	| features needed to complete         	|
+|-----------------------------------------	|----------	|-------------------------------------	|
+| Classes                                 	| 1        	| None                                	|
+| Feature 1 - Create / Add a contact      	| 2        	| Classes                             	|
+| Feature 4 - Display contacts            	| 3        	| Classes, Add/Create Contact         	|
+| Feature 7 - Menus                       	| 4        	| Rich Module                         	|
+| Feature 6 - Match Cases                 	| 5        	| Can test this logic with mock input 	|
+| Feature 5 - New / Existing Contact Book 	| 6        	| New / Existing Contact Book         	|
+| Feature 3 - Delete a contact            	| 7        	| Classes, Add/Create Contact, TinyDB 	|
+| Feature 2 - Edit a contact              	| 8        	| Classes, Add/Create Contact, TinyDB 	|
+
+### **Time line and Due dates**
 
 ## **R8 - Help Documentation**
 
@@ -194,3 +254,5 @@ trello for implementation plan
 https://www.asciiart.eu/
 
 packaging termial app as pypi package
+
+
