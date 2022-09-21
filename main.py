@@ -209,6 +209,7 @@ while True:
                             f.display_table(search_result)
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title_align='left', title='[cyan]Editing a Contact'))
                             search_id = f.continue_prompt()
+   
                             
                             #original ID wasn not valid, so assign the valid ID at the end of this while loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
