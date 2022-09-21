@@ -34,7 +34,7 @@ class CloseContact(Contact):
         address = input('Enter Address >> ')
 
         #user input is returned
-        return first_name, last_name, phone, address
+        return first_name, last_name, phone, address.strip()
 
 
 class FamilyContact(CloseContact):
@@ -49,8 +49,8 @@ class FamilyContact(CloseContact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
-        pet_name = input('Enter Pet\'s Name >> ')
-        fav_drink = input('Enter Favourite Drink >> ')
+        pet_name = input('Enter Pet\'s Name >> ').strip()
+        fav_drink = input('Enter Favourite Drink >> ').strip()
 
         #user input is returned
         return first_name, last_name, phone, address, pet_name, fav_drink
@@ -69,12 +69,12 @@ class WorkContact(CloseContact):
     @classmethod
     def set_details(cls):
         first_name, last_name, phone, address = super().set_details()
-        work_address = input('Enter Work Address >> ')
+        work_address = input('Enter Work Address >> ').strip()
         
         #validate user input for phone number
         work_phone = f.validate_phone()
         
-        skills = input('Enter Skills >> ')
+        skills = input('Enter Skills >> ').strip()
 
         #user input is returned
         return first_name, last_name, phone, address, work_address, work_phone, skills
