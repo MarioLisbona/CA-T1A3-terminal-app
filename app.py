@@ -472,9 +472,3 @@ def contacts_app():
 
             case 'Q':
                 break
-
-
-contacts_app()
-
-
-
