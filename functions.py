@@ -6,7 +6,6 @@ from rich.panel import Panel
 from rich.table import Table
 from rich import print
 
-# User prompt fuction with information on how to use the program
 def menu_prompt():
     """_summary_
         Menu_prompt function clears the screen each time and displays a table with Home Menu options and keyboard keys to access menu

@@ -19,20 +19,6 @@ QueryDb = Query()
 #ceate instance of console for printing displays
 console = Console()
 
-
-#creating instnace of the TinyDB class
-#ContactsDb = TinyDB('mock-data.json') #MOCK DATA JSON FILE
-
-
-#creating instance of the TinyDB class and assigning the json file
-# ContactsDb = TinyDB('contacts.json')
-# ContactsDb.truncate() #EMPTY JSON FOR THE MOMENT ------USE THIS TO START WITH AN EMPTY DATABASE
-
-#create unique user identifer
-#iterate though database to find the ID of the last entry (highest number)
-#.json file will be read at the start every time the application is initalised
-# contacts = ContactsDb.all()
-
 #prompt user to open new contact book or existing contact book
 print()
 console.print(
