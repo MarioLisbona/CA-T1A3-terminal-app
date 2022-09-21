@@ -158,7 +158,7 @@ A match case, combined with while loops will be used for the home menu and the a
 
 <br>
 
-<img src="./docs/T1A3%20Match%20case.drawio.png" alt="Class inheritance">
+<img src="./docs/T1A3-match-case-flowchart.png" width="800" alt="Class inheritance">
 
 <br>
 
@@ -168,7 +168,7 @@ There will also be another match cased used by the application only (not accessi
 ## **R7 - Implementation Plan**
 
 ### **Create Classes**
-The classes will contain methods to facilitate a user entering the input for each contact. Inhertance will be used for the common input fields, firt name, last name and phone. Once these are used I can move onto the skeleton match case for flow control and then adding contacts.
+The classes will contain methods to facilitate a user entering the input for each contact. Inhertance will be used for the common input fields, fisrt name, last name and phone. Once these are used I can move onto the skeleton match case for flow control and then adding contacts.
 
 View Trello card -  [Classes](https://trello.com/c/e7o1Y9Aj)
 
@@ -221,6 +221,19 @@ View Trello card -  [Match Cases](https://trello.com/c/wAWi0Slh)
 | Feature 2 - Edit a contact              	| 8        	| Classes, Add/Create Contact, TinyDB 	|
 
 ### **Time line and Due dates**
+
+| Feature                                 	| Start Date 	| Date to be completed by 	|
+|-----------------------------------------	|:----------:	|:-----------------------:	|
+| Classes                                 	| 14/09/2022 	|        14/09/2022       	|
+| Feature 1 - Create / Add a contact      	| 14/09/2022 	|        14/09/2022       	|
+| Feature 4 - Display contacts            	| 15/09/2022 	|        16/09/2022       	|
+| Feature 7 - Menus                       	| 15/09/2022 	|        15/09/2022       	|
+| Feature 6 - Match Cases                 	| 19/09/2022 	|        19/09/2022       	|
+| Feature 5 - New / Existing Contact Book 	| 19/09/2022 	|        19/09/2022       	|
+| Feature 3 - Delete a contact            	| 19/09/2022 	|        19/09/2022       	|
+| Feature 2 - Edit a contact              	| 19/09/2022 	|        21/09/2022       	|
+| Packaging for PyPI                      	| 20/09/2022 	|        22/09/2022       	|
+| testing, Help Documentation             	| 22/09/2022 	|        25/09/2022       	|
 
 ## **R8 - Help Documentation**
 

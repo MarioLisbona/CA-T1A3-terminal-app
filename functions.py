@@ -59,10 +59,10 @@ def add_contact_prompt():
     table.add_column('Key', justify='left', style='magenta')
 
     #add rows with menu options
-    table.add_row('Add Contact', 'C')
-    table.add_row('Add Close Contact', 'CC')
-    table.add_row('Add Family Contact Contact', 'FC')
-    table.add_row('Add Work Contact', 'WC')
+    table.add_row('Add a Contact', 'C')
+    table.add_row('Add a Close Contact', 'CC')
+    table.add_row('Add a Family Contact Contact', 'FC')
+    table.add_row('Add a Work Contact', 'WC')
     table.add_row('Home', 'H')
     table.add_row('Quit Application', 'Q')
 
