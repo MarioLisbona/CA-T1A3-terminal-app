@@ -1,4 +1,4 @@
-import functions as f
+# import functions as f
 
 class Contact:
     def __init__(self, id, f_name, l_name, phone, class_type='c'):
