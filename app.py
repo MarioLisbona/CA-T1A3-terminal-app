@@ -10,8 +10,8 @@ from tinydb import TinyDB
 from tinydb import Query
 
 #importing classes and functions
-import contacts_app.classes as classes
-import contacts_app.functions as f
+import my_contacts.classes as classes
+import my_contacts.functions as f
 
 # import functions as f
 # import classes

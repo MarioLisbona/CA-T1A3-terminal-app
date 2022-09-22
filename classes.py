@@ -1,4 +1,4 @@
-import contacts_app.functions as f
+import my_contacts.functions as f
 
 # import functions as f
 
