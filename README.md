@@ -6,7 +6,6 @@
 [**Table of contents**](#table-of-contents)
 - [**Coder Academy - Assignment T1A3 - Terminal Application: Submitted by Mario Lisbona**](#coder-academy---assignment-t1a3---terminal-application-submitted-by-mario-lisbona)
   - [**Table of contents**](#table-of-contents)
-  - [**R3 - Attributions**](#r3---attributions)
   - [**R4 - Links**](#r4---links)
   - [**R5 - Styling Conventions**](#r5---styling-conventions)
   - [**R6 - Features**](#r6---features)
@@ -30,21 +29,7 @@
     - [**Prioritisation**](#prioritisation)
     - [**Time line and Due dates**](#time-line-and-due-dates)
   - [**R8 - Help Documentation**](#r8---help-documentation)
-
-
-
-
-## **R3 - Attributions**
-- [^1 - Template]() - Erika Varagouli (2021) [*What Each Markup Language Is Used For*](https://www.semrush.com/blog/markup-language/), Semrush website, accessed 25 August 2022.
-
-
-
-
-- [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
-- [Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
-
-https://www.tablesgenerator.com/
-- 
+  - [**Attributions**](#attributions)
 
 ## **R4 - Links**
 
@@ -156,18 +141,13 @@ If the user chooses to create a new database then the user ID will need to be in
 
 A match case, combined with while loops will be used for the home menu and the add contact menu so that the application will run continually until the user chooses to quit.
 
-<br>
-
-<img src="./docs/T1A3-match-case-flowchart.png" width="800" alt="Class inheritance">
-
-<br>
-
 There will also be another match cased used by the application only (not accessible by the user) that will facilitate the editing of contacts. It will access use the documens returned by the search of the json file. The ```type: contact_type``` of that document will be accessed and a match case will be used to determin which type of contact needs to be edited.
 
 
 ## **R7 - Implementation Plan**
 
 Below is a description of how each feature will be implemented. Below that are the prioritisation and timeline tables showing how I will structure the time available for the project
+
 Please use the following link to my Trello Kanban board. You will need to be a member of this board to access the cards linked below in each feature.
 
 *Become a membor of my Trello Kanban Board* -  [T1A3 - Terminal Application](https://trello.com/invite/b/saDZZxHD/5d41a86ce59bd13dba73c716b2d86d00/t1a3-terminal-application)
@@ -280,28 +260,225 @@ ContactsDb.update({'last_name': l_name}, doc_ids=[single_search_result.doc_id])
 ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
 ```
 
-
 *View Trello card* -  [Edit a contact](https://trello.com/c/Hd7fBVcw)
 
 ### **Feature 3 - Delete a contact**
+
+The delete feature is a stripped down version of the edit detaure. It makes use of all the functionality that was created for the edit feature. It still needs to be able to delete a contact that is a dict or a dict inside a list but it doesnt need to do as much heavy lifting as the edit feature. 
+
+The delete feature needs to allow the user to search for a contact and delete it if it's a single result, or do a finer search and select from multiple contacts with a user ID. Once a valid ID is selected, that contact is deleted from the database. The same generator expression as used in the edit feature is used to validate the User ID being entered by the user.
+
+- The code below will call the `confirm_edit_delete()` fucntion that will display a confirmation message with the user ID and first and last names.
+- it needs to be passed the two types of search_rsults, a list of dictionaries and a dictionary for when there are more than 1 search result or a dictionary for a single reuslt.
+
+```py
+if len(search_result) > 1:
+    confirm_delete = f.confirm_edit_delete('Delete', search_result, single_search_result)
+else:
+    confirm_delete = f.confirm_edit_delete('Delete', search_result)
+```
+
+- The code below will delete the record once its selected using the TinyDB `.remove()` and `quer()` methods. If the id being queried in the database is the same as the id in the result found from the search the record is deleted.
+-  If/else statement will allow for the correct type of data/contact to be deleted.
+
+```py
+#deleting when multiple records have come back from search - and a single one has been selected
+if len(search_result) > 1:
+    #delete contact
+    if confirm_delete:
+        ContactsDb.remove(QueryDb.id == single_search_result['id'])
+        search_again = False
+        break
+    else:
+        break
+
+#deleting for when single record has come back from search
+elif len(search_result) == 1:
+    if confirm_delete:
+        ContactsDb.remove(QueryDb.id == search_result[0]['id'])
+        search_again = False
+        break
+    else:
+        break
+```
+
 
 *View Trello card* -  [Delete a contact](https://trello.com/c/owEd4Rbj)
 
 ### **Feature 4 - Display contacts**
 
+The user will have the option to search for a single contact to display or to display the entire database. If the user wants to search for a contact then they are prompted to enter a first name. If that name results in no contacts, they are prompted to search for another contact or they are returned to the home menu. If the contact or contacts are found, they are dispayed in a table by calling the `display_table()` function and the user is prompted to search for another contact or return to the home menu. The
+
+```py
+#use TinyDB search method to return dictionary that matches first name
+#search will return all results matching the name.
+search_result = ContactsDb.search(QueryDb.first_name == display_choice)
+
+#if contact is found iterate through dict to display contact information
+if search_result:
+   f.display_table(search_result)
+
+   #confirm user wants to search for another contact
+   print()
+   confirm_display = Confirm.ask('Do you want to search for another contact?')
+
+   # ?if user selects no, break out to home menu
+   if not confirm_display:
+       search_again = False
+       break
+
+# contact no found
+# user can search again or exit
+else:
+   os.system('cls||clear')
+   console.print(Panel.fit('\n[magenta]That contact does not exist\n', title_align='left', title='[cyan]Displaying a Contact'))
+   search_again = Confirm.ask('Would you like to search for another contact to Display?')
+```
+
+- The display table function firstly creates instances of the `Console` and `Tables` classes used to display the content and table.
+- The columns and heading are created.
+- The function takes in a list, which is the search result and then iterates over that list to print each contact to a new row in the table.
+
+```py
+def display_table(list):
+    #clear screen and create and instance of Console from Rich module 
+    os.system('cls||clear')
+    console = Console()
+
+    #create a table
+    table = Table(title="Your Contacts")
+
+    #add columns and headings
+    table.add_column("Id", style="cyan", no_wrap=True)
+    table.add_column("First name", style="magenta")
+    table.add_column("Last name", style="magenta")
+    table.add_column("Phone", style="green")
+    table.add_column("Address", style="green")
+    table.add_column("Pet", style="green")
+    table.add_column("Favourite Drink", style="green")
+    table.add_column("Work Address", style="green")
+    table.add_column("Work Phone", style="green")
+    table.add_column("Skills", style="green")
+
+    #iterate through list of results to add each row to the table.
+    #if / elif used to print each type of contact - Contact, Close Contact, Family Contact, Work Contact
+    for idx, val in enumerate(list):
+        if len(val) == 5:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'])
+        elif len(val) == 6:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'])
+        elif len(val) == 8:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], list[idx]['pet'], list[idx]['fav_drink'])
+        elif len(val) == 9:
+            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
+
+    #display table
+    console.print(table)
+```
 *View Trello card* -  [Display Contacts](https://trello.com/c/PRJZXY4k)
 
 ### **Feature 5 - Creating a new Contact Book or Accessing an existing one**
+
+When the application starts the user will be able to choose between creating a new database or using an existing one. Once a database is selected, a user_id variable is initialised. The contents of the database are passed to a variable using the TinyDB `.all()` method. This variable is then iterated over to find the last or highest ID. This is incremented by one to allow the new user ID assignments to not class with existing ones.
+
+- If/elif statments to create a new databser or open an existing one.
+- mock-data.json has pre entered contacts to allow teh marker/educator to play aroud with the features without having to enter data manually.
+  
+```py
+#user .all method to assign contents of database to contact variable
+if db_choice == 'New':
+    user_id = 0
+    ContactsDb = TinyDB('./data/contacts.json')
+    ContactsDb.truncate()                #USED HERE FOR EMPTY DATABASE EACH TIME - WILL NOT SAVE CONTACTS
+    contacts = ContactsDb.all()
+
+#choice 'Existing' 
+#create and instance of TinyDB clss and assign it to empty contacts json file
+#user .all method to assign contents of database to contact variable
+elif db_choice == 'Existing':
+    ContactsDb = TinyDB('./data/mock-data.json')
+    contacts = ContactsDb.all()
+
+#quit application
+elif db_choice == 'Quit':
+    sys.exit()
+```
+
+- The code below will create a unique user ID that wont class with the existing data in the database.
+
+```py
+#assigning unique ID variable for user contact
+#iterate over database entries to find the last (highest) id generated by TinyDB
+for contact in contacts:
+    user_id = contact.doc_id
+
+#increment user_id to make it 1 above current last id.
+user_id += 1
+```
 
 *View Trello card* -  [New / Existing Contact Book](https://trello.com/c/KbvWE7qc)
 
 ### **Feature 6 - Match cases for main program menu and Add Contact Menu**
 
+Match cases will be used in 3 parts of the application.
+1. To control the flow around the Home menu - to create, edit, delete or update contacts
+2. To select what type of contact will be created
+3.  Internally to allow the correct type of datatype to be edited or deleted depending on whether single/multiple search results are returned
+
+The flow chart below illustrates the two match cases for the home menu and the nested add contact menu
+<br>
+
+<img src="./docs/T1A3-match-case-flowchart.png" width="800" alt="Class inheritance">
+
+<br>
+
+
 *View Trello card* -  [Match Cases](https://trello.com/c/Al7F4mLX)
 
 ### **Feature 7 - Menus**
 
-*View Trello card* -  [Match Cases](https://trello.com/c/wAWi0Slh)
+I will make use of the Rich module to create menus as well as tables to display the search results. The Prompt class will be used extensively to handle the menu selection options for the user.
+
+-The code below uses the Rich module to print a title in a panel and then prints a table with the menu options avaiable in the Home menu.
+
+```py
+console.print(
+        Panel.fit("[magenta]\nPlease make a selection   \nfrom the menu below\n",
+        title="[cyan]Home")
+    )
+    
+    #create a table
+    table = Table()
+ 
+    #add columns and headings
+    table.add_column('Home | Operation', style='cyan', justify='left', no_wrap=True)
+    table.add_column('Key', justify='left', style='magenta')
+
+    #add rows with menu options
+    table.add_row('Add Contact', 'A')
+    table.add_row('Edit Contact', 'E')
+    table.add_row('Delete Contact', 'D')
+    table.add_row('Display Contact', 'DC')
+    table.add_row('Display all Contacts', 'DA')
+    table.add_row('Quit Application', 'Q')
+
+    #display table
+    console.print(table)
+```
+-The code below demonstrates the `Prompt` method hadling the user input for the menu options. Once a valid input is entered, its assigned to `menu_choice` and that variable is used in the match case below.
+
+```py
+menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
+    os.system('cls||clear')
+
+    # match case user input with upper for A, E, D, DC, DA, Q to quit Application
+    match menu_choice:
+
+        #Add a contact
+        case 'A':
+```
+
+*View Trello card* -  [Menus](https://trello.com/c/wAWi0Slh)
 
 ### **Feature 8 - Create Classes**
 There will be four types of contacts that a user can create, Contact, Close Contact, Family Contact and Work Contact. Because all 4 of these contact types all get user input for first name, last name and phone number, I decided to use classes and have the derived class inherit the Contact class’s set_details() class method. This reduces some repetition of code for receiving user input. Once these are created I can move onto the skeleton match case for flow control and then adding contacts. I will use the super(). To inherit the set_details method from its parent class.
@@ -402,6 +579,17 @@ Below is a table that shows which features i will need to begin creating first a
 
 
 
+## **Attributions**
+- [^1 - Template]() - Erika Varagouli (2021) [*What Each Markup Language Is Used For*](https://www.semrush.com/blog/markup-language/), Semrush website, accessed 25 August 2022.
+
+
+
+
+- [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
+- [Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
+
+https://www.tablesgenerator.com/
+- 
 
 
 
