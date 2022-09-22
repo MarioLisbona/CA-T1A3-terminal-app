@@ -39,7 +39,7 @@ def run_app():
     #user .all method to assign contents of database to contact variable
     if db_choice == 'New':
         user_id = 0
-        ContactsDb = TinyDB('contacts.json')
+        ContactsDb = TinyDB('./data/contacts.json')
         ContactsDb.truncate()                #USED HERE FOR EMPTY DATABASE EACH TIME - WILL NOT SAVE CONTACTS
         contacts = ContactsDb.all()
 
@@ -48,7 +48,7 @@ def run_app():
     #user .all method to assign contents of database to contact variable
     elif db_choice == 'Existing':
         user_id = 0
-        ContactsDb = TinyDB('mock-data.json')
+        ContactsDb = TinyDB('./data/mock-data.json')
         contacts = ContactsDb.all()
 
     #quit application
