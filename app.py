@@ -113,7 +113,7 @@ def run_app():
                             #add contact to database and increment user_id by 1
                             ContactsDb.insert(contact)
                             user_id += 1
-                            break
+                            # break
 
                         case 'CC':
                             contact_type = 'Close Contact'
@@ -130,7 +130,7 @@ def run_app():
 
                             ContactsDb.insert(contact)
                             user_id += 1
-                            break
+                            # break
 
                         case 'FC':
                             contact_type = 'Family Contact'
@@ -147,7 +147,7 @@ def run_app():
 
                             ContactsDb.insert(contact)
                             user_id += 1
-                            break
+                            # break
 
                         case 'WC':
                             contact_type = 'Work Contact'
@@ -164,7 +164,7 @@ def run_app():
 
                             ContactsDb.insert(contact)
                             user_id += 1
-                            break
+                            # break
 
                         #return to home menu
                         case 'H':
@@ -478,7 +478,6 @@ def run_app():
 
             case 'Q':
                 break
-
 
 
 

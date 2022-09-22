@@ -17,6 +17,11 @@
       - [**Display all contacts**](#display-all-contacts)
     - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one)
     - [**Feature 6 - Match cases for main program menu and Add Contact Menu**](#feature-6---match-cases-for-main-program-menu-and-add-contact-menu)
+    - [**Feature 7 - Navigation Menus**](#feature-7---navigation-menus)
+      - [**Contact Book selection menu**](#contact-book-selection-menu)
+      - [**Home menu**](#home-menu)
+      - [**Add Contact menu**](#add-contact-menu)
+    - [**Feature 8 - Classes**](#feature-8---classes)
   - [**R7 - Implementation Plan**](#r7---implementation-plan)
     - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact-1)
     - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact-1)
@@ -52,17 +57,17 @@ The Contacts Book will need to be able to add a contact. The user will be able t
 
 The contacts will share some commonalities with their input fields. All contacts will contain the base fields of first name, last name and phone number. Below is a list of the input fields for each contact type and the fields they share. I will use classes and classes to implement this functionality and inheritance. All contact variables will be of String Type.
 
-| Contact      | Close Contact                          | Family Contact                               | Work Contact                                 |   |
-|--------------|----------------------------------------|----------------------------------------------|----------------------------------------------|---|
-| ID           | ID                                     | ID                                           | ID                                           |   |
-| Contact Type | Contact Type                           | Contact Type                                 | Contact Type                                 |   |
-| First name   | First name  (inherited from Contact)   | First name  (inherited from Close Contact)   | First name  (inherited from Close Contact)   |   |
-| Last name    | Last name  (inherited from Contact)    | Last name  (inherited from Close Contact)    | Last name  (inherited from Close Contact)    |   |
-| Phone number | Phone number  (inherited from Contact) | Phone number  (inherited from Close Contact) | Phone number  (inherited from Close Contact) |   |
-|              | Address                                | Address  (inherited from Close Contact)      | Address  (inherited from Close Contact)      |   |
-|              |                                        | Pet name                                     | Work Address                                 |   |
-|              |                                        | Favourite Drink                              | Work Phone                                   |   |
-|              |                                        |                                              | Skills                                       |   |
+| Contact      | Close Contact                          | Family Contact                               | Work Contact                                 |
+|--------------|----------------------------------------|----------------------------------------------|----------------------------------------------|
+| ID           | ID                                     | ID                                           | ID                                           |
+| Contact Type | Contact Type                           | Contact Type                                 | Contact Type                                 |
+| First name   | First name  (inherited from Contact)   | First name  (inherited from Close Contact)   | First name  (inherited from Close Contact)   |
+| Last name    | Last name  (inherited from Contact)    | Last name  (inherited from Close Contact)    | Last name  (inherited from Close Contact)    |
+| Phone number | Phone number  (inherited from Contact) | Phone number  (inherited from Close Contact) | Phone number  (inherited from Close Contact) |
+|              | Address                                | Address  (inherited from Close Contact)      | Address  (inherited from Close Contact)      |
+|              |                                        | Pet name                                     | Work Address                                 |
+|              |                                        | Favourite Drink                              | Work Phone                                   |
+|              |                                        |                                              | Skills                                       |
 
 <br>
 
@@ -135,14 +140,67 @@ If the user wants to access an existing contacts book then firstly an instance o
 
 If the user chooses to create a new database then the user ID will need to be initialised to zero and then the new database will be iterated over.
 
-
-
 ### **Feature 6 - Match cases for main program menu and Add Contact Menu**
 
 A match case, combined with while loops will be used for the home menu and the add contact menu so that the application will run continually until the user chooses to quit.
 
 There will also be another match cased used by the application only (not accessible by the user) that will facilitate the editing of contacts. It will access use the documens returned by the search of the json file. The ```type: contact_type``` of that document will be accessed and a match case will be used to determin which type of contact needs to be edited.
 
+### **Feature 7 - Navigation Menus**
+
+The application will feature menu’s to allow the user to navigate through the different functionality of the app. The user will be able to create, update, delete or display contacts indefinitely until they decide to quit the application. All the error checking of user input for the menu options is handled by the Rich module. There will be 3 main menus for the user to naviate the application:
+- Contact Book selection menu
+- Home menu
+- Add Contact menu
+
+#### **Contact Book selection menu**
+
+This menu will be the first menu that the user is presented with. They will be able to choose to open a new contacts book, open an existing book or quit the application.
+
+<br>
+
+<img src="./docs/select-new-old-menu.png" alt="Choose a new or existing contacts book menu">
+
+<br>
+
+#### **Home menu**
+
+The Home menu will allow the user to select they functionality that they want to use, Add, edit, delete, display or quit the application
+
+<br>
+
+<img src="./docs/home-menu.png" alt="Home menu">
+
+<br>
+
+#### **Add Contact menu**
+
+This menu will be displayed when the user selects the Add Contact option from the home menu. The user will be able to add any type of contact, return to the home menu or quit the application. Once a contact has been added the user will continually be returned to the add contact menu untill they decide to return home or quit the application.
+
+<br>
+
+<img src="./docs/add-contact-menu.png" alt="Add contact menu">
+
+<br>
+
+There will also be various menu's prompting users to confirm an edit or a delete or whether they want to perform another search.
+
+<br>
+
+<img src="./docs/confirm-delete.png" alt="Prompting the user to confirm deleting a contact">
+
+<br>
+
+<br>
+
+<img src="./docs/search-again.png" alt="Prompting the user to search again">
+
+<br>
+
+
+### **Feature 8 - Classes**
+
+Each contact type will have its own class object. The base class will be Contact and will contain a class menthod to get the details from the user for first name, last name and phone number. The close Contact class will be derived from the Contact class so will inherit the user inputs for first name, last name and phone number. It will have an extra field for address. The Family Contact class will be derived from the Contact class and will inherit from its parent, Close Contact. It will had two extra attributes for pet name and favourite drinks. Lastly, the Work Contact class will be derived from the Close Contact class as well. It will had its own attributes of work address, work phone and skills.
 
 ## **R7 - Implementation Plan**
 
