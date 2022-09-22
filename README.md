@@ -19,14 +19,14 @@
     - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one)
     - [**Feature 6 - Match cases for main program menu and Add Contact Menu**](#feature-6---match-cases-for-main-program-menu-and-add-contact-menu)
   - [**R7 - Implementation Plan**](#r7---implementation-plan)
-    - [**Create Classes**](#create-classes)
     - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact-1)
     - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact-1)
     - [**Feature 3 - Delete a contact**](#feature-3---delete-a-contact-1)
     - [**Feature 4 - Display contacts**](#feature-4---display-contacts-1)
     - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one-1)
     - [**Feature 6 - Match cases for main program menu and Add Contact Menu**](#feature-6---match-cases-for-main-program-menu-and-add-contact-menu-1)
-    - [**Menus**](#menus)
+    - [**Feature 7 - Menus**](#feature-7---menus)
+    - [**Feature 8 - Create Classes**](#feature-8---create-classes)
     - [**Prioritisation**](#prioritisation)
     - [**Time line and Due dates**](#time-line-and-due-dates)
   - [**R8 - Help Documentation**](#r8---help-documentation)
@@ -167,38 +167,192 @@ There will also be another match cased used by the application only (not accessi
 
 ## **R7 - Implementation Plan**
 
-### **Create Classes**
-The classes will contain methods to facilitate a user entering the input for each contact. Inhertance will be used for the common input fields, fisrt name, last name and phone. Once these are used I can move onto the skeleton match case for flow control and then adding contacts.
+Below is a description of how each feature will be implemented. Below that are the prioritisation and timeline tables showing how I will structure the time available for the project
+Please use the following link to my Trello Kanban board. You will need to be a member of this board to access the cards linked below in each feature.
 
-View Trello card -  [Classes](https://trello.com/c/e7o1Y9Aj)
+*Become a membor of my Trello Kanban Board* -  [T1A3 - Terminal Application](https://trello.com/invite/b/saDZZxHD/5d41a86ce59bd13dba73c716b2d86d00/t1a3-terminal-application)
 
 ### **Feature 1 - Create / Add a contact**
 
-View Trello card -  [Add a Contact](https://trello.com/c/xzj45NUS)
+Firstly I will need to ask the user what type of contact they want to create and use a match case to direct the program flow to create the correct type of contact. Once the contact type has been established, the `set_details()` method will be called from either the contact, close contact, family contact or work contact class, which will return the user input back into the match case in variables. 
+
+These variables, along with a user ID, will be passed as arguments to the `add_contact()` function which will return the correct size dictionary to a variable in the match case. That dictionary will be inserted into the json file. The user ID will be incremented and then the flow will break out of the match case and return to the menu.
+
+Nested if statements will be used to first create the 'base' dicionary that has the variables that all the contact types use. The dict will be added to and returned based on the booleans which will pass or fail dending on which contact type is being created.
+
+```py
+def add_contact(id, contact_type, first_name, last_name, phone, address, pet_name, fav_drink, work_address, work_phone, skills):
+ 
+    if contact_type == 'Contact' or contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
+        contact = {'id': str(id), 'type': contact_type, 'first_name': first_name, 'last_name': last_name, 'phone': phone}
+
+        if contact_type == 'Contact':
+            return contact
+
+    if contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
+        contact['address'] = address
+
+        if contact_type == 'Close Contact':
+            return contact
+    
+    if contact_type == 'Family Contact':
+        contact['pet'] = pet_name
+        contact['fav_drink'] = fav_drink
+
+        return contact
+    
+    if contact_type == 'Work Contact':
+        contact['work_address'] = work_address
+        contact['work_phone'] = work_phone
+        contact['skills'] = skills
+
+        return contact
+```
+
+- Below is a function call of `add_contact()` to create a CLose Contact. The `contact_type` variable is set when when the match case for CC is true from the Add Contact menu selected by the user.
+- `Set_details()` returns the user input and those variables are used in the function call. Any variables that arent needed for that contact type are set to `None`.
+- the returned contact is inserted into the database with `ContactsDb.insert(contact)` The user id is then incremented and then the code breaks out to the menu.
+
+```py
+case 'CC':
+    contact_type = 'Close Contact'
+    #as above
+
+    #call CloseContact class set_details method to retrieve contact details
+    console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Close Contact"))
+    f_name, l_name, phone, address = classes.CloseContact.set_details()
+
+    contact = f.add_contact(
+        id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
+        address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+        )
+
+    ContactsDb.insert(contact)
+    user_id += 1
+    break
+```
+
+*View Trello card* -  [Add a Contact](https://trello.com/c/xzj45NUS)
 
 ### **Feature 2 - Edit a contact**
 
-View Trello card -  [Edit a contact](https://trello.com/c/Hd7fBVcw)
+This will be the most difficult feature to implement because it will have to deal with a lot more variables and a variety of data than the other features. It will also have to perform more functionality, e.g. reading and writing to the json file.
+
+The user will be prompted for a user to search for, this will be a search of first names in the database. If the database is empty then a message will be displayed saying so. The search will then either return a single result or multiple results. If a single result is returned, the user is asked to confirm the edit. If they select no they will be taken back to the home menu.
+
+Multiple results for the search will require a finer search. The user will be shown all the results of the search in a table and then prompted to select a unique ID to edit. The error checking on thid ID is vital because it will be used to select the contact to edit (or delete). The user must only be allowed to enter an ID from the results displayed. 
+
+I did some googling and found some posts on generator expressions and wrote this code block to continually loop while untill the user enter's an ID that has been returned in the current search.
+
+- The code block below will iterate though the contents of `search_result` and on each loop with check that the current value for the key `item[id]` matches the ID entered by the user. None is returned if there is no match. The loop will continue until a match is found.
+  
+```py
+#User validation cruicial here so that correct ID is edited
+# #generator expression to continually loop while the ID entered isnt a valid ID
+while not next((item for item in search_result if item['id'] == search_id), None):
+
+    f.display_table(search_result)
+    console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title_align='left', title='[cyan]Editing a Contact'))
+    search_id = f.continue_prompt()
+
+    #original ID wasn not valid, so assign the valid ID at the end of this while loop
+    single_search_result = ContactsDb.get(QueryDb.id == search_id)
+```
+
+The contact is then edited or the user is taken back to the home menu if they decline to edit that contact.
+
+In addition to a finer search, another bit of functionality needs to be built to edit the finer search. A search will be returned by TinyDB as a list of dictionaries. If there is one result it will be edited using TinyDB’s update method and the list index of [0].  - There is only one dictionary in the list - along with the TinyDB method .doc_id that is assigned to every document.
+
+```py
+#user input assigned to contact - using.doc_id method to assign to contact that selected by user
+ContactsDb.update({'first_name': f_name}, doc_ids=[search_result[0].doc_id])
+ContactsDb.update({'last_name': l_name}, doc_ids=[search_result[0].doc_id])
+ContactsDb.update({'phone': phone}, doc_ids=[search_result[0].doc_id])
+```
+
+If there are multiple search results, the user will need to select a valid id. This id is used with a TinyDB query on the multiple results to return a single result that will be edited. This single result will be a dictionary as opposed to the list of dictionaries for the name search of the database. This will mean that the TinyDB update method needs to be used in a slightly different way. As this is only a dictionary the index value just needs to be omitted when using the .doc_id method
+
+
+```py
+#user input assigned to contact - using.doc_id method to assign to contact that selected by user
+ContactsDb.update({'first_name': f_name}, doc_ids=[single_search_result.doc_id])
+ContactsDb.update({'last_name': l_name}, doc_ids=[single_search_result.doc_id])
+ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
+```
+
+
+*View Trello card* -  [Edit a contact](https://trello.com/c/Hd7fBVcw)
 
 ### **Feature 3 - Delete a contact**
 
-View Trello card -  [Delete a contact](https://trello.com/c/owEd4Rbj)
+*View Trello card* -  [Delete a contact](https://trello.com/c/owEd4Rbj)
 
 ### **Feature 4 - Display contacts**
 
-View Trello card -  [Display Contacts](https://trello.com/c/PRJZXY4k)
+*View Trello card* -  [Display Contacts](https://trello.com/c/PRJZXY4k)
 
 ### **Feature 5 - Creating a new Contact Book or Accessing an existing one**
 
-View Trello card -  [New / Existing Contact Book](https://trello.com/c/KbvWE7qc)
+*View Trello card* -  [New / Existing Contact Book](https://trello.com/c/KbvWE7qc)
 
 ### **Feature 6 - Match cases for main program menu and Add Contact Menu**
 
-View Trello card -  [Match Cases](https://trello.com/c/Al7F4mLX)
+*View Trello card* -  [Match Cases](https://trello.com/c/Al7F4mLX)
 
-### **Menus**
+### **Feature 7 - Menus**
 
-View Trello card -  [Match Cases](https://trello.com/c/wAWi0Slh)
+*View Trello card* -  [Match Cases](https://trello.com/c/wAWi0Slh)
+
+### **Feature 8 - Create Classes**
+There will be four types of contacts that a user can create, Contact, Close Contact, Family Contact and Work Contact. Because all 4 of these contact types all get user input for first name, last name and phone number, I decided to use classes and have the derived class inherit the Contact class’s set_details() class method. This reduces some repetition of code for receiving user input. Once these are created I can move onto the skeleton match case for flow control and then adding contacts. I will use the super(). To inherit the set_details method from its parent class.
+
+ - The contact class's `set_details()` method calls the functions `validate_name()` and `validate_phone()` which will obtain and validate user input and then return the validated input to `first_name`, `last_name` and `phone` varaiables.
+  
+```py
+class Contact:
+    def __init__(self, id, f_name, l_name, phone, class_type='c'):
+        self.id = id
+        self.f_name = f_name
+        self.l_name = l_name
+        self.phone = phone
+        self.class_type = class_type
+    
+    #this method allows user input to be gathered before the object is created
+    @classmethod
+    def set_details(cls):
+
+        #calling functions to validate user input
+        first_name = f.validate_name('First')
+        last_name = f.validate_name('Last')
+        phone = f.validate_phone()
+
+        #user input is returned
+        return first_name, last_name, phone
+```
+
+- The Close Contact class is derived from the Contact class and uses the code `first_name, last_name, phone = super().set_details()` to inherit the variables returned from the `set_details()` method in the parents class. It now only needs to get user input for the address because the other inputs are already assigned.
+- The error checking is also inhertied from the parents class.
+- `.strip()` is used on the address to strip any white space. This is all the error checking needed for this optional field.
+
+```py
+class CloseContact(Contact):
+    def __init__(self, id, f_name, l_name, phone, address, class_type='cc'):
+        super().__init__(id, f_name, l_name, phone)
+        self.address = address
+        self.class_type = class_type
+
+    #class method inherits all input from from derived set_details method
+    #adds extra input for address
+    @classmethod
+    def set_details(cls):
+        first_name, last_name, phone = super().set_details()
+        address = input('Enter Address >> ')
+
+        #user input is returned
+        return first_name, last_name, phone, address.strip()
+```
+
+*View Trello card* -  [Classes](https://trello.com/c/e7o1Y9Aj)
 
 
 
@@ -209,22 +363,24 @@ View Trello card -  [Match Cases](https://trello.com/c/wAWi0Slh)
 
 ### **Prioritisation**
 
-| Feature                                 	| Priority 	| features needed to complete         	|
-|-----------------------------------------	|----------	|-------------------------------------	|
-| Classes                                 	| 1        	| None                                	|
-| Feature 1 - Create / Add a contact      	| 2        	| Classes                             	|
-| Feature 4 - Display contacts            	| 3        	| Classes, Add/Create Contact         	|
-| Feature 7 - Menus                       	| 4        	| Rich Module                         	|
-| Feature 6 - Match Cases                 	| 5        	| Can test this logic with mock input 	|
-| Feature 5 - New / Existing Contact Book 	| 6        	| New / Existing Contact Book         	|
-| Feature 3 - Delete a contact            	| 7        	| Classes, Add/Create Contact, TinyDB 	|
-| Feature 2 - Edit a contact              	| 8        	| Classes, Add/Create Contact, TinyDB 	|
+Below is a table that shows which features i will need to begin creating first and what each feature will need to have developed before it can be started itself.
+
+| Feature                                 	| Priority 	| features that that need to be completed |
+|-----------------------------------------	|----------	|---------------------------------------	|
+| Feature 8 - Classes                      	| 1        	| None                                  	|
+| Feature 1 - Create / Add a contact      	| 2        	| Classes                               	|
+| Feature 4 - Display contacts            	| 3        	| Classes, Add/Create Contact           	|
+| Feature 7 - Menus                       	| 4        	| Rich Module                           	|
+| Feature 6 - Match Cases                 	| 5        	| Can test this logic with mock input   	|
+| Feature 5 - New / Existing Contact Book 	| 6        	| New / Existing Contact Book           	|
+| Feature 3 - Delete a contact            	| 7        	| Classes, Add/Create Contact, TinyDB 	  |
+| Feature 2 - Edit a contact              	| 8        	| Classes, Add/Create Contact, TinyDB   	|
 
 ### **Time line and Due dates**
 
 | Feature                                 	| Start Date 	| Date to be completed by 	|
 |-----------------------------------------	|:----------:	|:-----------------------:	|
-| Classes                                 	| 14/09/2022 	|        14/09/2022       	|
+| Feature 8 - Classes                      	| 14/09/2022 	|        14/09/2022       	|
 | Feature 1 - Create / Add a contact      	| 14/09/2022 	|        14/09/2022       	|
 | Feature 4 - Display contacts            	| 15/09/2022 	|        16/09/2022       	|
 | Feature 7 - Menus                       	| 15/09/2022 	|        15/09/2022       	|
