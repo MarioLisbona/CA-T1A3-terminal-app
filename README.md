@@ -17,6 +17,11 @@
       - [**Display all contacts**](#display-all-contacts)
     - [**Feature 5 - Creating a new Contact Book or Accessing an existing one**](#feature-5---creating-a-new-contact-book-or-accessing-an-existing-one)
     - [**Feature 6 - Match cases for main program menu and Add Contact Menu**](#feature-6---match-cases-for-main-program-menu-and-add-contact-menu)
+    - [**Feature 7 - Navigation Menus**](#feature-7---navigation-menus)
+      - [**Contact Book selection menu**](#contact-book-selection-menu)
+      - [**Home menu**](#home-menu)
+      - [**Add Contact menu**](#add-contact-menu)
+    - [**Feature 8 - Classes**](#feature-8---classes)
   - [**R7 - Implementation Plan**](#r7---implementation-plan)
     - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact-1)
     - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact-1)
@@ -29,6 +34,9 @@
     - [**Prioritisation**](#prioritisation)
     - [**Time line and Due dates**](#time-line-and-due-dates)
   - [**R8 - Help Documentation**](#r8---help-documentation)
+  - [**R5 - Testing**](#r5---testing)
+    - [**Test 1 - Error Checking input fields when adding a contact**](#test-1---error-checking-input-fields-when-adding-a-contact)
+    - [**Test 2 - Error Checking user input for ID to edit / delete for multilpe search results**](#test-2---error-checking-user-input-for-id-to-edit--delete-for-multilpe-search-results)
   - [**Attributions**](#attributions)
 
 ## **R4 - Links**
@@ -38,7 +46,75 @@
 
 ## **R5 - Styling Conventions**
 
- - style guide: PEP8 style guide
+This application will adhere to the ***PEP 8 – Style Guide for Python Code***
+
+In the introduction of the PEP8 style guide it states:
+
+> "A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. 
+Consistency within one module or function is the most important." [^1]
+
+With this in mind below are some of the styling conventions that are adhered to in the code for this application.
+
+- Imports
+  PEP8 states that "Imports should usually be on separate lines:"
+
+```py
+# Correct:
+import os
+import sys
+```
+
+```py
+# Wrong:
+import sys, os
+```
+
+Iv applied this to `main.py` as seen below:
+  ```py
+  #Importing modules
+import os
+import sys
+from rich.prompt import Prompt
+from rich.prompt import Confirm
+from rich.console import Console
+# from rich.table import Table
+from rich.panel import Panel
+from tinydb import TinyDB
+from tinydb import Query
+```
+- Maximum Line Length
+  PEP8 states
+  > Limit all lines to a maximum of 79 characters.
+
+  >  For flowing long blocks of text with fewer structural restrictions (docstrings or comments), the line length should be limited to 72 characters.
+
+    > Limiting the required editor window width makes it possible to have several files open side by side, and works well when using code review tools that present the two versions in adjacent columns.
+
+Below are some examples of this applications code adhering to this convention.
+
+```py
+    console.print(
+        Panel.fit("""[magenta]\nPlease Choose and option:
+        \n\n - Open New Contacts Book\n - Open an Existing Contacts Book\n - Quit Application\n""",
+        title="[cyan]Welcome to your Contacts Book")
+    )
+```
+
+```py
+contact = f.add_contact(
+      id=user_id, contact_type='Family Contact', first_name=f_name,
+      last_name=l_name, phone=phone, address=address, pet_name=pet_name,
+      fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
+      )
+```
+
+```py
+if len(search_result) > 1:
+    console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {del_choice}.\n',
+    title_align='left', title='[cyan]Choose a contact ID',
+    subtitle_align='left', subtitle='[cyan]Deleting a Contact'))
+```
+
 
 ## **R6 - Features**
 
@@ -52,17 +128,17 @@ The Contacts Book will need to be able to add a contact. The user will be able t
 
 The contacts will share some commonalities with their input fields. All contacts will contain the base fields of first name, last name and phone number. Below is a list of the input fields for each contact type and the fields they share. I will use classes and classes to implement this functionality and inheritance. All contact variables will be of String Type.
 
-| Contact      | Close Contact                          | Family Contact                               | Work Contact                                 |   |
-|--------------|----------------------------------------|----------------------------------------------|----------------------------------------------|---|
-| ID           | ID                                     | ID                                           | ID                                           |   |
-| Contact Type | Contact Type                           | Contact Type                                 | Contact Type                                 |   |
-| First name   | First name  (inherited from Contact)   | First name  (inherited from Close Contact)   | First name  (inherited from Close Contact)   |   |
-| Last name    | Last name  (inherited from Contact)    | Last name  (inherited from Close Contact)    | Last name  (inherited from Close Contact)    |   |
-| Phone number | Phone number  (inherited from Contact) | Phone number  (inherited from Close Contact) | Phone number  (inherited from Close Contact) |   |
-|              | Address                                | Address  (inherited from Close Contact)      | Address  (inherited from Close Contact)      |   |
-|              |                                        | Pet name                                     | Work Address                                 |   |
-|              |                                        | Favourite Drink                              | Work Phone                                   |   |
-|              |                                        |                                              | Skills                                       |   |
+| Contact      | Close Contact                          | Family Contact                               | Work Contact                                 |
+|--------------|----------------------------------------|----------------------------------------------|----------------------------------------------|
+| ID           | ID                                     | ID                                           | ID                                           |
+| Contact Type | Contact Type                           | Contact Type                                 | Contact Type                                 |
+| First name   | First name  (inherited from Contact)   | First name  (inherited from Close Contact)   | First name  (inherited from Close Contact)   |
+| Last name    | Last name  (inherited from Contact)    | Last name  (inherited from Close Contact)    | Last name  (inherited from Close Contact)    |
+| Phone number | Phone number  (inherited from Contact) | Phone number  (inherited from Close Contact) | Phone number  (inherited from Close Contact) |
+|              | Address                                | Address  (inherited from Close Contact)      | Address  (inherited from Close Contact)      |
+|              |                                        | Pet name                                     | Work Address                                 |
+|              |                                        | Favourite Drink                              | Work Phone                                   |
+|              |                                        |                                              | Skills                                       |
 
 <br>
 
@@ -135,14 +211,67 @@ If the user wants to access an existing contacts book then firstly an instance o
 
 If the user chooses to create a new database then the user ID will need to be initialised to zero and then the new database will be iterated over.
 
-
-
 ### **Feature 6 - Match cases for main program menu and Add Contact Menu**
 
 A match case, combined with while loops will be used for the home menu and the add contact menu so that the application will run continually until the user chooses to quit.
 
 There will also be another match cased used by the application only (not accessible by the user) that will facilitate the editing of contacts. It will access use the documens returned by the search of the json file. The ```type: contact_type``` of that document will be accessed and a match case will be used to determin which type of contact needs to be edited.
 
+### **Feature 7 - Navigation Menus**
+
+The application will feature menu’s to allow the user to navigate through the different functionality of the app. The user will be able to create, update, delete or display contacts indefinitely until they decide to quit the application. All the error checking of user input for the menu options is handled by the Rich module. There will be 3 main menus for the user to naviate the application:
+- Contact Book selection menu
+- Home menu
+- Add Contact menu
+
+#### **Contact Book selection menu**
+
+This menu will be the first menu that the user is presented with. They will be able to choose to open a new contacts book, open an existing book or quit the application.
+
+<br>
+
+<img src="./docs/select-new-old-menu.png" alt="Choose a new or existing contacts book menu">
+
+<br>
+
+#### **Home menu**
+
+The Home menu will allow the user to select they functionality that they want to use, Add, edit, delete, display or quit the application
+
+<br>
+
+<img src="./docs/home-menu.png" alt="Home menu">
+
+<br>
+
+#### **Add Contact menu**
+
+This menu will be displayed when the user selects the Add Contact option from the home menu. The user will be able to add any type of contact, return to the home menu or quit the application. Once a contact has been added the user will continually be returned to the add contact menu untill they decide to return home or quit the application.
+
+<br>
+
+<img src="./docs/add-contact-menu.png" alt="Add contact menu">
+
+<br>
+
+There will also be various menu's prompting users to confirm an edit or a delete or whether they want to perform another search.
+
+<br>
+
+<img src="./docs/confirm-delete.png" alt="Prompting the user to confirm deleting a contact">
+
+<br>
+
+<br>
+
+<img src="./docs/search-again.png" alt="Prompting the user to search again">
+
+<br>
+
+
+### **Feature 8 - Classes**
+
+Each contact type will have its own class object. The base class will be Contact and will contain a class menthod to get the details from the user for first name, last name and phone number. The close Contact class will be derived from the Contact class so will inherit the user inputs for first name, last name and phone number. It will have an extra field for address. The Family Contact class will be derived from the Contact class and will inherit from its parent, Close Contact. It will had two extra attributes for pet name and favourite drinks. Lastly, the Work Contact class will be derived from the Close Contact class as well. It will had its own attributes of work address, work phone and skills.
 
 ## **R7 - Implementation Plan**
 
@@ -576,16 +705,142 @@ Below is a table that shows which features i will need to begin creating first a
   - any system/hardware requirements
   - how to use any command line arguments made for the application
 
+## **R5 - Testing**
+
+### **Test 1 - Error Checking input fields when adding a contact**
+
+This error checking will be performed on the user input for first name, last name and phone number fields. The error checking here is vital, especially the first name field because this is the field that will be searched for each record in the database.
+
+The tests beign performed are:
+
+- leading or trailing whitespace is not allowed on first name and last name and phone number.
+- The user cannot leave first name, last name or phone number blank.
+- The phone number field can only be numeric. It is allowed white space between numbers.
+
+| Field being tested     	| Input                    	| Test being performed                             	| Expected result                                    	|
+|------------------------	|--------------------------	|--------------------------------------------------	|----------------------------------------------------	|
+| First Name input field 	| Mario                    	| no leading or trailing white space               	| Mario                                              	|
+| First Name input field 	| ------Mario--------      	| no leading or trailing white space               	| Mario                                              	|
+| First Name input field 	| --Mario                  	| no leading or trailing white space               	| Mario                                              	|
+| First Name input field 	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a First Name for your Contact!' 	|
+| First Name input field 	| mario4                   	| no leading or trailing white space               	| mario4                                             	|
+| Last Name input field  	| Lisbona                  	| no leading or trailing white space               	| Lisbona                                            	|
+| Last Name input field  	| ----Lisbona----------    	| no leading or trailing white space               	| Lisbona                                            	|
+| Last Name input field  	| --Lisbona--              	| no leading or trailing white space               	| Lisbona                                            	|
+| Last Name input field  	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a Last Name for your Contact!'  	|
+| Last Name input field  	| lisbona4                 	| no leading or trailing white space               	| lisbona4                                           	|
+| Phone number           	| 0412 455 222             	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	|
+| Phone number           	| ----------0412 455 222-- 	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	|
+| Phone number           	| --0412 455 222--         	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	|
+| Phone number           	| mario                    	| no leading or trailing white space, only numbers 	| 'Phone number can only contain numbers!'           	|
+
+The '-' in the table above indicate a user entering spaces
+
+The code below is the function that handles the error checking for the first name and last name input fields
+
+```py
+def validate_name(string):
+    """
+    Function receives a string to guide user to what input they are entering.
+    If string is all white space, will prompt user to enter valid name.
+    Returns the string stripped of leading and trailing whitespace.
+    Args:
+        string (string): Name to prompt user on what data they are inputing
+
+    Returns:
+        string: sting with no leading or trailing spaces
+    """  
+
+    user_input = input(f'Enter {string} Name >> ')
+
+    while len(user_input) < 1 or user_input.isspace():
+
+        print(f'You need to enter a {string} Name for your Contact!\n')
+        user_input = input(f'Enter {string} Name >> ')
+
+    return user_input.strip()
+```
+
+The code below handles the error checking for the phone number field
+
+```py
+def validate_phone():
+    """
+    User input is stripped of leading and trailing white space.
+    user input is copied in a temp variable. then all spaces are removed from string.
+    isdigit is used to test whether onl numbers have been entered.
+    Once string is just numbers, assign phone temp to phone - phone is a copy of phone temp but
+    with the original whitespace inbetween numbers.
+    Returns:
+        string: returns a string that is numeric only and no leading or trailing whitespace.
+        White space is allowed inbetween numbers.
+    """    
+    phone = input('Enter Phone Number >> ').strip()
+    while True:
+        phone_temp = phone
+        phone_test = phone_temp.replace(' ','')
+
+        if not phone_test.isdigit():
+            print('Phone number can only contain numbers!\n')
+            phone = input('Enter Phone Number >> ').strip()
+        else:
+            phone = phone_temp
+            break
+
+    return phone
+```
+### **Test 2 - Error Checking user input for ID to edit / delete for multilpe search results**
+
+The user wants to edit a contact. They are prompted to search for a contact to enter. They enter ‘Mario’ The are presented with the screen below
+
+<br>
+
+<img src="./docs/edit-contact.png" width="800" alt="Edit a contact name 'Mario'">
+
+<br>
+
+Error checking will be vital here to make sure that the user cannot select an ID that is not in the current search list. The table below contains the tests and expected output.
+
+| Field being tested                            	| Input 	| Test being performed                                 	| Expected result                        	|
+|-----------------------------------------------	|-------	|------------------------------------------------------	|----------------------------------------	|
+| Select ID to edit for multiple search results 	| mario 	| ID is valid for the current search results (picture) 	| 'mario is not a valid ID.'             	|
+| Select ID to edit for multiple search results 	| 1999  	| ID is valid for the current search results (picture) 	| '1999 is not a valid ID.'              	|
+| Select ID to edit for multiple search results 	| x     	| ID is valid for the current search results (picture) 	| 'x is not a valid ID.'                 	|
+| Select ID to edit for multiple search results 	| 37    	| ID is valid for the current search results (picture) 	| '37 is not a valid ID.'                	|
+| Select ID to edit for multiple search results 	| -56   	| ID is valid for the current search results (picture) 	| '-56 is not a valid ID.'               	|
+| Select ID to edit for multiple search results 	| 37f   	| ID is valid for the current search results (picture) 	| '37f is not a valid ID.'               	|
+| Select ID to edit for multiple search results 	| -     	| ID is valid for the current search results (picture) 	| '- is not a valid ID.'                 	|
+| Select ID to edit for multiple search results 	| 17    	| ID is valid for the current search results (picture) 	| 'Contact Selected - 17: Mario Lisbona' 	|
+| Select ID to edit for multiple search results 	| 29    	| ID is valid for the current search results (picture) 	| 'Contact Selected - 29: Mario asdf'    	|
+| Select ID to edit for multiple search results 	| 36    	| ID is valid for the current search results (picture) 	| 'Contact Selected - 36: Mario sd'      	|
+
+The code below is a generator expression that will be used for when more than one search result is found. It will iterate through the search results and look at the current value for `['id]` and compare that to the ID entered by the user. It will always return `None` while the entered ID is not in the search results and the while look will continue.
+
+```py
+#User validation cruicial here so that correct ID is edited
+# #generator expression to continually loop while the ID entered isnt a valid ID
+
+while not next((item for item in search_result if item['id'] == search_id), None):
+    # os.system('cls||clear')
+    f.display_table(search_result)
+    console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n',
+    title_align='left', title='[cyan]Editing a Contact'))
+    search_id = input('\nSelect an ID to Edit >> ')
 
 
+    #original ID wasn not valid, so assign the valid ID at the end of this while loop
+    single_search_result = ContactsDb.get(QueryDb.id == search_id)
+```
 
 ## **Attributions**
-- [^1 - Template]() - Erika Varagouli (2021) [*What Each Markup Language Is Used For*](https://www.semrush.com/blog/markup-language/), Semrush website, accessed 25 August 2022.
+- [^1 - Template]() - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://www.semrush.com/blog/markup-language/), Semrush website, accessed 25 August 2022.
 
 
 
 
 - [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
+
+
 - [Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
 
 https://www.tablesgenerator.com/
