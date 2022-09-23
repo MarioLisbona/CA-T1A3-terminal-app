@@ -78,7 +78,7 @@ while True:
     #use Prompt from rich.prompt module to give a selection menu to the user
     # assign choice to menu_choice and clear screen
     menu_choice = Prompt.ask('Please make a selection: ',
-    choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
+    choices=['A', 'E', 'D', 'S', 'L', 'Q'])
     os.system('cls||clear')
 
     # match case user input with upper for A, E, D, DC, DA, Q to quit Application
@@ -96,12 +96,12 @@ while True:
                 #assign choice to add_choice
                 f.add_contact_prompt()
                 add_choice = Prompt.ask('Please make a selection: ',
-                choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
+                choices=['S', 'C', 'F', 'W', 'H', 'Q'])
                 os.system('cls||clear')
 
                 #match case for different types of contacts to be created
                 match add_choice.upper():
-                    case 'C':
+                    case 'S':
                         contact_type = 'Contact'
 
                         #displaying panel heading
@@ -122,7 +122,7 @@ while True:
                         user_id += 1
                         # break
 
-                    case 'CC':
+                    case 'C':
                         contact_type = 'Close Contact'
                         #as above
 
@@ -141,7 +141,7 @@ while True:
                         user_id += 1
                         # break
 
-                    case 'FC':
+                    case 'F':
                         contact_type = 'Family Contact'
                         #as above
 
@@ -160,7 +160,7 @@ while True:
                         user_id += 1
                         # break
 
-                    case 'WC':
+                    case 'W':
                         contact_type = 'Work Contact'
                         #as above
 
@@ -455,7 +455,7 @@ while True:
                     search_again = Confirm.ask('Would you like to search for another contact to delete?')
         
         #Display a contact
-        case 'DC':
+        case 'S':
             # variable used to control while loop
             search_again = True
 
@@ -495,7 +495,7 @@ while True:
                     search_again = Confirm.ask('Would you like to search for another contact to Display?')
 
         #Display all contacts
-        case 'DA':
+        case 'L':
             
             #If contacts databse is empty, show error message
             search_again = f.empty_database_alert(ContactsDb, 'Display', 'Displaying')

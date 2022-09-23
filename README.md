@@ -12,6 +12,7 @@
     - [**Maximum Line Length**](#maximum-line-length)
     - [**Tabs or Spaces?**](#tabs-or-spaces)
     - [**Documentation Strings**](#documentation-strings)
+    - [**Indentation - If statements**](#indentation---if-statements)
   - [**R6 - Features**](#r6---features)
     - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact)
     - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact)
@@ -76,13 +77,12 @@ import sys, os
 
 Iv applied this to `main.py` as seen below:
   ```py
-  #Importing modules
+#Importing modules
 import os
 import sys
 from rich.prompt import Prompt
 from rich.prompt import Confirm
 from rich.console import Console
-# from rich.table import Table
 from rich.panel import Panel
 from tinydb import TinyDB
 from tinydb import Query
@@ -175,6 +175,35 @@ def display_table(list):
         list (list): a list of results matching user's search input
     """
 ```
+
+### **Indentation - If statements**
+
+PEP8 states:
+> "When the conditional part of an if-statement is long enough to require that it be written across multiple lines, it’s worth noting that the combination of a two character keyword (i.e. if), plus a single space, plus an opening parenthesis creates a natural 4-space indent for the subsequent lines of the multiline conditional. This can produce a visual conflict with the indented suite of code nested inside the if-statement, which would also naturally be indented to 4 spaces. This PEP takes no explicit position on how (or whether) to further visually distinguish such conditional lines from the nested suite inside the if-statement." [^6] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
+
+I have applied this to the following code in the `add_contact()` function.
+
+```py
+if (contact_type == 'Contact' or contact_type == 'Close Contact'
+        or contact_type == 'Family Contact' or contact_type == 'Work Contact'):
+        #create contact dictionary with common input fields used in all contact types
+        contact = {'id': str(id), 'type': contact_type, 'first_name': first_name,
+        'last_name': last_name, 'phone': phone}
+
+        if contact_type == 'Contact':
+            return contact
+
+    if (contact_type == 'Close Contact' or contact_type == 'Family Contact'
+        or contact_type == 'Work Contact'):
+        #add address field for work and family contacts
+        contact['address'] = address
+
+        if contact_type == 'Close Contact':
+            return contact
+```
+
+
+
 
 ## **R6 - Features**
 
@@ -914,7 +943,8 @@ while not next((item for item in search_result if item['id'] == search_id), None
 - [^3 - PEP8 - Maximum Line Length](#maximum-line-length) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#maximum-line-length), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^4 - PEP8 - Tabs or Spaces?](#tabs-or-spaces) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#tabs-or-spaces), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
-- [^6 - Generator Expressions](#feature-2---edit-a-contact) - Frédéric Hamidi (2011) [*Python list of dictionaries search*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 17 September 2022.
+- [^6 - PEP8 - Indentation - If Statements](#indentation---if-statements) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^7 - Generator Expressions](#feature-2---edit-a-contact) - Frédéric Hamidi (2011) [*Python list of dictionaries search*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 17 September 2022.
 
 
 [Go to top of page](#coder-academy---assignment-t1a3---terminal-application-submitted-by-mario-lisbona)

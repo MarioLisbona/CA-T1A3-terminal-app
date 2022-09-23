@@ -32,8 +32,8 @@ def menu_prompt():
     table.add_row('Add Contact', 'A')
     table.add_row('Edit Contact', 'E')
     table.add_row('Delete Contact', 'D')
-    table.add_row('Display Contact', 'DC')
-    table.add_row('Display all Contacts', 'DA')
+    table.add_row('Search Contact', 'S')
+    table.add_row('Display all Contacts', 'L')
     table.add_row('Quit Application', 'Q')
 
     #display table
@@ -61,10 +61,10 @@ def add_contact_prompt():
     table.add_column('Key', justify='left', style='magenta')
 
     #add rows with menu options
-    table.add_row('Add a Contact', 'C')
-    table.add_row('Add a Close Contact', 'CC')
-    table.add_row('Add a Family Contact Contact', 'FC')
-    table.add_row('Add a Work Contact', 'WC')
+    table.add_row('Add a Standard Contact', 'S')
+    table.add_row('Add a Close Contact', 'C')
+    table.add_row('Add a Family Contact Contact', 'F')
+    table.add_row('Add a Work Contact', 'W')
     table.add_row('Home', 'H')
     table.add_row('Quit Application', 'Q')
 
