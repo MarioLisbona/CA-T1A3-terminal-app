@@ -8,8 +8,9 @@ from rich import print
 
 def menu_prompt():
     """
-        Menu_prompt function clears the screen each time and displays a table with Home Menu options and keyboard keys to access menu
-    """   
+        Menu_prompt function clears the screen each time and displays a table
+        with Home Menu options and keyboard keys to access menu
+    """ 
     #clear screen and create and instance of Console from Rich module
     os.system('cls||clear')
     console = Console()
@@ -19,10 +20,10 @@ def menu_prompt():
         Panel.fit("[magenta]\nPlease make a selection   \nfrom the menu below\n",
         title="[cyan]Home")
     )
-    
+
     #create a table
     table = Table()
- 
+
     #add columns and headings
     table.add_column('Home | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
@@ -40,8 +41,9 @@ def menu_prompt():
 
 def add_contact_prompt():
     """
-        add_contact_prompt function clears the screen each time and displays a table with Add Contact Menu options and keyboard keys to access menu
-    """  
+        add_contact_prompt function clears the screen each time and displays a table
+        with Add Contact Menu options and keyboard keys to access menu
+    """
     #clear screen and create and instance of Console from Rich module  
     os.system('cls||clear')
     console = Console()
@@ -53,7 +55,7 @@ def add_contact_prompt():
     )
     #create a table
     table = Table()
-    
+
     #add columns and headings
     table.add_column('Add | Operation', style='cyan', justify='left', no_wrap=True)
     table.add_column('Key', justify='left', style='magenta')
@@ -97,7 +99,8 @@ def display_table(list):
     table.add_column("Skills", style="green")
 
     #iterate through list of results to add each row to the table.
-    #if / elif used to print each type of contact - Contact, Close Contact, Family Contact, Work Contact
+    #if / elif used to print each type of contact - Contact, Close Contact,
+    #Family Contact, Work Contact
     for idx, val in enumerate(list):
         if len(val) == 5:
             table.add_row(list[idx]['id'], list[idx]['first_name'],
@@ -122,10 +125,11 @@ def continue_prompt():
     """
         Prompts user to press Enter to continue. Execution is frozen untill keypress
     Returns:
-        string: returns user input. Used for ID selection for multipe search results. No need for error
-        correction here as its done in the while look with a generator expression
-    """  
-    
+        string: returns user input. Used for ID selection for multipe search results.
+        No need for error correction here as its done in the while
+        look with a generator expression
+    """
+
     prompt = Prompt.ask("Press Enter to continue...", default="")
 
     return prompt
@@ -151,19 +155,24 @@ def add_contact(id, contact_type, first_name, last_name, phone, address, pet_nam
 
     Returns:
         _type_: dictionary
-    """    
-    if (contact_type == 'Contact' or contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact'):
-        contact = {'id': str(id), 'type': contact_type, 'first_name': first_name, 'last_name': last_name, 'phone': phone}
+    """  
+    if (contact_type == 'Contact' or contact_type == 'Close Contact'
+        or contact_type == 'Family Contact' or contact_type == 'Work Contact'):
+        #create contact dictionary with common input fields used in all contact types
+        contact = {'id': str(id), 'type': contact_type, 'first_name': first_name,
+        'last_name': last_name, 'phone': phone}
 
         if contact_type == 'Contact':
             return contact
 
-    if contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
+    if (contact_type == 'Close Contact' or contact_type == 'Family Contact'
+        or contact_type == 'Work Contact'):
+        #add address field for work and family contacts
         contact['address'] = address
 
         if contact_type == 'Close Contact':
             return contact
-    
+
     if contact_type == 'Family Contact':
         contact['pet'] = pet_name
         contact['fav_drink'] = fav_drink
@@ -193,7 +202,8 @@ def empty_database_alert(database, action, title_action):
     if not database:
         os.system('cls||clear')
         search_again = False
-        console.print(Panel.fit(f'[magenta]\nYou cannot {action} any contacts.\nYour Contacts Book is empty.\n', title_align='left', title=f'[cyan]{title_action} a Contact'))
+        console.print(Panel.fit(f'[magenta]\nYou cannot {action} any contacts.\nYour Contacts Book is empty.\n',
+        title_align='left', title=f'[cyan]{title_action} a Contact'))
         continue_prompt()
         return search_again
 

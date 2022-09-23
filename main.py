@@ -92,7 +92,8 @@ while True:
             while True:
 
                 #call function to display add contact menu
-                #use Prompt from rich.prompt module to give a selection menu to the user and assign choice to add_choice
+                #use Prompt from rich.prompt module to give a selection menu
+                #assign choice to add_choice
                 f.add_contact_prompt()
                 add_choice = Prompt.ask('Please make a selection: ',
                 choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
@@ -171,7 +172,8 @@ while True:
                         contact = f.add_contact(
                             id=user_id, contact_type='Work Contact', first_name=f_name,
                             last_name=l_name, phone=phone, address=address, pet_name=None,
-                            fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
+                            fav_drink=None, work_address=w_address,
+                            work_phone=w_phone, skills=skills
                             )
 
                         ContactsDb.insert(contact)
@@ -252,7 +254,8 @@ while True:
                     #match case for contact, Close contact, Family contact and work contact
                     #once contact type is established upse tinyDB update method to update contact with that ID
                     #this match case is for when only a single result is found and returned by TinySB search() method
-                    #Second match case is used for when multiple contacts are found and get() method is subsequently used to select single contact with ID
+                    #Second match case is used for when multiple contacts are found
+                    # get() method is subsequently used to select single contact with ID
 
                     #using 'type' key to establish what kind of contact needs updating.
                     #lots of repitition here - need to try and DRY it
@@ -453,43 +456,43 @@ while True:
         
         #Display a contact
         case 'DC':
-                # variable used to control while loop
-                search_again = True
+            # variable used to control while loop
+            search_again = True
 
-                #If contacts databse is empty, show error message
-                search_again = f.empty_database_alert(ContactsDb, 'Display', 'Displaying')
+            #If contacts databse is empty, show error message
+            search_again = f.empty_database_alert(ContactsDb, 'Display', 'Displaying')
 
-                #while search_again is true prompt user to enter a name to search for
-                while search_again:
+            #while search_again is true prompt user to enter a name to search for
+            while search_again:
+                os.system('cls||clear')
+                console.print(Panel.fit('\n[magenta]Search for a contact to display\n',
+                title_align='left', title='[cyan]Displaying a Contact'))
+                display_choice = input('Enter a contact name to display >> ')
+
+                #use TinyDB search method to return dictionary that matches first name
+                #search will return all results matching the name.
+                search_result = ContactsDb.search(QueryDb.first_name == display_choice)
+
+                #if contact is found iterate through dict to display contact information
+                if search_result:
+                    f.display_table(search_result)
+
+                    #confirm user wants to search for another contact
+                    print()
+                    confirm_display = Confirm.ask('Do you want to search for another contact?')
+
+                    #if user selects no, break out to home menu
+                    if not confirm_display:
+                        search_again = False
+                        break
+
+                # contact no found
+                # user can search again or exit
+                else:
                     os.system('cls||clear')
-                    console.print(Panel.fit('\n[magenta]Search for a contact to display\n',
+                    console.print(Panel.fit('\n[magenta]That contact does not exist\n',
                     title_align='left', title='[cyan]Displaying a Contact'))
-                    display_choice = input('Enter a contact name to display >> ')
-
-                    #use TinyDB search method to return dictionary that matches first name
-                    #search will return all results matching the name.
-                    search_result = ContactsDb.search(QueryDb.first_name == display_choice)
-
-                    #if contact is found iterate through dict to display contact information
-                    if search_result:
-                        f.display_table(search_result)
-
-                        #confirm user wants to search for another contact
-                        print()
-                        confirm_display = Confirm.ask('Do you want to search for another contact?')
-
-                        #if user selects no, break out to home menu
-                        if not confirm_display:
-                            search_again = False
-                            break
-
-                    # contact no found
-                    # user can search again or exit
-                    else:
-                        os.system('cls||clear')
-                        console.print(Panel.fit('\n[magenta]That contact does not exist\n',
-                        title_align='left', title='[cyan]Displaying a Contact'))
-                        search_again = Confirm.ask('Would you like to search for another contact to Display?')
+                    search_again = Confirm.ask('Would you like to search for another contact to Display?')
 
         #Display all contacts
         case 'DA':
