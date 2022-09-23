@@ -51,7 +51,7 @@ This application will adhere to the ***PEP 8 – Style Guide for Python Code***
 In the introduction of the PEP8 style guide it states:
 
 > "A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. 
-Consistency within one module or function is the most important." [^1]
+Consistency within one module or function is the most important." [^1] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
 
 With this in mind below are some of the styling conventions that are adhered to in the code for this application.
 
@@ -68,7 +68,7 @@ import sys
 # Wrong:
 import sys, os
 ```
-
+[^] ()
 Iv applied this to `main.py` as seen below:
   ```py
   #Importing modules
@@ -717,22 +717,22 @@ The tests beign performed are:
 - The user cannot leave first name, last name or phone number blank.
 - The phone number field can only be numeric. It is allowed white space between numbers.
 
-| Field being tested     	| Input                    	| Test being performed                             	| Expected result                                    	|
-|------------------------	|--------------------------	|--------------------------------------------------	|----------------------------------------------------	|
-| First Name input field 	| Mario                    	| no leading or trailing white space               	| Mario                                              	|
-| First Name input field 	| ------Mario--------      	| no leading or trailing white space               	| Mario                                              	|
-| First Name input field 	| --Mario                  	| no leading or trailing white space               	| Mario                                              	|
-| First Name input field 	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a First Name for your Contact!' 	|
-| First Name input field 	| mario4                   	| no leading or trailing white space               	| mario4                                             	|
-| Last Name input field  	| Lisbona                  	| no leading or trailing white space               	| Lisbona                                            	|
-| Last Name input field  	| ----Lisbona----------    	| no leading or trailing white space               	| Lisbona                                            	|
-| Last Name input field  	| --Lisbona--              	| no leading or trailing white space               	| Lisbona                                            	|
-| Last Name input field  	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a Last Name for your Contact!'  	|
-| Last Name input field  	| lisbona4                 	| no leading or trailing white space               	| lisbona4                                           	|
-| Phone number           	| 0412 455 222             	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	|
-| Phone number           	| ----------0412 455 222-- 	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	|
-| Phone number           	| --0412 455 222--         	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	|
-| Phone number           	| mario                    	| no leading or trailing white space, only numbers 	| 'Phone number can only contain numbers!'           	|
+| Field being tested     	| Input                    	| Test being performed                             	| Expected result                                    	| ✅ / ❌  	|
+|------------------------	|--------------------------	|--------------------------------------------------	|----------------------------------------------------	|--------	|
+| First Name input field 	| Mario                    	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
+| First Name input field 	| ------Mario--------      	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
+| First Name input field 	| --Mario                  	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
+| First Name input field 	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a First Name for your Contact!' 	| Pass ✅ 	|
+| First Name input field 	| mario4                   	| no leading or trailing white space               	| mario4                                             	| Pass ✅ 	|
+| Last Name input field  	| Lisbona                  	| no leading or trailing white space               	| Lisbona                                            	| Pass ✅ 	|
+| Last Name input field  	| ----Lisbona----------    	| no leading or trailing white space               	| Lisbona                                            	| Pass ✅ 	|
+| Last Name input field  	| --Lisbona--              	| no leading or trailing white space               	| Lisbona                                            	| Pass ✅ 	|
+| Last Name input field  	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a Last Name for your Contact!'  	| Pass ✅ 	|
+| Last Name input field  	| lisbona4                 	| no leading or trailing white space               	| lisbona4                                           	| Pass ✅ 	|
+| Phone number           	| 0412 455 222             	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	| Pass ✅ 	|
+| Phone number           	| ----------0412 455 222-- 	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	| Pass ✅ 	|
+| Phone number           	| --0412 455 222--         	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	| Pass ✅ 	|
+| Phone number           	| mario                    	| no leading or trailing white space, only numbers 	| 'Phone number can only contain numbers!'           	| Pass ✅ 	|
 
 The '-' in the table above indicate a user entering spaces
 
@@ -801,18 +801,21 @@ The user wants to edit a contact. They are prompted to search for a contact to e
 
 Error checking will be vital here to make sure that the user cannot select an ID that is not in the current search list. The table below contains the tests and expected output.
 
-| Field being tested                            	| Input 	| Test being performed                                 	| Expected result                        	|
-|-----------------------------------------------	|-------	|------------------------------------------------------	|----------------------------------------	|
-| Select ID to edit for multiple search results 	| mario 	| ID is valid for the current search results (picture) 	| 'mario is not a valid ID.'             	|
-| Select ID to edit for multiple search results 	| 1999  	| ID is valid for the current search results (picture) 	| '1999 is not a valid ID.'              	|
-| Select ID to edit for multiple search results 	| x     	| ID is valid for the current search results (picture) 	| 'x is not a valid ID.'                 	|
-| Select ID to edit for multiple search results 	| 37    	| ID is valid for the current search results (picture) 	| '37 is not a valid ID.'                	|
-| Select ID to edit for multiple search results 	| -56   	| ID is valid for the current search results (picture) 	| '-56 is not a valid ID.'               	|
-| Select ID to edit for multiple search results 	| 37f   	| ID is valid for the current search results (picture) 	| '37f is not a valid ID.'               	|
-| Select ID to edit for multiple search results 	| -     	| ID is valid for the current search results (picture) 	| '- is not a valid ID.'                 	|
-| Select ID to edit for multiple search results 	| 17    	| ID is valid for the current search results (picture) 	| 'Contact Selected - 17: Mario Lisbona' 	|
-| Select ID to edit for multiple search results 	| 29    	| ID is valid for the current search results (picture) 	| 'Contact Selected - 29: Mario asdf'    	|
-| Select ID to edit for multiple search results 	| 36    	| ID is valid for the current search results (picture) 	| 'Contact Selected - 36: Mario sd'      	|
+|               Field being tested              	| Input 	|                 Test being performed                 	|             Expected result            	|     ✅ / ❌   	|
+|:---------------------------------------------:	|:-----:	|:----------------------------------------------------:	|:--------------------------------------:	|:-----------:	|
+| Select ID to edit for multiple search results 	| mario 	| ID is valid for the current search results (picture) 	|       'mario is not a valid ID.'       	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|  1999 	| ID is valid for the current search results (picture) 	|        '1999 is not a valid ID.'       	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|   x   	| ID is valid for the current search results (picture) 	|         'x is not a valid ID.'         	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|   37  	| ID is valid for the current search results (picture) 	|         '37 is not a valid ID.'        	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|  -56  	| ID is valid for the current search results (picture) 	|        '-56 is not a valid ID.'        	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|  37f  	| ID is valid for the current search results (picture) 	|        '37f is not a valid ID.'        	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|   -   	| ID is valid for the current search results (picture) 	|         '- is not a valid ID.'         	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|   17  	| ID is valid for the current search results (picture) 	| 'Contact Selected - 17: Mario Lisbona' 	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|   29  	| ID is valid for the current search results (picture) 	|   'Contact Selected - 29: Mario asdf'  	|    Pass ✅   	|
+| Select ID to edit for multiple search results 	|   36  	| ID is valid for the current search results (picture) 	|    'Contact Selected - 36: Mario sd'   	|    Pass ✅   	|
+
+The '-' in the table above indicate a user entering spaces
+
 
 The code below is a generator expression that will be used for when more than one search result is found. It will iterate through the search results and look at the current value for `['id]` and compare that to the ID entered by the user. It will always return `None` while the entered ID is not in the search results and the while look will continue.
 
@@ -833,15 +836,27 @@ while not next((item for item in search_result if item['id'] == search_id), None
 ```
 
 ## **Attributions**
-- [^1 - Template]() - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://www.semrush.com/blog/markup-language/), Semrush website, accessed 25 August 2022.
+
+[^1 - Styling Conventions](#r5---styling-conventions) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/), Python Enhancement Proposals website, accessed 18 September 2022.
+
+
+
+
+
+
+
+
+
+
+
+- [^1 - Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
+
 
 
 
 
 - [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
 
-
-- [Packaging Python Projects]() - [*Packaging Python Projects*](https://packaging.python.org/en/latest/tutorials/packaging-projects/), Python org website, accessed 20 Sept 2022.
 
 https://www.tablesgenerator.com/
 - 
