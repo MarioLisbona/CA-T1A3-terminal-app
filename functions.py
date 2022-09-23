@@ -17,7 +17,7 @@ def menu_prompt():
 
     print()
     console.print(
-        Panel.fit("[magenta]\nPlease make a selection   \nfrom the menu below\n",
+        Panel.fit("[magenta]\nPlease make a selection\nfrom the menu below\n",
         title="[cyan]Home")
     )
 
@@ -29,11 +29,11 @@ def menu_prompt():
     table.add_column('Key', justify='left', style='magenta')
 
     #add rows with menu options
-    table.add_row('Add Contact', 'A')
-    table.add_row('Edit Contact', 'E')
-    table.add_row('Delete Contact', 'D')
-    table.add_row('Search Contact', 'S')
-    table.add_row('Display all Contacts', 'L')
+    table.add_row('Add a Contact', 'A')
+    table.add_row('Edit a Contact', 'E')
+    table.add_row('Delete a Contact', 'D')
+    table.add_row('Search a Contact', 'S')
+    table.add_row('List all Contacts', 'L')
     table.add_row('Quit Application', 'Q')
 
     #display table
