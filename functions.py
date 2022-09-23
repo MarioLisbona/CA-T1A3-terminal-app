@@ -100,13 +100,19 @@ def display_table(list):
     #if / elif used to print each type of contact - Contact, Close Contact, Family Contact, Work Contact
     for idx, val in enumerate(list):
         if len(val) == 5:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'])
         elif len(val) == 6:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'])
         elif len(val) == 8:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], list[idx]['pet'], list[idx]['fav_drink'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'],
+            list[idx]['pet'], list[idx]['fav_drink'])
         elif len(val) == 9:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'],
+            '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
 
     #display table
     console.print(table)
@@ -146,7 +152,7 @@ def add_contact(id, contact_type, first_name, last_name, phone, address, pet_nam
     Returns:
         _type_: dictionary
     """    
-    if contact_type == 'Contact' or contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact':
+    if (contact_type == 'Contact' or contact_type == 'Close Contact' or contact_type == 'Family Contact' or contact_type == 'Work Contact'):
         contact = {'id': str(id), 'type': contact_type, 'first_name': first_name, 'last_name': last_name, 'phone': phone}
 
         if contact_type == 'Contact':

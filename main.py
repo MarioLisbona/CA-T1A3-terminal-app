@@ -227,17 +227,15 @@ while True:
                         #use get method on the multiple reults to retrieve contact with ID entered
                         single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
-                        #User validation cruicial here so that correct ID is edited
                         # #generator expression to continually loop while the ID entered isnt a valid ID
-
                         while not next((item for item in search_result if item['id'] == search_id), None):
-                            # os.system('cls||clear')
+
                             f.display_table(search_result)
+                            # valid ID has not been entered. display prompt to re-enter valid ID
                             console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n',
                             title_align='left', title='[cyan]Editing a Contact'))
                             search_id = input('\nSelect an ID to Edit >> ')
         
-
                             #original ID wasn not valid, so assign the valid ID at the end of this while loop
                             single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
@@ -480,7 +478,7 @@ while True:
                         print()
                         confirm_display = Confirm.ask('Do you want to search for another contact?')
 
-                        # ?if user selects no, break out to home menu
+                        #if user selects no, break out to home menu
                         if not confirm_display:
                             search_again = False
                             break

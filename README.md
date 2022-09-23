@@ -128,6 +128,9 @@ From PEP8:
 > Tabs should be used solely to remain consistent with code that is already indented with tabs.
 > 
 > Python disallows mixing tabs and spaces for indentation." [^4] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
+> 
+
+The image below is a screen shot of the menu bar in VSCode.
 
 <br>
 
@@ -183,7 +186,7 @@ The Contacts Book will need to be able to add a contact. The user will be able t
 - Family Contact
 - Work Contact
 
-The contacts will share some commonalities with their input fields. All contacts will contain the base fields of first name, last name and phone number. Below is a list of the input fields for each contact type and the fields they share. I will use classes and classes to implement this functionality and inheritance. All contact variables will be of String Type.
+The contacts will share some commonalities with their input fields. All contacts will contain the base fields of first name, last name and phone number. Below is a list of the input fields for each contact type and the fields they share. I will use classes to implement this functionality and inheritance. All contact variables will be of String Type.
 
 | Contact      | Close Contact                          | Family Contact                               | Work Contact                                 |
 |--------------|----------------------------------------|----------------------------------------------|----------------------------------------------|
@@ -205,7 +208,7 @@ The contacts will share some commonalities with their input fields. All contacts
 
 Variables will be assigned depending on which type of contact is being created. Once this has been done, those variables will become key/pair values in a dictionary. That dictionary will be inserted into json file with a unique ID
 
-The TinyDB module will be used to manage the database CRUD, Create, Read, Update and Delete functions. Every time a contact is created the user ID will need to be incremented. Deeper Error checking will need to be performed on 3 of the fields:
+The TinyDB module will be used to manage the database CRUD, Create, Read, Update and Delete functions. Every time a contact is created the user ID will need to be incremented. Deeper Error checking will need to be performed on 4 of the fields:
 - first name
   - remove leading or trailing white spaces
   - prompt user to enter valid data if the field is completly empty
@@ -226,15 +229,15 @@ The TinyDB module will be used to manage the database CRUD, Create, Read, Update
   
 ### **Feature 2 - Edit a contact**
 
-The user will be able to edit an existing contact. They will be able to search the contacts book for a first name. The application will then use TinDB’s search and get methods to retrieve the contact if it exists in the database. If there is only a single contact with that name, the contact will be displayed and the user will be prompted to confirm whether they want to edit that contact. If they select no is selected then they are taken back to the Home Menu. If they confirm that they want to edit the contact then they will be asked to fill in the particular fields that are valid for that contact type.
+The user will be able to edit an existing contact. They will be prompted to search the contacts book for a first name. The application will then use TinDB’s search and get methods to retrieve the contact if it exists in the database. If there is only a single contact with that name, the contact will be displayed and the user will be prompted to confirm whether they want to edit that contact. If they select no they are taken back to the Home Menu. If they confirm that they want to edit the contact they will be asked to fill in the particular fields that are valid for that contact type.
 
-If multiple results return from the name search then all the contacts with their unique ID will be displayed in a table. The user will be prompted to choose an ID to edit. Error checking here will be vital so that they don't edit a different contact to the ones that are displayed.
+If multiple results return from the search then all the contacts with their unique ID will be displayed in a table. The user will be prompted to choose an ID to edit. Error checking here will be vital so that they don't edit a different contact to the ones that are displayed.
 
 Once a valid ID has been selected, the user will be asked to confirm they want to edit this contact. If they choose no, they’ll be returned to the home menu, otherwise they will be asked to fill in the particular fields that are valid for that contact type. 
 
-Each contact dict will have a key/value pair of ```type: contact_type```. The edit feature will access this type from the selected contact to edit and use it in a match case structure so that the correct type of contact input fields are called for the type of contact that has been returned by the search.
+Each contact dict will have a key/value pair of ```type: contact_type```. The edit feature will access this type from the selected contact to edit and use it in a match case structure so that the correct number and type of contact input fields are called for the type of contact that has been returned by the search.
 
-If no results are found, display a message to the user and prompt them to search for another user or go back to the home menu.
+If no results are found, display a new search prompt or go back to the home menu.
 
 The edit feature will use the same code as the create contact, so will utilise the same error checking functionality.
 
@@ -242,8 +245,8 @@ The edit feature will use the same code as the create contact, so will utilise t
   
 ### **Feature 3 - Delete a contact**
 
-The delete feature will be similar to the edit feature in that it will search the database for a name entered by the user. A message will be displayed if the name cannot be found and they’ll be prompted to search again or be taken back to the home menu. Results, singular and multiple will be displayed to the user. They will need to select and ID to delete with multiple results.
-Once a contact has been selected then they are prompted to confirm the delete. If they select yes the contact will be deleted and returned to the home menu.
+The delete feature will be similar to the edit feature in that it will search the database for a name entered by the user. A message will be displayed if the name cannot be found and they’ll be prompted to search again or be taken back to the home menu. Results, singular and multiple will be displayed to the user in a table. They will need to select and ID to delete with multiple results.
+Once a contact has been selected then they are prompted to confirm the delete. If they select yes the contact will be deleted and the user returned to the home menu.
 
 
 ### **Feature 4 - Display contacts**
@@ -252,7 +255,7 @@ This feature will be implemented in two ways, searching for a contact to be disp
 
 #### **Display a contact**
 
-The user will search for a contact. The same search functionality that is shared with the edit and delete features will be used. Multiple and single results will be displayed in a table. The user will be prompted to search again or return home. If a result is not found, the user will be prompted to search again or be returned to the home menu.
+The user will search for a contact. The same search functionality that is used by the edit and delete features will be used. Multiple and single results will be displayed in a table. The user will be prompted to search again or return home. If a result is not found, the user will be prompted to search again or be returned to the home menu.
 
 #### **Display all contacts**
 
@@ -260,11 +263,11 @@ The whole database will be displayed in a table if the user selects this option.
 
 ### **Feature 5 - Creating a new Contact Book or Accessing an existing one**
 
-The application will start on a menu prompting the user to make a choice between creating a new contacts book or creating a new one. They can also quit the application at this stage as well.
+The application will start with a menu prompting the user to make a choice between creating a new contacts book or opening an existing one. They can also quit the application at this stage.
 
 I am including this feature because I wanted the user (Educator) to have some mock data to play around with rather than having to enter information to test the features.
 
-If the user wants to access an existing contacts book then firstly an instance of the TinyDB class will need to be created along with the path to the contacts.json file. Once this is done, we can assign the contents of the json file to a variable. We need to find the next available ID so that we aren't creating ID’s that clash with the existing contacts. This will be done by accessing TinyDB’s .doc_id method. This will return the ID that is assigned to each document (contact) in the json file. The application will need to iterate over the entire json file to find the last ID that is used. This will be incremented by 1 and used for the next contact that is created.
+If the user wants to access an existing contacts book then firstly an instance of the TinyDB class will need to be created along with the path to the mock-data.json file. Once this is done, we can assign the contents of the json file to a variable. We need to find the next available ID so that we aren't creating ID’s that clash with the existing contacts. This will be done by accessing TinyDB’s .doc_id method. This will return the ID that is assigned to each document (contact) in the json file. The application will need to iterate over the entire json file to find the last ID that is used. This will be incremented by 1 and used for the next contact that is created.
 
 If the user chooses to create a new database then the user ID will need to be initialised to zero and then the new database will be iterated over.
 
@@ -276,7 +279,7 @@ There will also be another match cased used by the application only (not accessi
 
 ### **Feature 7 - Navigation Menus**
 
-The application will feature menu’s to allow the user to navigate through the different functionality of the app. The user will be able to create, update, delete or display contacts indefinitely until they decide to quit the application. All the error checking of user input for the menu options is handled by the Rich module. There will be 3 main menus for the user to naviate the application:
+The application will feature menu’s to allow the user to navigate through the different functions of the app. The user will be able to create, update, delete or display contacts indefinitely until they decide to quit the application. All the error checking of user input for the menu options is handled by the Rich module. There will be 3 main menus for the user to naviate the application:
 - Contact Book selection menu
 - Home menu
 - Add Contact menu
@@ -293,7 +296,7 @@ This menu will be the first menu that the user is presented with. They will be a
 
 #### **Home menu**
 
-The Home menu will allow the user to select they functionality that they want to use, Add, edit, delete, display or quit the application
+The Home menu will allow the user to select the functionality that they want to use. Add, edit, delete, display or quit the application
 
 <br>
 
@@ -328,21 +331,21 @@ There will also be various menu's prompting users to confirm an edit or a delete
 
 ### **Feature 8 - Classes**
 
-Each contact type will have its own class object. The base class will be Contact and will contain a class menthod to get the details from the user for first name, last name and phone number. The close Contact class will be derived from the Contact class so will inherit the user inputs for first name, last name and phone number. It will have an extra field for address. The Family Contact class will be derived from the Contact class and will inherit from its parent, Close Contact. It will had two extra attributes for pet name and favourite drinks. Lastly, the Work Contact class will be derived from the Close Contact class as well. It will had its own attributes of work address, work phone and skills.
+Each contact type will have its own class object. The base class will be Contact and will contain a class menthod to get the details from the user for first name, last name and phone number. The close Contact class will be derived from the Contact class so will inherit the user inputs for first name, last name and phone number. It will have an extra field for address. The Family Contact class will be derived from the Contact class and will inherit from its parent, Close Contact. It will add two extra fields for pet name and favourite drink. Lastly, the Work Contact class will be derived from the Close Contact class as well. It will had its own fields of work address, work phone and skills.
 
 ## **R7 - Implementation Plan**
 
 Below is a description of how each feature will be implemented. Below that are the prioritisation and timeline tables showing how I will structure the time available for the project
 
-Please use the following link to my Trello Kanban board. You will need to be a member of this board to access the cards linked below in each feature.
+Please use the following link to my Trello Kanban board. You will need to be a member of this board to access the cards linked below in each feature. Each Trello card will contain the checklist for that feature.
 
 *Become a membor of my Trello Kanban Board* -  [T1A3 - Terminal Application](https://trello.com/invite/b/saDZZxHD/5d41a86ce59bd13dba73c716b2d86d00/t1a3-terminal-application)
 
 ### **Feature 1 - Create / Add a contact**
 
-Firstly I will need to ask the user what type of contact they want to create and use a match case to direct the program flow to create the correct type of contact. Once the contact type has been established, the `set_details()` method will be called from either the contact, close contact, family contact or work contact class, which will return the user input back into the match case in variables. 
+Firstly, the user will be asked what type of contact they want to create and use a match case to direct the program flow to create the correct type of contact. Once the contact type has been established, the `set_details()` class method will be called from either the contact, close contact, family contact or work contact class, which will return the user input back into the match case in variables. 
 
-These variables, along with a user ID, will be passed as arguments to the `add_contact()` function which will return the correct size dictionary to a variable in the match case. That dictionary will be inserted into the json file. The user ID will be incremented and then the flow will break out of the match case and return to the menu.
+These variables, along with a user ID, will be passed as arguments to the `add_contact()` function which will return the correct size dictionary to a variable `contact` in the match case. That dictionary will be inserted into the json file. The user ID will be incremented and then the flow will break out of the match case and return to the menu.
 
 Nested if statements will be used to first create the 'base' dicionary that has the variables that all the contact types use. The dict will be added to and returned based on the booleans which will pass or fail dending on which contact type is being created.
 
@@ -385,17 +388,19 @@ case 'CC':
     #as above
 
     #call CloseContact class set_details method to retrieve contact details
-    console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Close Contact"))
+    console.print(Panel.fit("[magenta]\nEnter your Contact's details\n",
+    title="[cyan]Adding a Close Contact"))
     f_name, l_name, phone, address = classes.CloseContact.set_details()
 
     contact = f.add_contact(
-        id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
-        address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+        id=user_id, contact_type='Close Contact', first_name=f_name,
+        last_name=l_name, phone=phone, address=address, pet_name=None,
+        fav_drink=None, work_address=None, work_phone=None, skills=None
         )
 
     ContactsDb.insert(contact)
     user_id += 1
-    break
+    # break
 ```
 
 *View Trello card* -  [Add a Contact](https://trello.com/c/xzj45NUS)
@@ -404,30 +409,31 @@ case 'CC':
 
 This will be the most difficult feature to implement because it will have to deal with a lot more variables and a variety of data than the other features. It will also have to perform more functionality, e.g. reading and writing to the json file.
 
-The user will be prompted for a user to search for, this will be a search of first names in the database. If the database is empty then a message will be displayed saying so. The search will then either return a single result or multiple results. If a single result is returned, the user is asked to confirm the edit. If they select no they will be taken back to the home menu.
+The user will be prompted for a user to search the first names in the database. If the database is empty a message will be displayed saying so. The search will return a single result or multiple results. If a single result is returned, the user is asked to confirm the edit. They will then edit the contact or be taken back to the home menu.
 
-Multiple results for the search will require a finer search. The user will be shown all the results of the search in a table and then prompted to select a unique ID to edit. The error checking on thid ID is vital because it will be used to select the contact to edit (or delete). The user must only be allowed to enter an ID from the results displayed. 
+Multiple results will require a more focused search. The user will be shown all the results in a table and then prompted to select a unique ID to edit. The error checking on the ID selection is vital because it will be used to select the contact to edit (or delete). The user must only be allowed to enter an ID from the results displayed. 
 
-I did some googling and found some posts on generator expressions and wrote this code block to continually loop while untill the user enter's an ID that has been returned in the current search.
+I did some googling and found some posts on generator expressions and wrote this code block to continually loop  until the user enter's a valid ID. [^6] (Frédéric Hamidi, 2011)
 
 - The code block below will iterate though the contents of `search_result` and on each loop with check that the current value for the key `item[id]` matches the ID entered by the user. None is returned if there is no match. The loop will continue until a match is found.
   
 ```py
-#User validation cruicial here so that correct ID is edited
-# #generator expression to continually loop while the ID entered isnt a valid ID
-while not next((item for item in search_result if item['id'] == search_id), None):
+  # #generator expression to continually loop while the ID entered isnt a valid ID
+  while not next((item for item in search_result if item['id'] == search_id), None):
 
-    f.display_table(search_result)
-    console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title_align='left', title='[cyan]Editing a Contact'))
-    search_id = f.continue_prompt()
+      f.display_table(search_result)
+      # valid ID has not been entered. display prompt to re-enter valid ID
+      console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n',
+      title_align='left', title='[cyan]Editing a Contact'))
+      search_id = input('\nSelect an ID to Edit >> ')
 
-    #original ID wasn not valid, so assign the valid ID at the end of this while loop
-    single_search_result = ContactsDb.get(QueryDb.id == search_id)
+      #original ID wasn not valid, so assign the valid ID at the end of this while loop
+      single_search_result = ContactsDb.get(QueryDb.id == search_id)
 ```
 
-The contact is then edited or the user is taken back to the home menu if they decline to edit that contact.
+Once a valid ID is entered the contact is edited or the user is taken back to the home menu if they decline to edit that contact.
 
-In addition to a finer search, another bit of functionality needs to be built to edit the finer search. A search will be returned by TinyDB as a list of dictionaries. If there is one result it will be edited using TinyDB’s update method and the list index of [0].  - There is only one dictionary in the list - along with the TinyDB method .doc_id that is assigned to every document.
+In addition to a finer search, another bit of functionality needs to be built to edit the result of this finer search. A search will be returned by TinyDB as a list of dictionaries. If there is one result it will be edited using TinyDB’s update method and the list index of [0].  - There is only one dictionary in the list - along with the TinyDB method .doc_id that is assigned to every document.
 
 ```py
 #user input assigned to contact - using.doc_id method to assign to contact that selected by user
@@ -450,9 +456,9 @@ ContactsDb.update({'phone': phone}, doc_ids=[single_search_result.doc_id])
 
 ### **Feature 3 - Delete a contact**
 
-The delete feature is a stripped down version of the edit detaure. It makes use of all the functionality that was created for the edit feature. It still needs to be able to delete a contact that is a dict or a dict inside a list but it doesnt need to do as much heavy lifting as the edit feature. 
+The delete feature is a stripped down version of the edit feature. It makes use of all the functionality that was created for the edit feature. It still needs to be able to delete a contact that is a dict or a dict inside a list but it doesnt need to do as much heavy lifting as the edit feature. 
 
-The delete feature needs to allow the user to search for a contact and delete it if it's a single result, or do a finer search and select from multiple contacts with a user ID. Once a valid ID is selected, that contact is deleted from the database. The same generator expression as used in the edit feature is used to validate the User ID being entered by the user.
+The delete feature needs to allow the user to search for a contact and delete it if it's a single result, or do a finer search and select from multiple contacts with a user ID. Once a valid ID is selected, that contact is deleted from the database. The same generator expression, used in the edit feature, is used to validate the User ID being entered by the user.
 
 - The code below will call the `confirm_edit_delete()` fucntion that will display a confirmation message with the user ID and first and last names.
 - it needs to be passed the two types of search_rsults, a list of dictionaries and a dictionary for when there are more than 1 search result or a dictionary for a single reuslt.
@@ -464,7 +470,7 @@ else:
     confirm_delete = f.confirm_edit_delete('Delete', search_result)
 ```
 
-- The code below will delete the record once its selected using the TinyDB `.remove()` and `quer()` methods. If the id being queried in the database is the same as the id in the result found from the search the record is deleted.
+- The code below will delete the record once its selected using the TinyDB `.remove()` and `query()` methods. If the id being queried in the database is the same as the id in the result found from the search the record is deleted.
 -  If/else statement will allow for the correct type of data/contact to be deleted.
 
 ```py
@@ -493,13 +499,9 @@ elif len(search_result) == 1:
 
 ### **Feature 4 - Display contacts**
 
-The user will have the option to search for a single contact to display or to display the entire database. If the user wants to search for a contact then they are prompted to enter a first name. If that name results in no contacts, they are prompted to search for another contact or they are returned to the home menu. If the contact or contacts are found, they are dispayed in a table by calling the `display_table()` function and the user is prompted to search for another contact or return to the home menu. The
+The user will have the option to search for a single contact to display or to display the entire database. If the user wants to search for a contact they are prompted to enter a first name. If that name results in no contacts, they are prompted to search for another contact or they are returned to the home menu. If the contact or contacts are found, they are dispayed in a table by calling the `display_table()` function and the user is prompted to search for another contact or return to the home menu. The
 
 ```py
-#use TinyDB search method to return dictionary that matches first name
-#search will return all results matching the name.
-search_result = ContactsDb.search(QueryDb.first_name == display_choice)
-
 #if contact is found iterate through dict to display contact information
 if search_result:
    f.display_table(search_result)
@@ -508,7 +510,7 @@ if search_result:
    print()
    confirm_display = Confirm.ask('Do you want to search for another contact?')
 
-   # ?if user selects no, break out to home menu
+   #if user selects no, break out to home menu
    if not confirm_display:
        search_again = False
        break
@@ -517,16 +519,23 @@ if search_result:
 # user can search again or exit
 else:
    os.system('cls||clear')
-   console.print(Panel.fit('\n[magenta]That contact does not exist\n', title_align='left', title='[cyan]Displaying a Contact'))
+   console.print(Panel.fit('\n[magenta]That contact does not exist\n',
+   title_align='left', title='[cyan]Displaying a Contact'))
    search_again = Confirm.ask('Would you like to search for another contact to Display?')
 ```
 
 - The display table function firstly creates instances of the `Console` and `Tables` classes used to display the content and table.
 - The columns and heading are created.
-- The function takes in a list, which is the search result and then iterates over that list to print each contact to a new row in the table.
+- The function takes in a list, which is the current search result and then iterates over that list to print each contact to a new row in the table.
 
 ```py
 def display_table(list):
+    """
+        display_table function recives a list of search results and dsiplays them in a table
+    Args:
+        list (list): a list of results matching user's search input
+    """
+
     #clear screen and create and instance of Console from Rich module 
     os.system('cls||clear')
     console = Console()
@@ -550,13 +559,19 @@ def display_table(list):
     #if / elif used to print each type of contact - Contact, Close Contact, Family Contact, Work Contact
     for idx, val in enumerate(list):
         if len(val) == 5:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'])
         elif len(val) == 6:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'])
         elif len(val) == 8:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], list[idx]['pet'], list[idx]['fav_drink'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'],
+            list[idx]['pet'], list[idx]['fav_drink'])
         elif len(val) == 9:
-            table.add_row(list[idx]['id'], list[idx]['first_name'], list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'], '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
+            table.add_row(list[idx]['id'], list[idx]['first_name'],
+            list[idx]['last_name'], list[idx]['phone'],  list[idx]['address'],
+            '', '', list[idx]['work_address'], list[idx]['work_phone'], list[idx]['skills'])
 
     #display table
     console.print(table)
@@ -567,8 +582,8 @@ def display_table(list):
 
 When the application starts the user will be able to choose between creating a new database or using an existing one. Once a database is selected, a user_id variable is initialised. The contents of the database are passed to a variable using the TinyDB `.all()` method. This variable is then iterated over to find the last or highest ID. This is incremented by one to allow the new user ID assignments to not class with existing ones.
 
-- If/elif statments to create a new databser or open an existing one.
-- mock-data.json has pre entered contacts to allow teh marker/educator to play aroud with the features without having to enter data manually.
+- If/elif statments to create a new database or open an existing one.
+- mock-data.json has pre entered contacts to allow the marker/educator to play around with the features without having to enter data manually.
   
 ```py
 #user .all method to assign contents of database to contact variable
@@ -625,7 +640,7 @@ The flow chart below illustrates the two match cases for the home menu and the n
 
 I will make use of the Rich module to create menus as well as tables to display the search results. The Prompt class will be used extensively to handle the menu selection options for the user.
 
--The code below uses the Rich module to print a title in a panel and then prints a table with the menu options avaiable in the Home menu.
+The code below uses the Rich module to print a title in a panel and then prints a table with the menu options avaiable in the Home menu.
 
 ```py
 console.print(
@@ -651,7 +666,7 @@ console.print(
     #display table
     console.print(table)
 ```
--The code below demonstrates the `Prompt` method hadling the user input for the menu options. Once a valid input is entered, its assigned to `menu_choice` and that variable is used in the match case below.
+The code below demonstrates the `Prompt` method hadling the user input for the menu options. Once a valid input is entered, its assigned to `menu_choice` and that variable is used in the match case below.
 
 ```py
 menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
@@ -669,7 +684,7 @@ menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'D
 ### **Feature 8 - Create Classes**
 There will be four types of contacts that a user can create, Contact, Close Contact, Family Contact and Work Contact. Because all 4 of these contact types all get user input for first name, last name and phone number, I decided to use classes and have the derived class inherit the Contact class’s set_details() class method. This reduces some repetition of code for receiving user input. Once these are created I can move onto the skeleton match case for flow control and then adding contacts. I will use the super(). To inherit the set_details method from its parent class.
 
- - The contact class's `set_details()` method calls the functions `validate_name()` and `validate_phone()` which will obtain and validate user input and then return the validated input to `first_name`, `last_name` and `phone` varaiables.
+  The contact class's `set_details()` method calls the functions `validate_name()` and `validate_phone()` which will obtain and validate user input and then return the validated input to `first_name`, `last_name` and `phone` varaiables.
   
 ```py
 class Contact:
@@ -768,9 +783,9 @@ Below is a table that shows which features i will need to begin creating first a
 
 This error checking will be performed on the user input for first name, last name and phone number fields. The error checking here is vital, especially the first name field because this is the field that will be searched for each record in the database.
 
-The tests beign performed are:
+The tests being performed are:
 
-- leading or trailing whitespace is not allowed on first name and last name and phone number.
+- leading or trailing whitespace is not allowed on first name, last name and phone number.
 - The user cannot leave first name, last name or phone number blank.
 - The phone number field can only be numeric. It is allowed white space between numbers.
 
@@ -895,10 +910,11 @@ while not next((item for item in search_result if item['id'] == search_id), None
 ## **Attributions**
 
 - [^1 - PEP8 Styling Conventions](#r5---styling-conventions) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/), Python Enhancement Proposals website, accessed 18 September 2022.
-- [^2 - PEP8 - Imports](#imports) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#imports), Python Enhancement Proposals website, accessed 23 September 2022.
-- [^3 - PEP8 - Maximum Line Length](#maximum-line-length) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#maximum-line-length), Python Enhancement Proposals website, accessed 23 September 2022.
-- [^4 - PEP8 - Tabs or Spaces?](#tabs-or-spaces) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#tabs-or-spaces), Python Enhancement Proposals website, accessed 23 September 2022.
-- [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^2 - PEP8 - Imports](#imports) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#imports), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^3 - PEP8 - Maximum Line Length](#maximum-line-length) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#maximum-line-length), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^4 - PEP8 - Tabs or Spaces?](#tabs-or-spaces) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#tabs-or-spaces), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^6 - Generator Expressions](#feature-2---edit-a-contact) - Frédéric Hamidi (2011) [*Python list of dictionaries search*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 17 September 2022.
 
 
 [Go to top of page](#coder-academy---assignment-t1a3---terminal-application-submitted-by-mario-lisbona)
