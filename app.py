@@ -10,11 +10,11 @@ from tinydb import TinyDB
 from tinydb import Query
 
 #importing classes and functions
-import my_contacts.classes as classes
-import my_contacts.functions as f
+# import my_contacts.classes as classes
+# import my_contacts.functions as f
 
-# import functions as f
-# import classes
+import functions as f
+import classes
 
 def run_app():
 
@@ -39,7 +39,7 @@ def run_app():
     #user .all method to assign contents of database to contact variable
     if db_choice == 'New':
         user_id = 0
-        ContactsDb = TinyDB('./data/contacts.json')
+        ContactsDb = TinyDB('contacts.json')
         ContactsDb.truncate()                #USED HERE FOR EMPTY DATABASE EACH TIME - WILL NOT SAVE CONTACTS
         contacts = ContactsDb.all()
 
@@ -48,7 +48,7 @@ def run_app():
     #user .all method to assign contents of database to contact variable
     elif db_choice == 'Existing':
         user_id = 0
-        ContactsDb = TinyDB('./data/mock-data.json')
+        ContactsDb = TinyDB('mock-data.json')
         contacts = ContactsDb.all()
 
     #quit application
@@ -211,13 +211,14 @@ def run_app():
 
                             #User validation cruicial here so that correct ID is edited
                             # #generator expression to continually loop while the ID entered isnt a valid ID
+
                             while not next((item for item in search_result if item['id'] == search_id), None):
                                 # os.system('cls||clear')
                                 f.display_table(search_result)
                                 console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title_align='left', title='[cyan]Editing a Contact'))
-                                search_id = f.continue_prompt()
-
-                                
+                                search_id = input('\nSelect an ID to Edit >> ')
+            
+  
                                 #original ID wasn not valid, so assign the valid ID at the end of this while loop
                                 single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
@@ -386,7 +387,7 @@ def run_app():
                                 f.display_table(search_result)
                                 # valid ID has not been entered. display prompt to reenter valid ID
                                 console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title='[cyan]Deleting a Contact'))
-                                search_id = f.continue_prompt()
+                                search_id = search_id = input('\nSelect an ID to Delete >> ')
                                 
                                 #original ID wasn not valid, so assign the valid ID now and exit loop
                                 single_search_result = ContactsDb.get(QueryDb.id == search_id)
@@ -479,6 +480,4 @@ def run_app():
             case 'Q':
                 break
 
-
-
-
+run_app()
