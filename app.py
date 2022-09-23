@@ -28,7 +28,8 @@ def run_app():
     os.system('cls||clear')
     print()
     console.print(
-        Panel.fit("[magenta]\nPlease Choose and option:\n\n - Open New Contacts Book\n - Open an Existing Contacts Book\n - Quit Application\n",
+        Panel.fit("""[magenta]\nPlease Choose and option:
+        \n\n - Open New Contacts Book\n - Open an Existing Contacts Book\n - Quit Application\n""",
         title="[cyan]Welcome to your Contacts Book")
     )
 
@@ -40,10 +41,11 @@ def run_app():
     if db_choice == 'New':
         user_id = 0
         ContactsDb = TinyDB('contacts.json')
-        ContactsDb.truncate()                #USED HERE FOR EMPTY DATABASE EACH TIME - WILL NOT SAVE CONTACTS
+        #truncate here to start a new database each time the application is run
+        ContactsDb.truncate()                
         contacts = ContactsDb.all()
 
-    #choice 'Existing' 
+    #choice 'Existing'
     #create and instance of TinyDB clss and assign it to empty contacts json file
     #user .all method to assign contents of database to contact variable
     elif db_choice == 'Existing':
@@ -75,7 +77,8 @@ def run_app():
 
         #use Prompt from rich.prompt module to give a selection menu to the user
         # assign choice to menu_choice and clear screen
-        menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
+        menu_choice = Prompt.ask('Please make a selection: ',
+        choices=['A', 'E', 'D', 'DC', 'DA', 'Q'])
         os.system('cls||clear')
 
         # match case user input with upper for A, E, D, DC, DA, Q to quit Application
@@ -91,23 +94,26 @@ def run_app():
                     #call function to display add contact menu
                     #use Prompt from rich.prompt module to give a selection menu to the user and assign choice to add_choice
                     f.add_contact_prompt()
-                    add_choice = Prompt.ask('Please make a selection: ', choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
+                    add_choice = Prompt.ask('Please make a selection: ',
+                    choices=['C', 'CC', 'FC', 'WC', 'H', 'Q'])
                     os.system('cls||clear')
 
                     #match case for different types of contacts to be created
                     match add_choice.upper():
                         case 'C':
                             contact_type = 'Contact'
-                            
+
                             #displaying panel heading
                             #call Contact class set_details method to retrieve contact details
-                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Contact"))
+                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n",
+                            title="[cyan]Adding a Contact"))
                             f_name, l_name, phone = classes.Contact.set_details()
 
                             #call add_contact function to create the contact with user input
                             contact = f.add_contact(
-                                id=user_id, contact_type='Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                                address=None, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                                id=user_id, contact_type='Contact', first_name=f_name,
+                                last_name=l_name, phone=phone, address=None, pet_name=None,
+                                fav_drink=None, work_address=None, work_phone=None, skills=None
                                 )
 
                             #add contact to database and increment user_id by 1
@@ -120,12 +126,14 @@ def run_app():
                             #as above
 
                             #call CloseContact class set_details method to retrieve contact details
-                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Close Contact"))
+                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n",
+                            title="[cyan]Adding a Close Contact"))
                             f_name, l_name, phone, address = classes.CloseContact.set_details()
 
                             contact = f.add_contact(
-                                id=user_id, contact_type='Close Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                                address=address, pet_name=None, fav_drink=None, work_address=None, work_phone=None, skills=None
+                                id=user_id, contact_type='Close Contact', first_name=f_name,
+                                last_name=l_name, phone=phone, address=address, pet_name=None,
+                                fav_drink=None, work_address=None, work_phone=None, skills=None
                                 )
 
                             ContactsDb.insert(contact)
@@ -137,12 +145,14 @@ def run_app():
                             #as above
 
                             #call FamilyContact class set_details method to retrieve contact details
-                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Family Contact"))
+                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n",
+                            title="[cyan]Adding a Family Contact"))
                             f_name, l_name, phone, address, pet_name, fav_drink = classes.FamilyContact.set_details()
 
                             contact = f.add_contact(
-                                id=user_id, contact_type='Family Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                                address=address, pet_name=pet_name, fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
+                                id=user_id, contact_type='Family Contact', first_name=f_name,
+                                last_name=l_name, phone=phone, address=address, pet_name=pet_name,
+                                fav_drink=fav_drink, work_address=None, work_phone=None, skills=None
                                 )
 
                             ContactsDb.insert(contact)
@@ -154,12 +164,14 @@ def run_app():
                             #as above
 
                             #call WorkContact class set_details method to retrieve contact details
-                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n", title="[cyan]Adding a Work Contact"))
+                            console.print(Panel.fit("[magenta]\nEnter your Contact's details\n",
+                            title="[cyan]Adding a Work Contact"))
                             f_name, l_name, phone, address, w_address, w_phone, skills = classes.WorkContact.set_details()
 
                             contact = f.add_contact(
-                                id=user_id, contact_type='Work Contact', first_name=f_name, last_name=l_name, phone=phone, 
-                                address=address, pet_name=None, fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
+                                id=user_id, contact_type='Work Contact', first_name=f_name,
+                                last_name=l_name, phone=phone, address=address, pet_name=None,
+                                fav_drink=None, work_address=w_address, work_phone=w_phone, skills=skills
                                 )
 
                             ContactsDb.insert(contact)
@@ -176,7 +188,8 @@ def run_app():
 
             #Edit a contact         
             case 'E':
-                # variable used to control while loop - becomes False when user no longer wants to search for a contact
+                # variable used to control while loop
+                # becomes False when user no longer wants to search for a contact
                 search_again = True
 
                 #If contacts databse is empty, show error message
@@ -185,24 +198,29 @@ def run_app():
                 #while search_again is true prompt user to enter a name to search for
                 while search_again:
                     os.system('cls||clear')
-                    console.print(Panel.fit('[magenta]\nSearch for a contact to edit\n', title_align='left', title='[cyan]Editing a Contact'))
+                    console.print(Panel.fit('[magenta]\nSearch for a contact to edit\n',
+                    title_align='left', title='[cyan]Editing a Contact'))
                     edit_choice = input('Enter a contact\'s first name to edit >> ')
 
                     #use TinyDB search method to return matches for first name
-                    #TinyDB search method will return a list of dictionaries if multiple contacts are found
+                    #TinyDB search method will return a list of dictionaries
+                    #if multiple contacts are found
                     search_result = ContactsDb.search(QueryDb.first_name == edit_choice)
 
-                    #if contact is found iterate through database and display contact information in a table
+                    #if contact is found iterate through database
+                    # and display contact information in a table
                     if search_result:
                         f.display_table(search_result)
 
                         #if there are multiple contacts with the same first name
                         #prompt user to select ID of contact to edit
                         if len(search_result) > 1:
-                            console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {edit_choice}.\n', title_align='left', title='[cyan]Choose a contact ID', subtitle_align='left', subtitle='[cyan]Editing a Contact'))
+                            console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {edit_choice}.\n',
+                            title_align='left', title='[cyan]Choose a contact ID',
+                            subtitle_align='left', subtitle='[cyan]Editing a Contact'))
                             search_id = Prompt.ask('\nSelect an ID to Edit >> ', default='Home')
-                            # search_id = input('Select an ID to edit >> ')
 
+                            #If deault of home is selected break to menu
                             if search_id == 'Home':
                                 break
 
@@ -215,15 +233,18 @@ def run_app():
                             while not next((item for item in search_result if item['id'] == search_id), None):
                                 # os.system('cls||clear')
                                 f.display_table(search_result)
-                                console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title_align='left', title='[cyan]Editing a Contact'))
+                                console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n',
+                                title_align='left', title='[cyan]Editing a Contact'))
                                 search_id = input('\nSelect an ID to Edit >> ')
             
   
                                 #original ID wasn not valid, so assign the valid ID at the end of this while loop
                                 single_search_result = ContactsDb.get(QueryDb.id == search_id)
 
-                        #two seperate confirmatons are needed here. One for the result of Query.search() and one for Query.get()
-                        #Query.search() returns a list of with one or more dicts and Query.get() returns a single dict
+                        #two seperate confirmatons are needed here.
+                        #One for the result of Query.search() and one for Query.get()
+                        #Query.search() returns a list of with one or more dicts
+                        #and Query.get() returns a single dict
 
                         if len(search_result) > 1:
                             confirm_edit = f.confirm_edit_delete('Edit', search_result, single_search_result)
@@ -341,7 +362,8 @@ def run_app():
                     #user can search again or exit
                     elif not search_result:
                         os.system('cls||clear')
-                        console.print(Panel.fit('\n[magenta]That contact does not exist\n', title_align='left', title='[cyan]Editing a Contact'))
+                        console.print(Panel.fit('\n[magenta]That contact does not exist\n',
+                        title_align='left', title='[cyan]Editing a Contact'))
                         search_again = Confirm.ask('Would you like to search for another contact to edit?')
 
             #Delete a contact
@@ -355,7 +377,8 @@ def run_app():
                 #while search_again is true prompt user to enter a name to search for
                 while search_again:
                     os.system('cls||clear')
-                    console.print(Panel.fit('\n[magenta]Search for a contact to delete\n', title_align='left', title='[cyan]Deleting a Contact'))
+                    console.print(Panel.fit('\n[magenta]Search for a contact to delete\n',
+                    title_align='left', title='[cyan]Deleting a Contact'))
                     del_choice = input('Enter a contact name to delete >> ')
 
                     #use TinyDB search method to return matches for first name
@@ -370,11 +393,13 @@ def run_app():
                         #if there are multiple contacts with the same first name
                         #prompt user to select ID of contact to edit
                         if len(search_result) > 1:
-                            console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {del_choice}.\n', title_align='left', title='[cyan]Choose a contact ID', subtitle_align='left', subtitle='[cyan]Deleting a Contact'))
-                            # search_id = input('Select an ID to Delete >> ')
+                            console.print(Panel.fit(f'\n[magenta]There are multiple contacts named {del_choice}.\n',
+                            title_align='left', title='[cyan]Choose a contact ID',
+                            subtitle_align='left', subtitle='[cyan]Deleting a Contact'))
 
                             search_id = Prompt.ask('\nSelect an ID to Delete >> ', default='Home')
 
+                            #If deault of home is selected break to menu
                             if search_id == 'Home':
                                 break
 
@@ -386,7 +411,8 @@ def run_app():
                             while not next((item for item in search_result if item['id'] == search_id), None):
                                 f.display_table(search_result)
                                 # valid ID has not been entered. display prompt to reenter valid ID
-                                console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n', title='[cyan]Deleting a Contact'))
+                                console.print(Panel.fit(f'\n[cyan]{search_id}[/cyan] is not a valid ID.\n',
+                                title='[cyan]Deleting a Contact'))
                                 search_id = search_id = input('\nSelect an ID to Delete >> ')
                                 
                                 #original ID wasn not valid, so assign the valid ID now and exit loop
@@ -423,7 +449,8 @@ def run_app():
                     #user can search again or exit
                     elif not search_result:
                         os.system('cls||clear')
-                        console.print(Panel.fit('\n[magenta]That contact does not exist\n', title_align='left', title='[cyan]Deleting a Contact'))
+                        console.print(Panel.fit('\n[magenta]That contact does not exist\n',
+                        title_align='left', title='[cyan]Deleting a Contact'))
                         search_again = Confirm.ask('Would you like to search for another contact to delete?')
             
             #Display a contact
@@ -437,7 +464,8 @@ def run_app():
                     #while search_again is true prompt user to enter a name to search for
                     while search_again:
                         os.system('cls||clear')
-                        console.print(Panel.fit('\n[magenta]Search for a contact to display\n', title_align='left', title='[cyan]Displaying a Contact'))
+                        console.print(Panel.fit('\n[magenta]Search for a contact to display\n',
+                        title_align='left', title='[cyan]Displaying a Contact'))
                         display_choice = input('Enter a contact name to display >> ')
 
                         #use TinyDB search method to return dictionary that matches first name
@@ -461,7 +489,8 @@ def run_app():
                         # user can search again or exit
                         else:
                             os.system('cls||clear')
-                            console.print(Panel.fit('\n[magenta]That contact does not exist\n', title_align='left', title='[cyan]Displaying a Contact'))
+                            console.print(Panel.fit('\n[magenta]That contact does not exist\n',
+                            title_align='left', title='[cyan]Displaying a Contact'))
                             search_again = Confirm.ask('Would you like to search for another contact to Display?')
 
             #Display all contacts
