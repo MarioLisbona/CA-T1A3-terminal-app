@@ -8,6 +8,10 @@
   - [**Table of contents**](#table-of-contents)
   - [**R4 - Links**](#r4---links)
   - [**R5 - Styling Conventions**](#r5---styling-conventions)
+    - [**Imports**](#imports)
+    - [**Maximum Line Length**](#maximum-line-length)
+    - [**Tabs or Spaces?**](#tabs-or-spaces)
+    - [**Documentation Strings**](#documentation-strings)
   - [**R6 - Features**](#r6---features)
     - [**Feature 1 - Create / Add a contact**](#feature-1---create--add-a-contact)
     - [**Feature 2 - Edit a contact**](#feature-2---edit-a-contact)
@@ -55,8 +59,9 @@ Consistency within one module or function is the most important." [^1] (Guido va
 
 With this in mind below are some of the styling conventions that are adhered to in the code for this application.
 
-- Imports
-  PEP8 states that "Imports should usually be on separate lines:"
+### **Imports**
+
+  PEP8 states that "Imports should usually be on separate lines:" [^2] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
 
 ```py
 # Correct:
@@ -68,7 +73,7 @@ import sys
 # Wrong:
 import sys, os
 ```
-[^] ()
+
 Iv applied this to `main.py` as seen below:
   ```py
   #Importing modules
@@ -82,13 +87,14 @@ from rich.panel import Panel
 from tinydb import TinyDB
 from tinydb import Query
 ```
-- Maximum Line Length
+
+### **Maximum Line Length**
   PEP8 states
-  > Limit all lines to a maximum of 79 characters.
-
-  >  For flowing long blocks of text with fewer structural restrictions (docstrings or comments), the line length should be limited to 72 characters.
-
-    > Limiting the required editor window width makes it possible to have several files open side by side, and works well when using code review tools that present the two versions in adjacent columns.
+> "Limit all lines to a maximum of 79 characters.
+>
+>  For flowing long blocks of text with fewer structural restrictions (docstrings or comments), the line length should be limited to 72 characters.
+>
+> Limiting the required editor window width makes it possible to have several files open side by side, and works well when using code review tools that present the two versions in adjacent columns." [^3] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
 
 Below are some examples of this applications code adhering to this convention.
 
@@ -114,7 +120,58 @@ if len(search_result) > 1:
     title_align='left', title='[cyan]Choose a contact ID',
     subtitle_align='left', subtitle='[cyan]Deleting a Contact'))
 ```
+### **Tabs or Spaces?**
 
+From PEP8:
+> "Spaces are the preferred indentation method.
+>
+> Tabs should be used solely to remain consistent with code that is already indented with tabs.
+> 
+> Python disallows mixing tabs and spaces for indentation." [^4] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
+
+<br>
+
+<img src="./docs/spaces.png" alt="VSCode spaces">
+
+<br>
+
+### **Documentation Strings**
+
+> "[PEP 257](https://peps.python.org/pep-0257/) describes good docstring conventions. Note that most importantly, the """ that ends a multiline docstring should be on a line by itself:"
+
+```py
+"""Return a foobang
+
+Optional plotz says to frobnicate the bizbaz first.
+"""
+```
+
+[^5] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
+
+Below are some examples of the application code adhering to the PEP8 docstring convention.
+
+```py
+def validate_name(string):
+    """
+    Function receives a string to guide user to what input they are entering.
+    If string is all white space, will prompt user to enter valid name.
+    Returns the string stripped of leading and trailing whitespace.
+    Args:
+        string (string): Name to prompt user on what data they are inputing
+
+    Returns:
+        string: sting with no leading or trailing spaces
+    """  
+```
+
+```py
+def display_table(list):
+    """
+        display_table function recives a list of search results and dsiplays them in a table
+    Args:
+        list (list): a list of results matching user's search input
+    """
+```
 
 ## **R6 - Features**
 
@@ -837,7 +894,11 @@ while not next((item for item in search_result if item['id'] == search_id), None
 
 ## **Attributions**
 
-[^1 - Styling Conventions](#r5---styling-conventions) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/), Python Enhancement Proposals website, accessed 18 September 2022.
+- [^1 - PEP8 Styling Conventions](#r5---styling-conventions) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/), Python Enhancement Proposals website, accessed 18 September 2022.
+- [^2 - PEP8 - Imports](#imports) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#imports), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^3 - PEP8 - Maximum Line Length](#maximum-line-length) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#maximum-line-length), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^4 - PEP8 - Tabs or Spaces?](#tabs-or-spaces) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#tabs-or-spaces), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
 
 
 
@@ -856,6 +917,11 @@ while not next((item for item in search_result if item['id'] == search_id), None
 
 
 - [Generator Expressions]() - [*Generator Expressions*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 19 Sept 2022.
+
+
+
+[Go to top of page](#coder-academy---assignment-t1a3---terminal-application-submitted-by-mario-lisbona)
+
 
 
 https://www.tablesgenerator.com/

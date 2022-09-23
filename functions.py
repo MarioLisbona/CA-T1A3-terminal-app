@@ -7,7 +7,7 @@ from rich.table import Table
 from rich import print
 
 def menu_prompt():
-    """_summary_
+    """
         Menu_prompt function clears the screen each time and displays a table with Home Menu options and keyboard keys to access menu
     """   
     #clear screen and create and instance of Console from Rich module
@@ -39,7 +39,7 @@ def menu_prompt():
     console.print(table)
 
 def add_contact_prompt():
-    """_summary_
+    """
         add_contact_prompt function clears the screen each time and displays a table with Add Contact Menu options and keyboard keys to access menu
     """  
     #clear screen and create and instance of Console from Rich module  
@@ -71,7 +71,7 @@ def add_contact_prompt():
 
 
 def display_table(list):
-    """_summary_
+    """
         display_table function recives a list of search results and dsiplays them in a table
     Args:
         list (list): a list of results matching user's search input
@@ -113,7 +113,7 @@ def display_table(list):
 
 
 def continue_prompt():
-    """_summary_
+    """
         Prompts user to press Enter to continue. Execution is frozen untill keypress
     Returns:
         string: returns user input. Used for ID selection for multipe search results. No need for error
@@ -125,7 +125,7 @@ def continue_prompt():
     return prompt
 
 def add_contact(id, contact_type, first_name, last_name, phone, address, pet_name, fav_drink, work_address, work_phone, skills):
-    """_summary_
+    """
     add_contact will receive as arguments all the available variables for all the four types of contacts.
     When the function is called, arguments that arent needed are set to None.
     If statments and booleans based on conrtact type are used to reduce repeition of variables that are used by all the contact
