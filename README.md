@@ -407,9 +407,11 @@ def add_contact(id, contact_type, first_name, last_name, phone, address, pet_nam
         return contact
 ```
 
-- Below is a function call of `add_contact()` to create a CLose Contact. The `contact_type` variable is set when when the match case for CC is true from the Add Contact menu selected by the user.
-- `Set_details()` returns the user input and those variables are used in the function call. Any variables that arent needed for that contact type are set to `None`.
-- the returned contact is inserted into the database with `ContactsDb.insert(contact)` The user id is then incremented and then the code breaks out to the menu.
+Below is a function call of `add_contact()` to create a CLose Contact. The `contact_type` variable is set when when the match case for CC is true from the Add Contact menu selected by the user.
+
+`Set_details()` returns the user input and those variables are used in the function call. Any variables that arent needed for that contact type are set to `None`.
+
+The returned contact is inserted into the database with `ContactsDb.insert(contact)` The user id is then incremented and then the code breaks out to the menu.
 
 ```py
 case 'CC':
@@ -444,7 +446,7 @@ Multiple results will require a more focused search. The user will be shown all 
 
 I did some googling and found some posts on generator expressions and wrote this code block to continually loop  until the user enter's a valid ID. [^6] (Frédéric Hamidi, 2011)
 
-- The code block below will iterate though the contents of `search_result` and on each loop with check that the current value for the key `item[id]` matches the ID entered by the user. None is returned if there is no match. The loop will continue until a match is found.
+The code block below will iterate though the contents of `search_result` and on each loop with check that the current value for the key `item[id]` matches the ID entered by the user. None is returned if there is no match. The loop will continue until a match is found.
   
 ```py
   # #generator expression to continually loop while the ID entered isnt a valid ID
@@ -489,8 +491,9 @@ The delete feature is a stripped down version of the edit feature. It makes use 
 
 The delete feature needs to allow the user to search for a contact and delete it if it's a single result, or do a finer search and select from multiple contacts with a user ID. Once a valid ID is selected, that contact is deleted from the database. The same generator expression, used in the edit feature, is used to validate the User ID being entered by the user.
 
-- The code below will call the `confirm_edit_delete()` fucntion that will display a confirmation message with the user ID and first and last names.
-- it needs to be passed the two types of search_rsults, a list of dictionaries and a dictionary for when there are more than 1 search result or a dictionary for a single reuslt.
+The code below will call the `confirm_edit_delete()` fucntion that will display a confirmation message with the user ID and first and last names.
+
+The function needs to be passed the two types of search_rsults, a list of dictionaries and a dictionary for when there are more than 1 search result or a dictionary for a single reuslt.
 
 ```py
 if len(search_result) > 1:
@@ -499,8 +502,9 @@ else:
     confirm_delete = f.confirm_edit_delete('Delete', search_result)
 ```
 
-- The code below will delete the record once its selected using the TinyDB `.remove()` and `query()` methods. If the id being queried in the database is the same as the id in the result found from the search the record is deleted.
--  If/else statement will allow for the correct type of data/contact to be deleted.
+The code below will delete the record once its selected using the TinyDB `.remove()` and `query()` methods. If the id being queried in the database is the same as the id in the result found from the search the record is deleted.
+
+If/else statement will allow for the correct type of data/contact to be deleted.
 
 ```py
 #deleting when multiple records have come back from search - and a single one has been selected
@@ -553,9 +557,11 @@ else:
    search_again = Confirm.ask('Would you like to search for another contact to Display?')
 ```
 
-- The display table function firstly creates instances of the `Console` and `Tables` classes used to display the content and table.
-- The columns and heading are created.
-- The function takes in a list, which is the current search result and then iterates over that list to print each contact to a new row in the table.
+The display table function firstly creates instances of the `Console` and `Tables` classes used to display the content and table.
+
+The columns and heading are created.
+
+The function takes in a list, which is the current search result and then iterates over that list to print each contact to a new row in the table.
 
 ```py
 def display_table(list):
@@ -611,8 +617,9 @@ def display_table(list):
 
 When the application starts the user will be able to choose between creating a new database or using an existing one. Once a database is selected, a user_id variable is initialised. The contents of the database are passed to a variable using the TinyDB `.all()` method. This variable is then iterated over to find the last or highest ID. This is incremented by one to allow the new user ID assignments to not class with existing ones.
 
-- If/elif statments to create a new database or open an existing one.
-- mock-data.json has pre entered contacts to allow the marker/educator to play around with the features without having to enter data manually.
+If/elif statments to create a new database or open an existing one.
+
+mock-data.json has pre entered contacts to allow the marker/educator to play around with the features without having to enter data manually.
   
 ```py
 #user .all method to assign contents of database to contact variable
@@ -634,7 +641,7 @@ elif db_choice == 'Quit':
     sys.exit()
 ```
 
-- The code below will create a unique user ID that wont class with the existing data in the database.
+The code below will create a unique user ID that wont class with the existing data in the database.
 
 ```py
 #assigning unique ID variable for user contact
@@ -737,9 +744,11 @@ class Contact:
         return first_name, last_name, phone
 ```
 
-- The Close Contact class is derived from the Contact class and uses the code `first_name, last_name, phone = super().set_details()` to inherit the variables returned from the `set_details()` method in the parents class. It now only needs to get user input for the address because the other inputs are already assigned.
-- The error checking is also inhertied from the parents class.
-- `.strip()` is used on the address to strip any white space. This is all the error checking needed for this optional field.
+The Close Contact class is derived from the Contact class and uses the code `first_name, last_name, phone = super().set_details()` to inherit the variables returned from the `set_details()` method in the parents class. It now only needs to get user input for the address because the other inputs are already assigned.
+
+The error checking is also inhertied from the parents class.
+
+`.strip()` is used on the address to strip any white space. This is all the error checking needed for this optional field.
 
 ```py
 class CloseContact(Contact):
@@ -760,13 +769,6 @@ class CloseContact(Contact):
 ```
 
 *View Trello card* -  [Classes](https://trello.com/c/e7o1Y9Aj)
-
-
-
-
-
-
-
 
 ### **Prioritisation**
 
@@ -943,7 +945,7 @@ while not next((item for item in search_result if item['id'] == search_id), None
 - [^3 - PEP8 - Maximum Line Length](#maximum-line-length) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#maximum-line-length), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^4 - PEP8 - Tabs or Spaces?](#tabs-or-spaces) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#tabs-or-spaces), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
-- [^6 - PEP8 - Indentation - If Statements](#indentation---if-statements) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
+- [^6 - PEP8 - Indentation - If Statements](#indentation---if-statements) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#indentation), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^7 - Generator Expressions](#feature-2---edit-a-contact) - Frédéric Hamidi (2011) [*Python list of dictionaries search*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 17 September 2022.
 
 
