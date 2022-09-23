@@ -57,7 +57,7 @@ In the introduction of the PEP8 style guide it states:
 > "A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. 
 Consistency within one module or function is the most important." [^1] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
 
-With this in mind below are some of the styling conventions that are adhered to in the code for this application.
+With this in mind below are some of the styling conventions that have been adhered to for the code to create this application.
 
 ### **Imports**
 
@@ -96,7 +96,7 @@ from tinydb import Query
 >
 > Limiting the required editor window width makes it possible to have several files open side by side, and works well when using code review tools that present the two versions in adjacent columns." [^3] (Guido van Rossum, Barry Warsaw, Nick Coghlan 2021)
 
-Below are some examples of this applications code adhering to this convention.
+Below are some examples of this application's code adhering to this convention.
 
 ```py
     console.print(
@@ -899,6 +899,9 @@ while not next((item for item in search_result if item['id'] == search_id), None
 - [^3 - PEP8 - Maximum Line Length](#maximum-line-length) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#maximum-line-length), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^4 - PEP8 - Tabs or Spaces?](#tabs-or-spaces) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#tabs-or-spaces), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan  (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
+
+
+[Go to top of page](#coder-academy---assignment-t1a3---terminal-application-submitted-by-mario-lisbona)
 
 
 
