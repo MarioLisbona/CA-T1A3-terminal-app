@@ -678,7 +678,7 @@ Match cases will be used in 3 parts of the application.
 The flow chart below illustrates the two match cases for the home menu and the nested add contact menu
 <br>
 
-<img src="./docs/T1A3-match-case-flowchart.png" width="800" alt="Class inheritance">
+<img src="./docs/match-case-flowchart.png" width="800" alt="Class inheritance">
 
 <br>
 
@@ -1038,7 +1038,7 @@ The tests being performed are:
 - The user cannot leave first name, last name or phone number blank.
 - The phone number field can only be numeric. It is allowed white space between numbers.
 
-| Field being tested     	| Input                    	| Test being performed                             	| Expected result                                    	| ✅ / ❌  	|
+| Field being tested     	| Input                    	| Test being performed                             	| Expected result                                    	| Result  	|
 |------------------------	|--------------------------	|--------------------------------------------------	|----------------------------------------------------	|--------	|
 | First Name input field 	| Mario                    	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
 | First Name input field 	| ------Mario--------      	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
@@ -1123,7 +1123,7 @@ The user wants to edit a contact. They are prompted to search for a contact to e
 T
 Error checking will be vital here to make sure that the user cannot select an ID that is not in the current search list. The table below contains the tests and expected output.
 
-|               Field being tested              	| Input 	|                 Test being performed                 	|             Expected result            	|     ✅ / ❌   	|
+|               Field being tested              	| Input 	|                 Test being performed                 	|             Expected result            	|     Result   	|
 |:---------------------------------------------:	|:-----:	|:----------------------------------------------------:	|:--------------------------------------:	|:-----------:	|
 | Select ID to edit for multiple search results 	| mario 	| ID is valid for the current search results (picture) 	|       'mario is not a valid ID.'       	|    Pass ✅   	|
 | Select ID to edit for multiple search results 	|  1999 	| ID is valid for the current search results (picture) 	|        '1999 is not a valid ID.'       	|    Pass ✅   	|
