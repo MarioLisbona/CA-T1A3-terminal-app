@@ -816,7 +816,7 @@ Below is a table that shows which features i will need to begin creating first a
 ## **R8 - Help Documentation**
 
 <details>
-<summary markdown="span">Help Documentation - Click to Expand</summary>
+<summary markdown="span"><strong>Help Documentation Collapsed - Click to Expand</strong></summary>
 
 ### **Overview**
 
