@@ -202,7 +202,7 @@ while True:
                 os.system('cls||clear')
                 console.print(Panel.fit('[magenta]\nSearch for a contact to edit\n',
                 title_align='left', title='[cyan]Editing a Contact'))
-                edit_choice = input('Enter a contact\'s first name to edit >> ')
+                edit_choice = input('Enter a contact\'s first name to edit >> ').strip()
 
                 #use TinyDB search method to return matches for first name
                 #TinyDB search method will return a list of dictionaries
