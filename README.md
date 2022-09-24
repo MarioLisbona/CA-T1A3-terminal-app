@@ -40,9 +40,9 @@
     - [**Time line and Due dates**](#time-line-and-due-dates)
   - [**R8 - Help Documentation**](#r8---help-documentation)
     - [**Overview**](#overview)
-    - [**Dependencies**](#dependencies)
     - [**System / hardware requirements**](#system--hardware-requirements)
     - [**Installation Instructions**](#installation-instructions)
+    - [**Dependencies**](#dependencies)
     - [**Using the Contacts Book application**](#using-the-contacts-book-application)
       - [**Choose a new or existing contacts book**](#choose-a-new-or-existing-contacts-book)
       - [**Home Menu**](#home-menu-1)
@@ -816,21 +816,11 @@ Below is a table that shows which features i will need to begin creating first a
 ## **R8 - Help Documentation**
 
 <details>
-<summary markdown="span"><strong>Help Documentation Collapsed - Click to Expand</strong></summary>
+<summary markdown="span"><strong>Help Documentation Collapsed - Click here to Expand</strong></summary>
 
 ### **Overview**
 
 This Help Documention is to guide you through installing and using Contacts Book v1.0.0. It will provide instructions on how to install and use the application as well as the required hardware and system dependencies.
-
-### **Dependencies**
-
-Contacts Book is built with Python. Its dependencies will be automatically installed when you run the bash script provided but they are dsiplayed below for your reference.
-```
-commonmark==0.9.1
-Pygments==2.13.0
-rich==12.5.1
-tinydb==4.7.0
-```
 
 ### **System / hardware requirements**
 
@@ -857,8 +847,8 @@ You will need to have Python3 installed on your computer. The latest version of 
     └── requirements.txt
 ```
 
-4. To start the application run the command `./installer.sh`
-5. If you receive the error message below it means you dont have python3 installed. Visit [Python.org](https://www.python.org/downloads/) to download the latest version.
+1. Now Navigate to the /src folder. Once you are in the /src directory you can start the application by running the command `bash installer.sh`
+2. If you receive the error message below it means you dont have python3 installed. Visit [Python.org](https://www.python.org/downloads/) to download the latest version.
 
 ```
 Looks like you don't have Python3 installed.
@@ -871,6 +861,21 @@ Looks like you don't have Python3 installed.
 Your running Python Python 2.7, that is so old school! This program needs the latest version.
     You can get it here - https://www.python.org/downloads/
 ```
+
+### **Dependencies**
+
+Contacts Book is built with Python. Its dependencies will be automatically installed when you run the bash script provided but they are dsiplayed below for your reference.
+```
+commonmark==0.9.1
+Pygments==2.13.0
+rich==12.5.1
+tinydb==4.7.0
+```
+If you are having trouble running the application you can try installing the dependencies yourself with the following commands
+
+- `python3 -m ensurepip` - This will install PIP, Pythons package installer
+- `python3 -m pip install rich`
+- `python3 -m pip install tinydb`
 
 ### **Using the Contacts Book application**
 
@@ -1166,6 +1171,8 @@ while not next((item for item in search_result if item['id'] == search_id), None
 - [^5 - PEP8 - Documentation Strings](#documentation-strings) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#documentation-strings), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^6 - PEP8 - Indentation - If Statements](#indentation---if-statements) - Guido van Rossum, Barry Warsaw, Nick Coghlan (2021) [*PEP 8 – Style Guide for Python Code*](https://peps.python.org/pep-0008/#indentation), Python Enhancement Proposals website, accessed 23 September 2022.
 - [^7 - Generator Expressions](#feature-2---edit-a-contact) - Frédéric Hamidi (2011) [*Python list of dictionaries search*](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search), Stack Overflow website, accessed 17 September 2022.
+- [^8 - pip install packages](#feature-2---edit-a-contact) - Dammio (2020) [*pip/python: normal site-packages is not writeable*](https://stackoverflow.com/questions/59997065/pip-python-normal-site-packages-is-not-writeable/62227035#62227035), Stack Overflow website, accessed 24 September 2022.
+- [^9 - pip install packages](#feature-2---edit-a-contact) - Dammio (2020) [*pip/python: normal site-packages is not writeable*](https://stackoverflow.com/questions/59997065/pip-python-normal-site-packages-is-not-writeable/62227035#62227035), Stack Overflow website, accessed 24 September 2022.
 
 
 [Go to top of page](#coder-academy---assignment-t1a3---terminal-application-submitted-by-mario-lisbona)
