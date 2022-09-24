@@ -380,7 +380,7 @@ while True:
                 os.system('cls||clear')
                 console.print(Panel.fit('\n[magenta]Search for a contact to delete\n',
                 title_align='left', title='[cyan]Deleting a Contact'))
-                del_choice = input('Enter a contact name to delete >> ')
+                del_choice = input('Enter a contact name to delete >> ').strip()
 
                 #use TinyDB search method to return matches for first name
                 #TinyDB search method will return a list of dictionaries if multiple contacts are found
