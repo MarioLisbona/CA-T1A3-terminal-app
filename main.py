@@ -28,8 +28,8 @@ console = Console()
 os.system('cls||clear')
 print()
 console.print(
-    Panel.fit("""[magenta]\nPlease Choose and option:
-    \n\n - Open New Contacts Book\n - Open an Existing Contacts Book\n - Quit Application\n""",
+    Panel.fit("""[magenta]\nPlease Choose an option:
+    \n\n - Open a New Contacts Book\n - Open an Existing Contacts Book\n - Quit Application\n""",
     title="[cyan]Welcome to your Contacts Book")
 )
 

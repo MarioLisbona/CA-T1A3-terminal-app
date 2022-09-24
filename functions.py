@@ -270,7 +270,7 @@ def confirm_edit_delete(action, search_result_from_search, search_result_from_ge
         return confirm
     else:
         console.print(Panel.fit(f'\nContact Selected - [cyan]{search_result_from_search[0]["id"]}[/cyan]: [magenta]{search_result_from_search[0]["first_name"]} {search_result_from_search[0]["last_name"]}\n', 
-            title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle='[cyan]Confirm edit?'))
+            title_align='left', title='[cyan]Contact Found!', subtitle_align='left', subtitle=f'[cyan]Confirm {action}?'))
         print()
         confirm = Confirm.ask(f'Are you sure you want to {action} [cyan]{search_result_from_search[0]["id"]}[/cyan]: [magenta]{search_result_from_search[0]["first_name"]} {search_result_from_search[0]["last_name"]}[/magenta] ?')
 

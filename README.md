@@ -39,6 +39,19 @@
     - [**Prioritisation**](#prioritisation)
     - [**Time line and Due dates**](#time-line-and-due-dates)
   - [**R8 - Help Documentation**](#r8---help-documentation)
+    - [**Overview**](#overview)
+    - [**Dependencies**](#dependencies)
+    - [**System / hardware requirements**](#system--hardware-requirements)
+    - [**Installation Instructions**](#installation-instructions)
+    - [**Using the Contacts Book application**](#using-the-contacts-book-application)
+      - [**Choose a new or existing contacts book**](#choose-a-new-or-existing-contacts-book)
+      - [**Home Menu**](#home-menu-1)
+      - [**Add Contact Menu**](#add-contact-menu-1)
+      - [**Adding a Contact**](#adding-a-contact)
+      - [**Editing a Contact**](#editing-a-contact)
+      - [**Deleting a Contact**](#deleting-a-contact)
+      - [**Search for a contact to display**](#search-for-a-contact-to-display)
+      - [**List all contacts**](#list-all-contacts)
   - [**R5 - Testing**](#r5---testing)
     - [**Test 1 - Error Checking input fields when adding a contact**](#test-1---error-checking-input-fields-when-adding-a-contact)
     - [**Test 2 - Error Checking user input for ID to edit / delete for multilpe search results**](#test-2---error-checking-user-input-for-id-to-edit--delete-for-multilpe-search-results)
@@ -802,11 +815,212 @@ Below is a table that shows which features i will need to begin creating first a
 
 ## **R8 - Help Documentation**
 
-- Design help documentation which includes a set of instructions which accurately describe how to use and install the application.
-  - steps to install the application
-  - any dependencies required by the application to operate
-  - any system/hardware requirements
-  - how to use any command line arguments made for the application
+### **Overview**
+
+This Help Documention is to guide you through installing and using Contacts Book v1.0.0. It will provide instructions on how to install and use the application as well as the required hardware and system dependencies.
+
+### **Dependencies**
+
+Contacts Book is built with Python. Its dependencies will be automatically installed when you run the bash script provided but they are dsiplayed below for your reference.
+```
+commonmark==0.9.1
+Pygments==2.13.0
+rich==12.5.1
+tinydb==4.7.0
+```
+
+### **System / hardware requirements**
+
+You will need to have Python3 installed on your computer. The latest version of Python3 can be downloaded [here](https://www.python.org/downloads/).
+
+### **Installation Instructions**
+
+1. Make sure you have Python3 installed and the version is at least v3.10.0
+2. If you already have Python installed you can check the version by running the command `python3 --version` in the terminal.
+   
+3. Once you have the correct version of python3 installed, open the Terminal and navigate to the project folder `MarioLisbona_T1A3`. The folder structure will contain the following files and directories:
+
+```
+.
+├── docs
+├── ppt
+└── src
+    ├── classes.py
+    ├── data
+    │   └── mock-data.json
+    ├── functions.py
+    ├── installer.sh
+    ├── main.py
+    └── requirements.txt
+```
+
+4. To start the application run the command `./installer.sh`
+5. If you receive the error message below it means you dont have python3 installed. Visit [Python.org](https://www.python.org/downloads/) to download the latest version.
+
+```
+Looks like you don't have Python3 installed.
+        You can download it here - https://www.python.org/downloads/
+```
+
+6. If you have python installed but receive this message it means you have python installed but your version is too old. Visit [Python.org](https://www.python.org/downloads/) to download the latest version. (the error message will display what version of python is currently installed)
+
+```
+Your running Python Python 2.7, that is so old school! This program needs the latest version.
+    You can get it here - https://www.python.org/downloads/
+```
+
+### **Using the Contacts Book application**
+
+#### **Choose a new or existing contacts book**
+
+<img src="./docs/select-new-old-menu.png" alt="Choose a new or existing contacts book menu">
+
+<br>
+
+When the Contacts Book application has installed correctly, a menu will be dsiplayed asking whether you would like to create a new Contacts Book or use an Existing one. The existing database has been populated with mock data to allow you to test the features of the app without having to enter contacts yourself. You also have the option to Quit the application on this screen.
+
+
+
+Select an option to continue. Menu options are *case sensitive*
+
+#### **Home Menu**
+
+<img src="./docs/home-menu.png" alt="Home menu">
+
+<br>
+
+The Home menu gives the user access to all the functionality of the application. You can add, edit, delete, search or display all contacts from this menu. The user can also quit the application from this menu.
+
+Select an option to continue. The menu keys to access each section are *case sensitive*
+
+#### **Add Contact Menu**
+
+<br>
+
+<img src="./docs/add-menu.png" alt="Add Contact menu">
+
+<br>
+
+The Add Contact menu is where each type of contact can be created and added to the Contacts Book. Once a contact has been successfully added to the Contact Book the user will be brought back to this menu to add another contact. The user can exit to the Home menu at any time by selecting the ‘H’ option or quitting the application with ‘Q’
+
+Select an option to continue. The menu keys to access each section are *case sensitive*
+
+#### **Adding a Contact**
+
+<img src="./docs/add-contact.png" alt="Add a Contact">
+
+<br>
+
+The user will be prompted to enter the details for the contact they have chosen. They will be provided with certain input fields depending on what contact they chose to enter. Follow the prompts so that the correct information is entered for the contact. 
+
+The following input is invalid for the first name and last name fields:
+- all white space characters
+  
+- no input - the first and last name fields must have input.
+
+The following input is invalid for the phone number field:
+
+- all white space characters (whitespace can be between numbers)
+- no input - the first and last name fields must have input
+- letters
+
+<img src="./docs/error-first-name.png" alt="Error checking first name">
+
+<br>
+
+<img src="./docs/error-last-name.png" alt="Error checking last name">
+
+<br>
+
+<img src="./docs/error-phone.png" alt="Error checking phone number">
+
+<br>
+
+Once the contact's information has been correctly entered, the user will be taken back to the Add Contact Menu.
+
+#### **Editing a Contact**
+
+To edit a contact, Select ‘E’ from the home menu. You will be prompted to search for a first name.
+
+<img src="./docs/edit-contact-search.png" alt="Error checking phone number">
+
+<br>
+
+If your search returns no contacts you will be prompted to search again. Searches are *case sensitive*
+
+
+<img src="./docs/contact-not-found.png" alt="Contact not found">
+
+<br>
+
+If a single contact is found you will be prompted to edit that contact. The user will be prompted to enter the new contact details and once completed will be taken back to the Home menu. The user can also decline to edit this contact from this menu and will be taken back to the home menu.
+
+<img src="./docs/single-edit.png" alt="Single search result">
+
+<br>
+
+If multiple contacts are found, the user will be prompted to select an ID to edit. The user can only select an ID that is in the displayed table. The defalt value for this screen is 'Home' so if the user hits enter they will be returned home.
+
+<img src="./docs/edit-multiple.png" alt="multiple search results">
+
+<br>
+
+Once a valid ID is selected, the user can edit that contacts details or return to the home menu.
+
+<img src="./docs/edit-ID.png" alt="select ID">
+
+<br>
+
+#### **Deleting a Contact**
+
+To delete a contact, Select D from the home menu. You will be prompted to search for a first name.
+
+<img src="./docs/delete-search.png" alt="Error checking phone number">
+
+<br>
+
+If a single contact is found you will be prompted to delete that contact.If the user selects 'N', they will be returned to the Home menu. The contact will be deleted if 'Y' is selected and the user returned to the Home menu.
+
+<img src="./docs/single-del.png" alt="Single search result">
+
+<br>
+
+If multiple contacts are found, the user will be prompted to select an ID to delete. The user can only select an ID that is in the displayed table. The defalt value for this screen is 'Home' so if the user hits enter they will be returned home.
+
+<img src="./docs/del-multi.png" alt="multiple search results">
+
+<br>
+
+Once a valid ID is selected, that contact will be deleted at the user will be returned to the Home menu.
+
+<img src="./docs/del-choose-1.png" alt="select ID">
+
+<br>
+
+#### **Search for a contact to display**
+
+The user can search for a contact to be displayed. If the contact does not exist, the user will br prompted to search for another contact
+
+<img src="./docs/search.png" alt="select ID">
+
+<br>
+<img src="./docs/search-none.png" alt="select ID">
+
+<br>
+
+If contacts are found from the search they will be displayed in a table and the user will be prompted to search again.
+
+<img src="./docs/search-again-prompt.png" alt="select ID">
+
+<br>
+
+#### **List all contacts**
+
+The user can select to display all contacts. The entire Contacts Book will be displayed in a table and the user ill be prompted to press enter to continue back to the home menu.
+
+<img src="./docs/list-all.png" alt="list all contacts">
+
+<br>
 
 ## **R5 - Testing**
 
@@ -898,10 +1112,11 @@ The user wants to edit a contact. They are prompted to search for a contact to e
 
 <br>
 
-<img src="./docs/edit-contact.png" width="800" alt="Edit a contact name 'Mario'">
+<img src="./docs/edit-contact.png" width="800" alt="Search for a contact 'Mario'">
 
 <br>
 
+T
 Error checking will be vital here to make sure that the user cannot select an ID that is not in the current search list. The table below contains the tests and expected output.
 
 |               Field being tested              	| Input 	|                 Test being performed                 	|             Expected result            	|     ✅ / ❌   	|
