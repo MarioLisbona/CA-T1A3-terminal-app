@@ -509,4 +509,3 @@ while True:
 
         case 'Q':
             break
-

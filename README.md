@@ -815,9 +815,6 @@ Below is a table that shows which features i will need to begin creating first a
 
 ## **R8 - Help Documentation**
 
-<details>
-<summary markdown="span"><strong>Help Documentation Collapsed - Click here to Expand</strong></summary>
-
 ### **Overview**
 
 This Help Documention is to guide you through installing and using Contacts Book v1.0.0. It will provide instructions on how to install and use the application as well as the required hardware and system dependencies.
@@ -1031,7 +1028,6 @@ The user can select to display all contacts. The entire Contacts Book will be di
 <img src="./docs/list-all.png" alt="list all contacts">
 
 <br>
-</details>
 
 ## **R15 - Testing**
 
