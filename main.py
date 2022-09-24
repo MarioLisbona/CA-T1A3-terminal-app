@@ -467,7 +467,7 @@ while True:
                 os.system('cls||clear')
                 console.print(Panel.fit('\n[magenta]Search for a contact to display\n',
                 title_align='left', title='[cyan]Displaying a Contact'))
-                display_choice = input('Enter a contact name to display >> ')
+                display_choice = input('Enter a contact name to display >> ').strip()
 
                 #use TinyDB search method to return dictionary that matches first name
                 #search will return all results matching the name.

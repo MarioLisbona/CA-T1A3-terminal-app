@@ -864,7 +864,7 @@ Your running Python Python 2.7, that is so old school! This program needs the la
 
 ### **Dependencies**
 
-Contacts Book is built with Python. Its dependencies will be automatically installed when you run the bash script provided but they are dsiplayed below for your reference.
+Contacts Book is built with Python. Its dependencies will be automatically installed when you run the bash script provided but they are displayed below for your reference.
 ```
 commonmark==0.9.1
 Pygments==2.13.0
@@ -874,8 +874,10 @@ tinydb==4.7.0
 If you are having trouble running the application you can try installing the dependencies yourself with the following commands
 
 - `python3 -m ensurepip` - This will install PIP, Pythons package installer
-- `python3 -m pip install rich`
-- `python3 -m pip install tinydb`
+- `python3 -m pip install rich` - This will install the Rich module that is used in the application
+- `python3 -m pip install tinydb` -This will install the Rich module that is used in the application
+
+Once these packages have been isntalled successfully you will be able to run main.py from within the /src folder.
 
 ### **Using the Contacts Book application**
 
