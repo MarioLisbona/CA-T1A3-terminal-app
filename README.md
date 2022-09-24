@@ -52,7 +52,7 @@
       - [**Deleting a Contact**](#deleting-a-contact)
       - [**Search for a contact to display**](#search-for-a-contact-to-display)
       - [**List all contacts**](#list-all-contacts)
-  - [**R5 - Testing**](#r5---testing)
+  - [**R15 - Testing**](#r15---testing)
     - [**Test 1 - Error Checking input fields when adding a contact**](#test-1---error-checking-input-fields-when-adding-a-contact)
     - [**Test 2 - Error Checking user input for ID to edit / delete for multilpe search results**](#test-2---error-checking-user-input-for-id-to-edit--delete-for-multilpe-search-results)
   - [**Attributions**](#attributions)
@@ -815,6 +815,9 @@ Below is a table that shows which features i will need to begin creating first a
 
 ## **R8 - Help Documentation**
 
+<details>
+<summary markdown="span">Help Documentation - Click to Expand</summary>
+
 ### **Overview**
 
 This Help Documention is to guide you through installing and using Contacts Book v1.0.0. It will provide instructions on how to install and use the application as well as the required hardware and system dependencies.
@@ -1021,8 +1024,9 @@ The user can select to display all contacts. The entire Contacts Book will be di
 <img src="./docs/list-all.png" alt="list all contacts">
 
 <br>
+</details>
 
-## **R5 - Testing**
+## **R15 - Testing**
 
 ### **Test 1 - Error Checking input fields when adding a contact**
 
