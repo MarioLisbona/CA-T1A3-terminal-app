@@ -100,7 +100,7 @@ while True:
                 os.system('cls||clear')
 
                 #match case for different types of contacts to be created
-                match add_choice.upper():
+                match add_choice:
                     case 'S':
                         contact_type = 'Contact'
 
