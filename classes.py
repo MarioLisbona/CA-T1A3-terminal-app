@@ -1,9 +1,14 @@
-# import my_contacts.functions as f
-
 import functions as f
 
 
 class Contact:
+    """
+    Base class for all the contact classes
+    Contains a class m,ethod set_details which provides the correct
+    fields for that type of contact.
+    Error checking is done by calling the validate_name
+    and validate phoen methods.
+    """    
     def __init__(self, id, f_name, l_name, phone, class_type='c'):
         self.id = id
         self.f_name = f_name
@@ -14,7 +19,12 @@ class Contact:
     #this method allows user input to be gathered before the object is created
     @classmethod
     def set_details(cls):
+        """
+            class method returns user input for  first name, last name and phone
 
+        Returns:
+            strings: input fields for the contact
+        """        
         #calling functions to validate user input
         first_name = f.validate_name('First')
         last_name = f.validate_name('Last')
@@ -24,6 +34,13 @@ class Contact:
         return first_name, last_name, phone
 
 class CloseContact(Contact):
+    """
+        Inherits's the set_details method from Contact class and add
+        an input for address
+
+    Args:
+        Contact (object): Contact class
+    """    
     def __init__(self, id, f_name, l_name, phone, address, class_type='cc'):
         super().__init__(id, f_name, l_name, phone)
         self.address = address
@@ -41,6 +58,12 @@ class CloseContact(Contact):
 
 
 class FamilyContact(CloseContact):
+    """
+        inherits the inputs from the Closecontact class
+        Adds 2 more fields, pet name and favourite drink
+    Args:
+        CloseContact (object): CLoseContact object
+    """    
     def __init__(self, id, f_name, l_name, phone, address, pet_name, fav_drink, class_type='fc'):
         super().__init__(id, f_name, l_name, phone, address)
         self.pet_name = pet_name
@@ -59,6 +82,11 @@ class FamilyContact(CloseContact):
         return first_name, last_name, phone, address, pet_name, fav_drink
 
 class WorkContact(CloseContact):
+    """
+        inherits all the user inputs from the CloseContact calss
+    Args:
+        CloseContact (Object): CloseContact
+    """    
     def __init__(self, id, f_name, l_name, phone, address, work_address, work_phone, skills, class_type='wc'):
         super().__init__(id, f_name, l_name, phone, address)
         self.work_address = work_address
