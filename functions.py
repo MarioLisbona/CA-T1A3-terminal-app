@@ -258,6 +258,16 @@ def validate_phone():
 
 
 def confirm_edit_delete(action, search_result_from_search, search_result_from_get=None):
+    """_summary_
+
+    Args:
+        action (string): string to lavel the type of prompt, edit or delete
+        search_result_from_search (list): multiple dicts that come from the search method
+        search_result_from_get (dict, optional): Dict from narrowed down sarch of list with id. Defaults to None.
+
+    Returns:
+        boolean: user confirm whether to continue with search or not
+    """    
     console = Console()
     display_table(search_result_from_search)
     print()
