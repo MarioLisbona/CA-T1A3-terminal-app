@@ -59,7 +59,7 @@
 
 ## **R4 - Links**
 
-- [Github Repo]()
+- [Github Repo](https://github.com/MarioLisbona/CA-T1A3-terminal-app)
 - [Slide Deck Presentation link - Youtube]()
 
 ## **R5 - Styling Conventions**
