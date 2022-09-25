@@ -228,7 +228,7 @@ The Contacts Book will need to be able to add a contact. The user will be able t
 - Family Contact
 - Work Contact
 
-The contacts will share some commonalities with their input fields. All contacts will contain the base fields of first name, last name and phone number. Below is a list of the input fields for each contact type and the fields they share. I will use classes to implement this functionality and inheritance. All contact variables will be of String Type.
+The contacts will share some commonalities with their input fields. All contacts will contain the base fields of first name, last name and phone number. Below is a list of the input fields for each contact type and the fields they share. I will use classes and inheritance to implement this functionality. All contact variables will be of String Type.
 
 | Contact      | Close Contact                          | Family Contact                               | Work Contact                                 |
 |--------------|----------------------------------------|----------------------------------------------|----------------------------------------------|
@@ -277,7 +277,7 @@ If multiple results return from the search then all the contacts with their uniq
 
 Once a valid ID has been selected, the user will be asked to confirm they want to edit this contact. If they choose no, they’ll be returned to the home menu, otherwise they will be asked to fill in the particular fields that are valid for that contact type. 
 
-Each contact dict will have a key/value pair of ```type: contact_type```. The edit feature will access this type from the selected contact to edit and use it in a match case structure so that the correct number and type of contact input fields are called for the type of contact that has been returned by the search.
+Each contact dict will contain a key/value pair of ```type: contact_type```. The edit feature will access this value from the selected contact to edit and use it in a match case structure so that the correct number and type of contact input fields are called for the type of contact that has been returned by the search.
 
 If no results are found, display a new search prompt or go back to the home menu.
 
@@ -389,7 +389,7 @@ Firstly, the user will be asked what type of contact they want to create and use
 
 These variables, along with a user ID, will be passed as arguments to the `add_contact()` function which will return the correct size dictionary to a variable `contact` in the match case. That dictionary will be inserted into the json file. The user ID will be incremented and then the flow will break out of the match case and return to the menu.
 
-Nested if statements will be used to first create the 'base' dicionary that has the variables that all the contact types use. The dict will be added to and returned based on the booleans which will pass or fail dending on which contact type is being created.
+Nested if statements will be used to first create the 'base' dictionary that has the variables that all the contact types use. The dict will be added to and returned based on the booleans which will pass or fail dending on which contact type is being created.
 
 ```py
 def add_contact(id, contact_type, first_name, last_name, phone, address, pet_name, fav_drink, work_address, work_phone, skills):
@@ -420,14 +420,14 @@ def add_contact(id, contact_type, first_name, last_name, phone, address, pet_nam
         return contact
 ```
 
-Below is a function call of `add_contact()` to create a CLose Contact. The `contact_type` variable is set when when the match case for CC is true from the Add Contact menu selected by the user.
+Below is a function call of `add_contact()` to create a Close Contact. The `contact_type` variable is set when when the match case for C is true from the Add Contact menu selected by the user.
 
 `Set_details()` returns the user input and those variables are used in the function call. Any variables that arent needed for that contact type are set to `None`.
 
 The returned contact is inserted into the database with `ContactsDb.insert(contact)` The user id is then incremented and then the code breaks out to the menu.
 
 ```py
-case 'CC':
+case 'C':
     contact_type = 'Close Contact'
     #as above
 
@@ -453,13 +453,13 @@ case 'CC':
 
 This will be the most difficult feature to implement because it will have to deal with a lot more variables and a variety of data than the other features. It will also have to perform more functionality, e.g. reading and writing to the json file.
 
-The user will be prompted for a user to search the first names in the database. If the database is empty a message will be displayed saying so. The search will return a single result or multiple results. If a single result is returned, the user is asked to confirm the edit. They will then edit the contact or be taken back to the home menu.
+The user will be prompted to search the first names in the database. If the database is empty a message will be displayed saying so. The search will return a single result or multiple results. If a single result is returned, the user is asked to confirm the edit. They will then edit the contact or be taken back to the home menu.
 
 Multiple results will require a more focused search. The user will be shown all the results in a table and then prompted to select a unique ID to edit. The error checking on the ID selection is vital because it will be used to select the contact to edit (or delete). The user must only be allowed to enter an ID from the results displayed. 
 
 I did some googling and found some posts on generator expressions and wrote this code block to continually loop  until the user enter's a valid ID. [^6] (Frédéric Hamidi, 2011)
 
-The code block below will iterate though the contents of `search_result` and on each loop with check that the current value for the key `item[id]` matches the ID entered by the user. None is returned if there is no match. The loop will continue until a match is found.
+The code block below will iterate though the contents of `search_result` and on each loop will check that the current value for the key `item[id]` matches the ID entered by the user. None is returned if there is no match. The loop will continue until a match is found.
   
 ```py
   # #generator expression to continually loop while the ID entered isnt a valid ID
@@ -506,7 +506,7 @@ The delete feature needs to allow the user to search for a contact and delete it
 
 The code below will call the `confirm_edit_delete()` fucntion that will display a confirmation message with the user ID and first and last names.
 
-The function needs to be passed the two types of search_rsults, a list of dictionaries and a dictionary for when there are more than 1 search result or a dictionary for a single reuslt.
+The function needs to be passed the two types of search results variables, a list of dictionaries and a dictionary for when there are more than 1 search result or a dictionary for a single reuslt.
 
 ```py
 if len(search_result) > 1:
@@ -545,7 +545,7 @@ elif len(search_result) == 1:
 
 ### **Feature 4 - Display contacts**
 
-The user will have the option to search for a single contact to display or to display the entire database. If the user wants to search for a contact they are prompted to enter a first name. If that name results in no contacts, they are prompted to search for another contact or they are returned to the home menu. If the contact or contacts are found, they are dispayed in a table by calling the `display_table()` function and the user is prompted to search for another contact or return to the home menu. The
+The user will have the option to search for a single contact to display or to display the entire database. If the user wants to search for a contact they are prompted to enter a first name. If that name results in no contacts, they are prompted to search for another contact or they are returned to the home menu. If the contact or contacts are found, they are dispayed in a table by calling the `display_table()` function and the user is prompted to search for another contact or return to the home menu.
 
 ```py
 #if contact is found iterate through dict to display contact information
@@ -570,7 +570,7 @@ else:
    search_again = Confirm.ask('Would you like to search for another contact to Display?')
 ```
 
-The display table function firstly creates instances of the `Console` and `Tables` classes used to display the content and table.
+The display table function firstly creates instances of the `Console` and `Table` classes used to display the content and table.
 
 The columns and heading are created.
 
@@ -654,7 +654,7 @@ elif db_choice == 'Quit':
     sys.exit()
 ```
 
-The code below will create a unique user ID that wont class with the existing data in the database.
+The code below will create a unique user ID that wont class with the existing Id's in the database.
 
 ```py
 #assigning unique ID variable for user contact
@@ -687,7 +687,7 @@ The flow chart below illustrates the two match cases for the home menu and the n
 
 ### **Feature 7 - Menus**
 
-I will make use of the Rich module to create menus as well as tables to display the search results. The Prompt class will be used extensively to handle the menu selection options for the user.
+I will make use of the Rich module to create menus as well as tables to display the search results. The Prompt class will be used extensively to handle the menu selection input from the user.
 
 The code below uses the Rich module to print a title in a panel and then prints a table with the menu options avaiable in the Home menu.
 
@@ -731,7 +731,7 @@ menu_choice = Prompt.ask('Please make a selection: ', choices=['A', 'E', 'D', 'D
 *View Trello card* -  [Menus](https://trello.com/c/wAWi0Slh)
 
 ### **Feature 8 - Create Classes**
-There will be four types of contacts that a user can create, Contact, Close Contact, Family Contact and Work Contact. Because all 4 of these contact types all get user input for first name, last name and phone number, I decided to use classes and have the derived class inherit the Contact class’s set_details() class method. This reduces some repetition of code for receiving user input. Once these are created I can move onto the skeleton match case for flow control and then adding contacts. I will use the super(). To inherit the set_details method from its parent class.
+There will be four types of contacts that a user can create, they are Contact, Close Contact, Family Contact and Work Contact. Because all 4 of these contact types all get user input for first name, last name and phone number, I decided to use classes and have the derived class inherit the Contact class’s set_details() class method. This reduces some repetition of code for receiving user input. Once these are created I can move onto the skeleton match case for flow control and then adding contacts. I will use the super(). To inherit the set_details method from its parent class.
 
   The contact class's `set_details()` method calls the functions `validate_name()` and `validate_phone()` which will obtain and validate user input and then return the validated input to `first_name`, `last_name` and `phone` varaiables.
   
@@ -874,7 +874,7 @@ If you are having trouble running the application you can try installing the dep
 - `python3 -m pip install rich` - This will install the Rich module that is used in the application
 - `python3 -m pip install tinydb` -This will install the Rich module that is used in the application
 
-Once these packages have been isntalled successfully you will be able to run main.py from within the /src folder.
+Once these packages have been installed successfully you will be able to run main.py from within the /src folder.
 
 ### **Using the Contacts Book application**
 
@@ -884,7 +884,7 @@ Once these packages have been isntalled successfully you will be able to run mai
 
 <br>
 
-When the Contacts Book application has installed correctly, a menu will be dsiplayed asking whether you would like to create a new Contacts Book or use an Existing one. The existing database has been populated with mock data to allow you to test the features of the app without having to enter contacts yourself. You also have the option to Quit the application on this screen.
+When the Contacts Book application has installed correctly, a menu will be displayed asking whether you would like to create a new Contacts Book or use an Existing one. The existing database has been populated with mock data to allow you to test the features of the app without having to enter contacts yourself. You also have the option to Quit the application on this screen.
 
 
 
@@ -986,7 +986,7 @@ To delete a contact, Select D from the home menu. You will be prompted to search
 
 <br>
 
-If a single contact is found you will be prompted to delete that contact.If the user selects 'N', they will be returned to the Home menu. The contact will be deleted if 'Y' is selected and the user returned to the Home menu.
+If a single contact is found you will be prompted to delete that contact. If the user selects 'N', they will be returned to the Home menu. The contact will be deleted if 'Y' is selected and the user returned to the Home menu.
 
 <img src="./docs/single-del.png" alt="Single search result">
 
@@ -1006,7 +1006,7 @@ Once a valid ID is selected, that contact will be deleted at the user will be re
 
 #### **Search for a contact to display**
 
-The user can search for a contact to be displayed. If the contact does not exist, the user will br prompted to search for another contact
+The user can search for a contact to be displayed. If the contact does not exist, the user will be prompted to search for another contact
 
 <img src="./docs/search.png" alt="select ID">
 
@@ -1015,7 +1015,7 @@ The user can search for a contact to be displayed. If the contact does not exist
 
 <br>
 
-If contacts are found from the search they will be displayed in a table and the user will be prompted to search again.
+If multiple contacts are found from the search they will be displayed in a table and the user will be prompted to search again.
 
 <img src="./docs/search-again-prompt.png" alt="select ID">
 
@@ -1041,22 +1041,22 @@ The tests being performed are:
 - The user cannot leave first name, last name or phone number blank.
 - The phone number field can only be numeric. It is allowed white space between numbers.
 
-| Field being tested     	| Input                    	| Test being performed                             	| Expected result                                    	| Result  	|
-|------------------------	|--------------------------	|--------------------------------------------------	|----------------------------------------------------	|--------	|
-| First Name input field 	| Mario                    	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
-| First Name input field 	| ------Mario--------      	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
-| First Name input field 	| --Mario                  	| no leading or trailing white space               	| Mario                                              	| Pass ✅ 	|
-| First Name input field 	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a First Name for your Contact!' 	| Pass ✅ 	|
-| First Name input field 	| mario4                   	| no leading or trailing white space               	| mario4                                             	| Pass ✅ 	|
-| Last Name input field  	| Lisbona                  	| no leading or trailing white space               	| Lisbona                                            	| Pass ✅ 	|
-| Last Name input field  	| ----Lisbona----------    	| no leading or trailing white space               	| Lisbona                                            	| Pass ✅ 	|
-| Last Name input field  	| --Lisbona--              	| no leading or trailing white space               	| Lisbona                                            	| Pass ✅ 	|
-| Last Name input field  	| *blank*                  	| no leading or trailing white space               	| 'You need to enter a Last Name for your Contact!'  	| Pass ✅ 	|
-| Last Name input field  	| lisbona4                 	| no leading or trailing white space               	| lisbona4                                           	| Pass ✅ 	|
-| Phone number           	| 0412 455 222             	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	| Pass ✅ 	|
-| Phone number           	| ----------0412 455 222-- 	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	| Pass ✅ 	|
-| Phone number           	| --0412 455 222--         	| no leading or trailing white space, only numbers 	| 0412 455 222                                       	| Pass ✅ 	|
-| Phone number           	| mario                    	| no leading or trailing white space, only numbers 	| 'Phone number can only contain numbers!'           	| Pass ✅ 	|
+| Field being tested     | Input                    | Test being performed                             | Expected result                                    | Result |
+|------------------------|--------------------------|--------------------------------------------------|----------------------------------------------------|--------|
+| First Name input field | Mario                    | no leading or trailing white space               | Mario                                              | Pass ✅ |
+| First Name input field | ------Mario--------      | no leading or trailing white space               | Mario                                              | Pass ✅ |
+| First Name input field | --Mario                  | no leading or trailing white space               | Mario                                              | Pass ✅ |
+| First Name input field | *blank*                  | input present                                    | 'You need to enter a First Name for your Contact!' | Pass ✅ |
+| First Name input field | mario4                   | no leading or trailing white space               | mario4                                             | Pass ✅ |
+| Last Name input field  | Lisbona                  | no leading or trailing white space               | Lisbona                                            | Pass ✅ |
+| Last Name input field  | ----Lisbona----------    | no leading or trailing white space               | Lisbona                                            | Pass ✅ |
+| Last Name input field  | --Lisbona--              | no leading or trailing white space               | Lisbona                                            | Pass ✅ |
+| Last Name input field  | *blank*                  | input present                                    | 'You need to enter a Last Name for your Contact!'  | Pass ✅ |
+| Last Name input field  | lisbona4                 | no leading or trailing white space               | lisbona4                                           | Pass ✅ |
+| Phone number           | 0412 455 222             | no leading or trailing white space, only numbers | 0412 455 222                                       | Pass ✅ |
+| Phone number           | ----------0412 455 222-- | no leading or trailing white space, only numbers | 0412 455 222                                       | Pass ✅ |
+| Phone number           | --0412 455 222--         | no leading or trailing white space, only numbers | 0412 455 222                                       | Pass ✅ |
+| Phone number           | mario                    | no leading or trailing white space, only numbers | 'Phone number can only contain numbers!'           | Pass ✅ |
 
 The '-' in the table above indicate a user entering spaces
 
@@ -1123,8 +1123,7 @@ The user wants to edit a contact. They are prompted to search for a contact to e
 
 <br>
 
-T
-Error checking will be vital here to make sure that the user cannot select an ID that is not in the current search list. The table below contains the tests and expected output.
+The error checking will be vital here to make sure that the user cannot select an ID that is not in the current search list. The table below contains the tests and expected output.
 
 |               Field being tested              	| Input 	|                 Test being performed                 	|             Expected result            	|     Result   	|
 |:---------------------------------------------:	|:-----:	|:----------------------------------------------------:	|:--------------------------------------:	|:-----------:	|
